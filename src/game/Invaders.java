@@ -294,18 +294,19 @@ public class Invaders extends Stage implements KeyListener {
 			updateWorld();
 			paintWorld();
 
-			usedTime = System.currentTimeMillis() - startTime;
+                        usedTime = System.currentTimeMillis() - startTime;
 
 			//calculate sleep time
 			if (usedTime == 0) usedTime = 1;
-			int timeDiff = (int) ((1000/usedTime) - DESIRED_FPS);
+			int timeDiff = 1000/DESIRED_FPS - (int)(usedTime);
 			if (timeDiff > 0) {
 				try {
-					Thread.sleep(timeDiff/100);
+					Thread.sleep(timeDiff);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+                        usedTime = System.currentTimeMillis() - startTime;
 		}
 	}
 
@@ -321,9 +322,11 @@ public class Invaders extends Stage implements KeyListener {
 	}
 
 	public static void main(String[] args) {
-		Invaders inv = new Invaders();
-		inv.game();
-//        RedBoxGame game = new RedBoxGame();
-//        game.game();
+            PongGame pong = new PongGame();
+            pong.game();
+            //Invaders inv = new Invaders();
+		//inv.game();
+        //RedBoxGame game = new RedBoxGame();
+        //game.game();
     }
 }

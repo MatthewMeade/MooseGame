@@ -45,7 +45,7 @@ public class ResourceLoader implements ImageObserver {
 			sound = Applet.newAudioClip(url);
 			sounds.put(name,sound);			
 		} catch (Exception e) {
-			System.err.println("Could not locate sound " + name + ": " + e.getMessage());
+			System.err.println("Cound not locate sound " + name + ": " + e.getMessage());			
 		}		
 		
 		return sound;
