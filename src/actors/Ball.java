@@ -8,44 +8,42 @@ package actors;
 import game.Stage;
 
 /**
- *
  * @author Eric
  */
 public class Ball extends Actor {
-    
+
     public Ball(Stage canvas) {
         super(canvas);
-        sprites = new String[] {"ball.png"};
+        sprites = new String[]{"ball.png"};
         frame = 0;
-        
+
         posX = Stage.WIDTH / 2;
         posY = Stage.HEIGHT / 2;
-        
+
         vx = -3;
-        
-        
-        
+
+
         width = 20;
         height = 20;
-        
+
     }
-    
+
     public void update() {
         super.update();
         posX += vx;
         posY += vy;
-        
-        if( posY > (Stage.HEIGHT - height) || posY < 0) {
+
+        if (posY > (Stage.HEIGHT - height) || posY < 0) {
             vy = -vy;
         }
-        
-        
+
+
     }
-    
-    public void collision(Actor a) {		
-	vx = -vx;
-        
-        Paddle paddle = (Paddle)a;
+
+    public void collision(Actor a) {
+        vx = -vx;
+
+        Paddle paddle = (Paddle) a;
         vy += paddle.vy;
     }
 
