@@ -10,7 +10,7 @@ import actors.KeyboardControllable;
  * @author ghast
  */
 public class InputHandler {
-    public enum Action { //Formatted file
+    public enum Action {
         PRESS,
         RELEASE
     }
