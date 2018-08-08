@@ -42,7 +42,7 @@ public class MooseGame extends Stage implements KeyListener {
 
         panel.add(this);
 
-        JFrame frame = new JFrame("Invaders");
+        JFrame frame = new JFrame("Moose Game");
         frame.add(panel);
 
         frame.setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
