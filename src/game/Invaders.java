@@ -78,7 +78,7 @@ public class Invaders extends Stage implements KeyListener {
         keyPressedHandler = new InputHandler(this, player);
         keyPressedHandler.action = InputHandler.Action.PRESS;
         keyReleasedHandler = new InputHandler(this, player);
-        keyReleasedHandler.action = InputHandler.Action.RELSEASE;
+        keyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
     /**
@@ -222,6 +222,7 @@ public class Invaders extends Stage implements KeyListener {
             if (actor instanceof Shot)
                 checkCollision(actor);
 
+
             if (actor.isMarkedForRemoval()) {
                 player.updateScore(actor.getPointValue());
                 actors.remove(i);
@@ -321,10 +322,8 @@ public class Invaders extends Stage implements KeyListener {
     }
 
     public static void main(String[] args) {
-        PongGame pong = new PongGame();
-        pong.game();
-        //Invaders inv = new Invaders();
-        //inv.game();
+        Invaders inv = new Invaders();
+        inv.game();
         //RedBoxGame game = new RedBoxGame();
         //game.game();
     }

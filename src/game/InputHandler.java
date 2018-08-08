@@ -2,8 +2,6 @@ package game;
 
 import java.awt.event.KeyEvent;
 
-import actors.Player;
-
 import actors.KeyboardControllable;
 /**
  * creates a thread to process player input
@@ -13,7 +11,7 @@ import actors.KeyboardControllable;
 public class InputHandler {
     public enum Action {
         PRESS,
-        RELSEASE
+        RELEASE
     }
     private Stage stage = null;
     private KeyboardControllable player  = null;
@@ -35,7 +33,7 @@ public class InputHandler {
             else
                 player.triggerKeyPress(event);
         }
-        else if (action == Action.RELSEASE)
+        else if (action == Action.RELEASE)
             player.triggerKeyRelease(event);
     }
 }

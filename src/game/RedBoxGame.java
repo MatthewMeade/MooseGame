@@ -7,18 +7,12 @@ package game;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.Transparency;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
@@ -26,11 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import actors.Actor;
-import actors.Invader;
-import actors.Player;
-import actors.Shot;
-import actors.Ufo;
-import game.Stage;
 import actors.RedBox;
 /**
  *
@@ -93,7 +82,7 @@ public class RedBoxGame extends Stage implements KeyListener {
         keyPressedHandler = new InputHandler(this, redBox);
         keyPressedHandler.action = InputHandler.Action.PRESS;
         keyReleasedHandler = new InputHandler(this, redBox);
-        keyReleasedHandler.action = InputHandler.Action.RELSEASE;			
+        keyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
     
     
