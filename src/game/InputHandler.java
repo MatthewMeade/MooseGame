@@ -3,18 +3,20 @@ package game;
 import java.awt.event.KeyEvent;
 
 import actors.KeyboardControllable;
+
 /**
  * creates a thread to process player input
- * @author ghast
  *
+ * @author ghast
  */
 public class InputHandler {
-    public enum Action {
+    public enum Action { //Formatted file
         PRESS,
         RELEASE
     }
+
     private Stage stage = null;
-    private KeyboardControllable player  = null;
+    private KeyboardControllable player = null;
     public Action action;
 
     public InputHandler(Stage stg, KeyboardControllable player) {
@@ -29,11 +31,9 @@ public class InputHandler {
                     stage.initWorld();
                     stage.game();
                 }
-            }
-            else
+            } else
                 player.triggerKeyPress(event);
-        }
-        else if (action == Action.RELEASE)
+        } else if (action == Action.RELEASE)
             player.triggerKeyRelease(event);
     }
 }
