@@ -13,16 +13,13 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import actors.Actor;
-import actors.PlayerCar;
-
 public class MooseGame extends Stage implements KeyListener {
 
     private static final long serialVersionUID = 1L;
 
 
-    private InputHandler keyPressedHandler;
-    private InputHandler keyReleasedHandler;
+    private InputHandler gameKeyPressedHandler;
+    private InputHandler gameKeyReleasedHandler;
 
     private InputHandler menuKeyPressedHandler;
     private InputHandler menuKeyReleasedHandler;
@@ -31,11 +28,17 @@ public class MooseGame extends Stage implements KeyListener {
     public long usedTime; //time taken per game step
     public BufferStrategy strategy; //double buffering strategy
 
-    private PlayerCar playerCar;
     private MenuController menuController;
+    private GameplayController gameplayController;
 
-    private int gameState = 0;
 
+
+    public enum gameStates {
+            MENU,
+            GAME
+    }
+
+    private gameStates gameState;
 
     public MooseGame() {
         //init the UI
@@ -64,38 +67,36 @@ public class MooseGame extends Stage implements KeyListener {
         });
 
 
+
         addKeyListener(this);
 
         //create a double buffer
         createBufferStrategy(2);
         strategy = getBufferStrategy();
         requestFocus();
-//        initWorld();
         initMenu();
-
-        keyPressedHandler = new InputHandler(this, playerCar);
-        keyPressedHandler.action = InputHandler.Action.PRESS;
-        keyReleasedHandler = new InputHandler(this, playerCar);
-        keyReleasedHandler.action = InputHandler.Action.RELEASE;
-
-        menuKeyPressedHandler = new InputHandler(this, menuController);
-        menuKeyPressedHandler.action = InputHandler.Action.PRESS;
-
-        menuKeyReleasedHandler = new InputHandler(this, menuController);
-        menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
-
-
 
     }
 
 
-    public void initWorld() {
+    public void initGame(){
+        gameState = gameStates.GAME;
+        gameplayController = new GameplayController(this);
 
-        playerCar = new PlayerCar(this);
+        gameKeyPressedHandler = new InputHandler(this, gameplayController);
+        gameKeyPressedHandler.action = InputHandler.Action.PRESS;
+        gameKeyReleasedHandler = new InputHandler(this, gameplayController);
+        gameKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
     public void initMenu() {
+        gameState = gameStates.MENU;
         menuController = new MenuController(this);
+
+        menuKeyPressedHandler = new InputHandler(this, menuController);
+        menuKeyPressedHandler.action = InputHandler.Action.PRESS;
+        menuKeyReleasedHandler = new InputHandler(this, menuController);
+        menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
     public void paintWorld() {
@@ -107,19 +108,13 @@ public class MooseGame extends Stage implements KeyListener {
         g.fillRect(0, 0, getWidth(), getHeight());
         //load subimage from the background
 
-        if (gameState == 0) {
-            paintMenu(g);
-        } else if (gameState == 1) {
+        paintFPS(g);
 
-            //paint the actors
-            for (int i = 0; i < actors.size(); i++) {
-                Actor actor = actors.get(i);
-                actor.paint(g);
-            }
-            playerCar.paint(g);
-            paintFPS(g);
+        if (gameState == gameStates.MENU) {
+            menuController.paint(g);
+        } else if (gameState == gameStates.GAME) {
+            gameplayController.paint(g);
         }
-
 
         //swap buffer
         strategy.show();
@@ -140,20 +135,6 @@ public class MooseGame extends Stage implements KeyListener {
         menuController.paint(g);
     }
 
-    public void updateWorld() {
-        if (gameState == 1) {
-            playerCar.update();
-        }
-    }
-
-    private void checkCollision() {
-//        if (ball.getBounds().intersects(paddleLeft.getBounds())) {
-//            ball.collision(paddleLeft);
-//        } else if (ball.getBounds().intersects(paddleRight.getBounds())) {
-//            ball.collision(paddleRight);
-//        }
-
-    }
 
     public void loopSound(final String name) {
         new Thread(new Runnable() {
@@ -169,8 +150,11 @@ public class MooseGame extends Stage implements KeyListener {
         usedTime = 0;
         while (isVisible()) {
             long startTime = System.currentTimeMillis();
-            checkCollision();
-            updateWorld();
+
+            if (gameState == gameStates.GAME) {
+//                gameplayController.checkCollision();
+                gameplayController.update();
+            }
             paintWorld();
 
             usedTime = System.currentTimeMillis() - startTime;
@@ -191,13 +175,20 @@ public class MooseGame extends Stage implements KeyListener {
 
     public void keyPressed(KeyEvent e) {
 
-//        keyPressedHandler.handleInput(e);
-        menuKeyPressedHandler.handleInput(e);
+
+        if (gameState == gameStates.GAME) {
+            gameKeyPressedHandler.handleInput(e);
+        } else if (gameState == gameStates.MENU){
+            menuKeyPressedHandler.handleInput(e);
+        }
     }
 
     public void keyReleased(KeyEvent e) {
-//        keyReleasedHandler.handleInput(e);
-        menuKeyReleasedHandler.handleInput(e);
+        if (gameState == gameStates.GAME) {
+            gameKeyReleasedHandler.handleInput(e);
+        } else if (gameState == gameStates.MENU){
+            menuKeyReleasedHandler.handleInput(e);
+        }
     }
 
     public void keyTyped(KeyEvent e) {
@@ -208,8 +199,6 @@ public class MooseGame extends Stage implements KeyListener {
         MooseGame mooseGame = new MooseGame();
         mooseGame.game();
 
-        Invaders invaders = new Invaders();
-        invaders.game();
     }
 
 }

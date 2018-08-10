@@ -1,114 +1,92 @@
 package actors;
 
 import game.Stage;
+
 import java.awt.event.KeyEvent;
 
 public class Player extends Actor implements KeyboardControllable {
-	
-	private boolean up,down,left,right;
-	private int score = 0;
-	
-	public Player(Stage stage) {
-		super(stage);
 
-		sprites = new String[]{"player.gif"};
-		frame = 0;
-		frameSpeed = 35;
-		actorSpeed = 10;
-		width = 32;
-		height = 20;
-		posX = Stage.WIDTH/2;
-		posY = Stage.HEIGHT/2;
-	}
+    private boolean left, right;
+    private int score = 0;
 
-	public void update() {
-		super.update();		
-	}
-	
-	protected void updateSpeed() {
-		vx = 0;
-		vy = 0;
-		if (down)
-			vy = actorSpeed;
-		if (up)
-			vy = -actorSpeed;
-		if (left)
-			vx = -actorSpeed;
-		if (right)
-			vx = actorSpeed;
-		
-		//don't allow scrolling off the edge of the screen		
-		if (posX - width/2 > 0 && vx < 0)
-			posX += vx;
-		else if (posX + width  + (width/2)< Stage.WIDTH && vx > 0)
-			posX += vx;
-		else if (posY - height/2 > 0 && vy < 0)
-			posY += vy;
-		else if (posY + height + (height/2) < Stage.HEIGHT && vy > 0)
-			posY += vy;
-	}
 
-	public void triggerKeyRelease(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_DOWN:
-			down = false;
-			break;
-		case KeyEvent.VK_UP:
-			up = false;
-			break;
-		case KeyEvent.VK_LEFT:
-			left = false;
-			break;
-		case KeyEvent.VK_RIGHT:
-			right = false;
-			break;
-		}
-		updateSpeed();
-	}
+    public Player(Stage stage) {
+        super(stage);
 
-	public void triggerKeyPress(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		///*
-		case KeyEvent.VK_UP:
-			up = true;
-			break;
-		//*/
-		case KeyEvent.VK_LEFT:
-			left = true;
-			break;
-		case KeyEvent.VK_RIGHT:
-			right = true;
-			break;
-		///*
-		case KeyEvent.VK_DOWN:
-			down = true;
-			break;
-	    //*/
-		case KeyEvent.VK_SPACE: 
-			fire(); 
-			break;
+        sprites = new String[]{"CarFullHealth.png"};
+        frame = 0;
+        frameSpeed = 35;
+        actorSpeed = 10;
+        width = 100;
+        height = 100;
+        posX = Stage.WIDTH / 2;
+        posY = 6 * Stage.HEIGHT / 10;
+    }
 
-		}
-		updateSpeed();
-	}
 
-	public void collision(Actor a) {		
-		stage.endGame();
-	}
+    public void update() {
+        super.update();
+        updateSpeed();
+    }
 
-	private void fire() {
-		Actor shot = new Shot(stage);
-		shot.setX(posX);
-		shot.setY(posY - shot.getHeight());
-		stage.actors.add(shot);
-		playSound("photon.wav");
-	}
+    protected void updateSpeed() {
+        vx = 0;
+        if (left)
+            vx = -actorSpeed;
+        if (right)
+            vx = actorSpeed;
 
-	public void updateScore(int score) {
-		this.score += score;
-	}
+        //don't allow scrolling off the edge of the screen
+        if (posX> 0 && vx < 0) {
+            posX += vx;
+        } else if (posX + width < Stage.WIDTH - 15 && vx > 0) {
+            posX += vx;
+        }
 
-	public int getScore() {
-		return score;
-	}
+    }
+
+    public void triggerKeyRelease(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+                left = false;
+                break;
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+                right = false;
+                break;
+        }
+//        updateSpeed();
+    }
+
+    public void triggerKeyPress(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
+                left = true;
+                break;
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+                right = true;
+                break;
+
+        }
+//        updateSpeed();
+    }
+
+    public void collision(Actor a) {
+        stage.endGame();
+    }
+
+    public void updateScore(int score) {
+        this.score += score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+
+
+
 }

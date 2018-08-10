@@ -6,8 +6,12 @@ import actors.KeyboardControllable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MenuController extends Actor implements KeyboardControllable {
+public class MenuController implements KeyboardControllable {
 
+    private MooseGame stage;
+
+
+    private MooseGame canvas;
     private int menuSelection = 0;
     private String[] selectionSprites = new String[]{
             "MenuOptionsPlay.png",
@@ -23,16 +27,11 @@ public class MenuController extends Actor implements KeyboardControllable {
     // 2 settings
     private int menuState = 0;
 
-    public MenuController(Stage canvas) {
-        super(canvas);
-
-        frame = 0;
-        frameSpeed = 0;
-        actorSpeed = 10;
-        time = 0;
+    public MenuController(MooseGame canvas) {
+        this.stage = canvas;
     }
 
-    @Override
+
     public void paint(Graphics g) {
         // Draw Logo
         g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
@@ -81,6 +80,7 @@ public class MenuController extends Actor implements KeyboardControllable {
         if (menuState == 0) {
             switch (menuSelection) {
                 case 0: // Play
+                    stage.initGame();
                     break;
                 case 1: // Store
                     break;
