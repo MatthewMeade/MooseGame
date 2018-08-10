@@ -1,9 +1,6 @@
 package game;
 
-import actors.Actor;
-import actors.KeyboardControllable;
-import actors.ObstacleManager;
-import actors.Player;
+import actors.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -73,11 +70,22 @@ public class GameplayController implements KeyboardControllable {
     }
 
     public void checkCollision() {
-//        if (ball.getBounds().intersects(paddleLeft.getBounds())) {
-//            ball.collision(paddleLeft);
-//        } else if (ball.getBounds().intersects(paddleRight.getBounds())) {
-//            ball.collision(paddleRight);
-//        }
+        ArrayList<Obstacle> obstacles = obstacleManager.getObstacles();
+
+        for (int i = 0; i < obstacles.size(); i++) {
+            Obstacle o = obstacles.get(0);
+
+            if (o.getBounds().intersects(player.getBounds())) {
+                o.despawn();
+
+                if (!PlayerInventory.decreaseHealth()) {
+                    obstacleManager.stop();
+                    canvas.initMenu();
+                }
+                System.out.println("Health:" + PlayerInventory.health);
+
+            }
+        }
 
     }
 

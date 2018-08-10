@@ -156,7 +156,7 @@ public class MooseGame extends Stage implements KeyListener {
             long startTime = System.currentTimeMillis();
 
             if (gameplayController != null && gameState == gameStates.GAME) {
-//                gameplayController.checkCollision();
+                gameplayController.checkCollision();
                 gameplayController.update();
             }
             paintWorld();
