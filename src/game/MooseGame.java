@@ -61,8 +61,7 @@ public class MooseGame extends Stage implements KeyListener {
         //cleanup resources on exit
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                ResourceLoader.getInstance().cleanup();
-                System.exit(0);
+                exit();
             }
         });
 
@@ -195,10 +194,13 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
 
+    public void exit(){
+        ResourceLoader.getInstance().cleanup();
+        System.exit(0);
+    }
     public static void main(String[] args) {
         MooseGame mooseGame = new MooseGame();
         mooseGame.game();
-
     }
 
 }

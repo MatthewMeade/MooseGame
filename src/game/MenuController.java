@@ -89,8 +89,7 @@ public class MenuController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
                 case 3:
-                    ResourceLoader.getInstance().cleanup();
-                    System.exit(0);
+                    canvas.exit();
                     break;
             }
         } else if (menuState == 1) {
