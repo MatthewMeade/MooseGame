@@ -17,8 +17,6 @@ public class PickupManager {
 
     private static ArrayList<Pickup> activePickups = new ArrayList<>();
 
-    private static boolean gameplayActive;
-
     private MooseGame canvas;
 
     private static final int SPAWN_WAIT_TIME = 2 * 1000;
@@ -37,7 +35,6 @@ public class PickupManager {
 
     public PickupManager(MooseGame canvas) {
         this.canvas = canvas;
-        gameplayActive = true;
 
         /**
          * Provides chronological order in which obstacles spawn
@@ -60,7 +57,6 @@ public class PickupManager {
 
     public void stop() {
         activePickups = new ArrayList<Pickup>();
-        gameplayActive = false;
 
         fogLightsTimer.cancel();
         fogLightsTimer.purge();

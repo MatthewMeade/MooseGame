@@ -20,8 +20,6 @@ public class ObstacleManager {
 
     private static ArrayList<Obstacle> activeObstacles = new ArrayList<>();
 
-    private static boolean gameplayActive;
-
     private MooseGame canvas;
 
     private static final int SPAWN_WAIT_TIME = 2 * 1000;
@@ -40,7 +38,6 @@ public class ObstacleManager {
 
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
-        gameplayActive = true;
 
         /**
          * Provides chronological order in which obstacles spawn
@@ -73,7 +70,6 @@ public class ObstacleManager {
      */
     public void stop() {
         activeObstacles = new ArrayList<Obstacle>();
-        gameplayActive = false;
 
         mooseTimer.cancel();
         mooseTimer.purge();
@@ -90,10 +86,6 @@ public class ObstacleManager {
      * Spawns a moose obstacle at random and adds its value to the active obstacle array
      */
     public void spawnMoose() {
-
-        if (!gameplayActive) {
-            return;
-        }
 
         Obstacle obstacle = new MooseObstacle(canvas);
         obstacle.spawn();
