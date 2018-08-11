@@ -23,17 +23,22 @@ public class MooseGame extends Stage implements KeyListener {
     private InputHandler menuKeyPressedHandler;
     private InputHandler menuKeyReleasedHandler;
 
+    private InputHandler gameOverKeyPressedHandler;
+    private InputHandler gameOverKeyReleasedHandler;
+
 
     public long usedTime; //time taken per game step
     public BufferStrategy strategy; //double buffering strategy
 
     private MenuController menuController;
     private GameplayController gameplayController;
+    private GameOverScreenController gameOverScreenController;
 
 
     public enum gameStates {
         MENU,
-        GAME
+        GAME,
+        GAME_OVER
     }
 
     private gameStates gameState;
@@ -96,6 +101,16 @@ public class MooseGame extends Stage implements KeyListener {
         menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    public void initGameOverScreen(int finalScore) {
+        gameState = gameStates.GAME_OVER;
+        gameOverScreenController = new GameOverScreenController(this, finalScore);
+
+        gameOverKeyPressedHandler = new InputHandler(this, gameOverScreenController);
+        gameOverKeyPressedHandler.action = InputHandler.Action.PRESS;
+        gameOverKeyReleasedHandler = new InputHandler(this, gameOverScreenController);
+        gameOverKeyReleasedHandler.action = InputHandler.Action.RELEASE;
+    }
+
     public void paintWorld() {
 
         //get the graphics from the buffer
@@ -107,13 +122,14 @@ public class MooseGame extends Stage implements KeyListener {
 
 
         //load subimage from the background
-
         paintFPS(g);
 
         if (menuController != null && gameState == gameStates.MENU) {
             menuController.paint(g);
         } else if (gameplayController != null && gameState == gameStates.GAME) {
             gameplayController.paint(g);
+        } else if (gameOverScreenController != null && gameState == gameState.GAME_OVER) {
+            gameOverScreenController.paint(g);
         }
 
         //swap buffer
@@ -133,6 +149,10 @@ public class MooseGame extends Stage implements KeyListener {
 
     public void paintMenu(Graphics g) {
         menuController.paint(g);
+    }
+
+    public void paintGameOverScreen(Graphics g) {
+        gameOverScreenController.paint(g);
     }
 
 
@@ -180,6 +200,8 @@ public class MooseGame extends Stage implements KeyListener {
             gameKeyPressedHandler.handleInput(e);
         } else if (gameState == gameStates.MENU) {
             menuKeyPressedHandler.handleInput(e);
+        } else if (gameState == gameStates.GAME_OVER) {
+            gameOverKeyPressedHandler.handleInput((e));
         }
     }
 
@@ -188,6 +210,8 @@ public class MooseGame extends Stage implements KeyListener {
             gameKeyReleasedHandler.handleInput(e);
         } else if (gameState == gameStates.MENU) {
             menuKeyReleasedHandler.handleInput(e);
+        } else if (gameState == gameStates.GAME_OVER) {
+            gameOverKeyReleasedHandler.handleInput((e));
         }
     }
 

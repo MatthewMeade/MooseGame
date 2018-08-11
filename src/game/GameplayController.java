@@ -88,10 +88,12 @@ public class GameplayController implements KeyboardControllable {
             if (o.getBounds().intersects(player.getBounds())) {
                 o.despawn();
 
+                // End of game
                 if (!decreaseHealth()) {
                     obstacleManager.stop();
                     System.out.println("FINAL SCORE: " + getScore());
-                    canvas.initMenu();
+                    PlayerInventory.setHighScore(getScore());
+                    canvas.initGameOverScreen(getScore());
                 }
             }
         }
