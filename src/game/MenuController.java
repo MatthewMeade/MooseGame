@@ -12,8 +12,6 @@ import java.awt.event.KeyEvent;
 public class MenuController implements KeyboardControllable {
 
     private MooseGame stage;
-
-    private MooseGame canvas;
     private int menuSelection = 0;
     private String[] selectionSprites = new String[]{
             "MenuOptionsPlay.png",
@@ -36,7 +34,7 @@ public class MenuController implements KeyboardControllable {
     public void paint(Graphics g) {
 
         // Draw background
-        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
 
         // Draw Logo
         g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
