@@ -17,7 +17,6 @@ public class MooseGame extends Stage implements KeyListener {
 
     private static final long serialVersionUID = 1L;
 
-
     private InputHandler gameKeyPressedHandler;
     private InputHandler gameKeyReleasedHandler;
 
@@ -196,7 +195,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
 
-    public static void exit(){
+    public static void exit() {
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
