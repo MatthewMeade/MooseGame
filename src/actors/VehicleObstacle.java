@@ -31,11 +31,11 @@ public class VehicleObstacle extends Obstacle {
         setX(124 + random.nextInt(Stage.WIDTH - 124));
         setY(-200);
 
-        setWidth(70);
-        setHeight(140);
+        setWidth(50);
+        setHeight(100);
 
         setVx(0);
-        setVy(random.nextInt(5) + 11);
+        setVy(random.nextInt(3) + 11);
     }
 
     /**

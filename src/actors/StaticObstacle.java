@@ -35,8 +35,8 @@ public class StaticObstacle extends Obstacle {
         posY = -100;
 
 
-        setWidth(50);
-        setHeight(50);
+        setWidth(38);
+        setHeight(38);
 
         setVy(10);
 
