@@ -19,11 +19,20 @@ public class InputHandler {
     private KeyboardControllable player = null;
     public Action action;
 
+    /**
+     *
+     * @param stg
+     * @param player
+     */
     public InputHandler(Stage stg, KeyboardControllable player) {
         this.stage = stg;
         this.player = player;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void handleInput(KeyEvent event) {
         if (action == Action.PRESS) {
 //            if (KeyEvent.VK_ENTER == event.getKeyCode()) {

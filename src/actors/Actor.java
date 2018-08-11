@@ -5,7 +5,6 @@ import game.Stage;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-
 public class Actor {
 
 	private static final int POINT_VALUE = 0;

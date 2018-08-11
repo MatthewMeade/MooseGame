@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class GameplayController implements KeyboardControllable {
 
     private MooseGame canvas;
@@ -19,6 +22,10 @@ public class GameplayController implements KeyboardControllable {
     private InputHandler playerReleasedHandler;
 
 
+    /**
+     *
+     * @param canvas
+     */
     public GameplayController(MooseGame canvas) {
         this.canvas = canvas;
 
@@ -30,6 +37,10 @@ public class GameplayController implements KeyboardControllable {
 
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paint(Graphics g) {
         for (int i = 0; i < actors.size(); i++) {
             Actor actor = actors.get(i);
@@ -38,16 +49,28 @@ public class GameplayController implements KeyboardControllable {
         player.paint(g);
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void triggerKeyPress(KeyEvent e) {
         playerPressedHandler.handleInput(e);
     }
 //
+
+    /**
+     *
+     * @param e
+     */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
         playerReleasedHandler.handleInput(e);
     }
 
+    /**
+     *
+     */
     public void checkCollision() {
 //        if (ball.getBounds().intersects(paddleLeft.getBounds())) {
 //            ball.collision(paddleLeft);
@@ -57,6 +80,9 @@ public class GameplayController implements KeyboardControllable {
 
     }
 
+    /**
+     *
+     */
     public void update() {
         player.update();
     }

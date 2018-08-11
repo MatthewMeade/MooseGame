@@ -13,6 +13,9 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * MooseGame class extends Stage class and implements KeyListener interface
+ */
 public class MooseGame extends Stage implements KeyListener {
 
     private static final long serialVersionUID = 1L;
@@ -40,11 +43,20 @@ public class MooseGame extends Stage implements KeyListener {
 
     private gameStates gameState;
 
+    /**
+     * Instance of MooseGame class is created. User interface background
+     * color and dimensions are initialized, with dimension values inherited
+     * from Stage class and background color set to blue.
+     */
     public MooseGame() {
         //init the UI
         setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
         setBackground(Color.BLUE);
 
+        /**
+         * New instances of JPanel and JFrame are created, dimensions
+         * inherited from the Stage class.
+         */
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(Stage.WIDTH, Stage.HEIGHT));
         panel.setLayout(null);
@@ -58,7 +70,10 @@ public class MooseGame extends Stage implements KeyListener {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        //cleanup resources on exit
+        /**
+         * WindowListener is added to the JFrame instance to clean up resources upon
+         * closing of the window
+         */
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
@@ -77,7 +92,10 @@ public class MooseGame extends Stage implements KeyListener {
 
     }
 
-
+    /**
+     * Method declares game state as Game, declares new instance of GameplayController class,
+     * instantiates PRESS and RELEASE key action from InputHandler class.
+     */
     public void initGame(){
         gameState = gameStates.GAME;
         gameplayController = new GameplayController(this);
@@ -88,6 +106,10 @@ public class MooseGame extends Stage implements KeyListener {
         gameKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    /**
+     * Method declares game state as Menu, declares new instance of MenuController class,
+     * instantiates PRESS and RELEASE key actions from InputHandler class.
+     */
     public void initMenu() {
         gameState = gameStates.MENU;
         menuController = new MenuController(this);
@@ -98,6 +120,9 @@ public class MooseGame extends Stage implements KeyListener {
         menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    /**
+     * Method to retrieve, set the background with conditional statement to apply correct settings based on game state.
+     */
     public void paintWorld() {
 
         //get the graphics from the buffer
@@ -119,6 +144,10 @@ public class MooseGame extends Stage implements KeyListener {
         strategy.show();
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paintFPS(Graphics g) {
         g.setColor(Color.RED);
         if (usedTime > 0)
@@ -143,7 +172,9 @@ public class MooseGame extends Stage implements KeyListener {
         }).start();
     }
 
-
+    /**
+     *
+     */
     public void game() {
         //loopSound("music.wav");
         usedTime = 0;
@@ -172,6 +203,10 @@ public class MooseGame extends Stage implements KeyListener {
         }
     }
 
+    /**
+     *
+     * @param e
+     */
     public void keyPressed(KeyEvent e) {
 
 
@@ -182,6 +217,10 @@ public class MooseGame extends Stage implements KeyListener {
         }
     }
 
+    /**
+     *
+     * @param e
+     */
     public void keyReleased(KeyEvent e) {
         if (gameState == gameStates.GAME) {
             gameKeyReleasedHandler.handleInput(e);
@@ -190,14 +229,25 @@ public class MooseGame extends Stage implements KeyListener {
         }
     }
 
+    /**
+     *
+     * @param e
+     */
     public void keyTyped(KeyEvent e) {
     }
 
-
+    /**
+     *
+     */
     public void exit(){
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
+
+    /**
+     * Main method with new instance of MooseGame object that executes the Game method
+     * @param args
+     */
     public static void main(String[] args) {
         MooseGame mooseGame = new MooseGame();
         mooseGame.game();

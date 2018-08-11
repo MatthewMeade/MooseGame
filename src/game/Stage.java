@@ -8,6 +8,9 @@ import java.util.List;
 
 import actors.Actor;
 
+/**
+ *
+ */
 public class Stage extends Canvas implements ImageObserver {
 
     private static final long serialVersionUID = 1L;

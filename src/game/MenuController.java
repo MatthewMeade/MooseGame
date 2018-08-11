@@ -6,10 +6,12 @@ import actors.KeyboardControllable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ *
+ */
 public class MenuController implements KeyboardControllable {
 
     private MooseGame stage;
-
 
     private MooseGame canvas;
     private int menuSelection = 0;
