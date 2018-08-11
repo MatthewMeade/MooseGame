@@ -32,11 +32,16 @@ public class MenuController implements KeyboardControllable {
 
 
     public void paint(Graphics g) {
+
+        // Draw background
+        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, canvas);
+
         // Draw Logo
         g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
 
 
         if (menuState == 0) {
+
             // Draw menu options
             g.drawImage(ResourceLoader.getInstance().getSprite(selectionSprites[menuSelection % selectionSprites.length]), (Stage.WIDTH / 2) - 100, 250, stage);
         } else if (menuState == 1) {
