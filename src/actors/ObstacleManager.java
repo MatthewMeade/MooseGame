@@ -28,13 +28,15 @@ public class ObstacleManager {
 
     private static final int MOOSE_MIN_SPAWN_TIME = 5 * 1000;
     private static final int MOOSE_MAX_SPAWN_TIME = 6 * 1000;
+    private Timer mooseTimer = new Timer();
 
     private static final int STATIC_MIN_SPAWN_TIME = 2 * 1000;
     private static final int STATIC_MAX_SPAWN_TIME = 3 * 1000;
+    private Timer staticTimer = new Timer();
 
     private static final int VEHICLE_MIN_SPAWN_TIME = 1 * 1000;
     private static final int VEHICLE_MAX_SPAWN_TIME = 2 * 1000;
-
+    private Timer vehicleTimer = new Timer();
 
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
@@ -63,6 +65,16 @@ public class ObstacleManager {
     public void stop(){
         activeObstacles = new ArrayList<Obstacle>();
         gameplayActive = false;
+
+        mooseTimer.cancel();
+        mooseTimer.purge();
+
+        staticTimer.cancel();
+        staticTimer.purge();
+
+        vehicleTimer.cancel();
+        vehicleTimer.purge();
+
     }
 
 
@@ -78,7 +90,11 @@ public class ObstacleManager {
 
         Random random = new Random();
 
-        new Timer().schedule(
+        mooseTimer.cancel();
+        mooseTimer.purge();
+
+        mooseTimer = new Timer();
+        mooseTimer.schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
@@ -99,11 +115,10 @@ public class ObstacleManager {
 
         Random random = new Random();
 
-
-        int maxTime = 3;
-        int minTime = 2;
-
-        new Timer().schedule(
+        staticTimer.cancel();
+        staticTimer.purge();
+        staticTimer = new Timer();
+        staticTimer.schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
@@ -124,7 +139,10 @@ public class ObstacleManager {
 
         Random random = new Random();
 
-        new Timer().schedule(
+        vehicleTimer.cancel();
+        vehicleTimer.purge();
+        vehicleTimer = new Timer();
+        vehicleTimer.schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
