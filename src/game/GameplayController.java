@@ -5,6 +5,8 @@ import actors.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -20,13 +22,17 @@ public class GameplayController implements KeyboardControllable {
     private InputHandler playerPressedHandler;
     private InputHandler playerReleasedHandler;
 
+    private Timer opacityTimer = new Timer();
+    private final static int OPACITY_CYCLE_INTERVAL = 5000;
+    private int[] opacityLevel = {0, 75, 150, 75};
+    private int opacityLevelCounter = 0;
+
     private int road1Pos = Stage.HEIGHT * -1;
     private int road2Pos = 0;
     private int score = 0;
     private int health = 3;
 
     /**
-     *
      * @param canvas
      */
     public GameplayController(MooseGame canvas) {
@@ -39,10 +45,11 @@ public class GameplayController implements KeyboardControllable {
         playerReleasedHandler.action = InputHandler.Action.RELEASE;
 
         obstacleManager = new ObstacleManager(canvas);
+
+        incrementOverlayLevel();
     }
 
     /**
-     *
      * @param g
      */
     public void paint(Graphics g) {
@@ -76,11 +83,29 @@ public class GameplayController implements KeyboardControllable {
         }
         player.paint(g);
         obstacleManager.paint(g);
+        paintOverlay(g);
+    }
 
+    public void incrementOverlayLevel() {
+        System.out.println("Incrementing");
+        opacityTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                opacityLevelCounter++;
+                incrementOverlayLevel();
+
+            }
+        }, OPACITY_CYCLE_INTERVAL);
+    }
+
+
+    public void paintOverlay(Graphics g) {
+        Color color = new Color(0, 0, 0, opacityLevel[opacityLevelCounter % opacityLevel.length]);
+        g.setColor(color);
+        g.fillRect(0, 0, 1000, 1000);
     }
 
     /**
-     *
      * @param e
      */
     @Override
@@ -90,7 +115,6 @@ public class GameplayController implements KeyboardControllable {
 
 
     /**
-     *
      * @param e
      */
     @Override
@@ -116,7 +140,6 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     *
      * @return
      */
     public boolean decreaseHealth() {
@@ -143,4 +166,6 @@ public class GameplayController implements KeyboardControllable {
     public int getScore() {
         return score / Stage.DESIRED_FPS;
     }
+
+
 }
