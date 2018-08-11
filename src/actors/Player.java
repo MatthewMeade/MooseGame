@@ -24,8 +24,8 @@ public class Player extends Actor implements KeyboardControllable {
         frame = 0;
         frameSpeed = 35;
         actorSpeed = 10;
-        width = 70;
-        height = 140;
+        width = 50;
+        height = 100;
         posX = Stage.WIDTH / 2;
         posY = 8 * Stage.HEIGHT / 10;
     }

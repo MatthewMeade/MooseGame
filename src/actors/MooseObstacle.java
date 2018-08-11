@@ -30,13 +30,13 @@ public class MooseObstacle extends Obstacle{
 
         boolean left = random.nextBoolean();
         setX(left ? -100 : Stage.WIDTH);
-        setY((int)((Stage.HEIGHT / 4) * random.nextDouble()));
+        setY(-100);
 
-        setWidth(100);
-        setHeight(100);
+        setWidth(75);
+        setHeight(75);
 
         setVx((left ? 1 : -1) * (random.nextInt(5) + 5));
-        setVy(random.nextInt(5) + 5);
+        setVy(random.nextInt(2) + 9);
     }
 
     /**

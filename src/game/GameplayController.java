@@ -5,6 +5,8 @@ import actors.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Handles creation of in-game screen
@@ -16,9 +18,15 @@ public class GameplayController implements KeyboardControllable {
     private ArrayList<Actor> actors = new ArrayList<>();
     private Player player;
     private ObstacleManager obstacleManager;
+    private PickupManager pickupManager;
 
     private InputHandler playerPressedHandler;
     private InputHandler playerReleasedHandler;
+
+    private Timer opacityTimer = new Timer();
+    private final static int OPACITY_CYCLE_INTERVAL = 5000;
+    private int[] opacityLevel = {0, 75, 150, 75};
+    private int opacityLevelCounter = 0;
 
     private int road1Pos = Stage.HEIGHT * -1;
     private int road2Pos = 0;
@@ -39,6 +47,12 @@ public class GameplayController implements KeyboardControllable {
         playerReleasedHandler.action = InputHandler.Action.RELEASE;
 
         obstacleManager = new ObstacleManager(canvas);
+        pickupManager = new PickupManager(canvas);
+
+
+        incrementOverlayLevel();
+
+
     }
 
     /**
@@ -76,7 +90,26 @@ public class GameplayController implements KeyboardControllable {
         }
         player.paint(g);
         obstacleManager.paint(g);
+        pickupManager.paint(g);
+        paintOverlay(g);
+    }
 
+    public void incrementOverlayLevel() {
+        opacityTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                opacityLevelCounter++;
+                incrementOverlayLevel();
+
+            }
+        }, OPACITY_CYCLE_INTERVAL);
+    }
+
+
+    public void paintOverlay(Graphics g) {
+        Color color = new Color(0, 0, 0, opacityLevel[opacityLevelCounter % opacityLevel.length]);
+        g.setColor(color);
+        g.fillRect(0, 0, 1000, 1000);
     }
 
     /**
@@ -105,15 +138,23 @@ public class GameplayController implements KeyboardControllable {
     public void checkCollision() {
 
         if (obstacleManager.checkCollision(player)) {
-            if (!decreaseHealth()) {
-                obstacleManager.stop();
-                System.out.println("FINAL SCORE: " + getScore());
-                PlayerInventory.setHighScore(getScore());
-                canvas.initGameOverScreen(getScore());
-
-            }
+            damagePlayer();
         }
 
+        if (player.getX() < 75 || player.getX() > Stage.WIDTH - 125) {
+            damagePlayer();
+            player.setX(Stage.WIDTH / 2 - 25);
+        }
+
+    }
+
+    public void damagePlayer(){
+        if (!decreaseHealth()) {
+            obstacleManager.stop();
+            System.out.println("FINAL SCORE: " + getScore());
+            PlayerInventory.setHighScore(getScore());
+            canvas.initGameOverScreen(getScore());
+        }
     }
 
     /**
@@ -136,6 +177,7 @@ public class GameplayController implements KeyboardControllable {
     public void update() {
         player.update();
         obstacleManager.update();
+        pickupManager.update();
         updateScore();
     }
 
@@ -153,4 +195,6 @@ public class GameplayController implements KeyboardControllable {
     public int getScore() {
         return score / Stage.DESIRED_FPS;
     }
+
+
 }

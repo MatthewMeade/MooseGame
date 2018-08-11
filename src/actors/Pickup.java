@@ -2,20 +2,15 @@ package actors;
 
 import game.MooseGame;
 
-import java.util.ArrayList;
-
-/**
- * Base class for all in-game obstacles
- */
-public abstract class Obstacle extends Actor{
+public abstract class Pickup extends Actor {
 
     public boolean isActive = false;
 
     /**
-     * Obstacle constructor.
-     * @param canvas game window
+     * Constructs
+     * @param canvas
      */
-    public Obstacle(MooseGame canvas) {
+    public Pickup(MooseGame canvas) {
         super(canvas);
     }
 
@@ -28,7 +23,5 @@ public abstract class Obstacle extends Actor{
      * Removes obstacle from game window.
      */
     public abstract void despawn();
-
-
 
 }

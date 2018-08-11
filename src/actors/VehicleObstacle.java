@@ -28,14 +28,14 @@ public class VehicleObstacle extends Obstacle {
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(124 + random.nextInt(Stage.WIDTH - 124));
+        setX(150 + random.nextInt(Stage.WIDTH - 300));
         setY(-200);
 
-        setWidth(70);
-        setHeight(140);
+        setWidth(50);
+        setHeight(100);
 
         setVx(0);
-        setVy(random.nextInt(5) + 11);
+        setVy(random.nextInt(3) + 11);
     }
 
     /**

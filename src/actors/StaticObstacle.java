@@ -31,12 +31,12 @@ public class StaticObstacle extends Obstacle {
 
         Random random = new Random();
 
-        setX(124 + random.nextInt(Stage.WIDTH - 124));
+        setX(125 + random.nextInt(Stage.WIDTH - 250));
         posY = -100;
 
 
-        setWidth(50);
-        setHeight(50);
+        setWidth(38);
+        setHeight(38);
 
         setVy(10);
 
