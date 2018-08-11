@@ -1,11 +1,11 @@
 package game;
 
 public class PlayerInventory {
+
     private static boolean settingsMusicOn = true;
     private static boolean settingSoundsOn = true;
+    private static int highScore = 0;
 
-
-    public static int health = 3;
 
     public static boolean isSettingsMusicOn() {
         return settingsMusicOn;
@@ -23,14 +23,14 @@ public class PlayerInventory {
         PlayerInventory.settingSoundsOn = settingSoundsOn;
     }
 
-    public static boolean decreaseHealth() {
-        System.out.println("Hit moose!");
-        health--;
-        if (health > 0) {
-            return true;
-        }
-        health = 3;
-        return false;
-
+    public static int getHighScore() {
+        return highScore;
     }
+
+    public static void setHighScore(int currentScore) {
+        if (currentScore > highScore) {
+            highScore = currentScore;
+        }
+    }
+
 }
