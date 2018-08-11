@@ -22,11 +22,10 @@ public class MenuController implements KeyboardControllable {
             "MenuOptionsExit.png"
     };
 
-    private int[] menuLengths = new int[]{4, 0, 4};
+    private int[] menuLengths = new int[]{4, 4};
 
     // 0 main menu
-    // 1 store
-    // 2 settings
+    // 1 settings
     private int menuState = 0;
 
     public MenuController(MooseGame canvas) {
@@ -35,16 +34,19 @@ public class MenuController implements KeyboardControllable {
 
 
     public void paint(Graphics g) {
+
+        // Draw background
+        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, canvas);
+
         // Draw Logo
         g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
 
 
         if (menuState == 0) {
+
             // Draw menu options
             g.drawImage(ResourceLoader.getInstance().getSprite(selectionSprites[menuSelection % selectionSprites.length]), (Stage.WIDTH / 2) - 100, 250, stage);
         } else if (menuState == 1) {
-
-        } else if (menuState == 2) {
 
             // Draw Settings
             g.drawImage(ResourceLoader.getInstance().getSprite(
@@ -87,7 +89,7 @@ public class MenuController implements KeyboardControllable {
                 case 1: // Store
                     break;
                 case 2: // Enter Settings
-                    menuState = 2;
+                    menuState = 1;
                     menuSelection = 0;
                     break;
                 case 3:
@@ -95,8 +97,6 @@ public class MenuController implements KeyboardControllable {
                     break;
             }
         } else if (menuState == 1) {
-
-        } else if (menuState == 2) {
             switch (menuSelection) {
                 case 0:
                     PlayerInventory.setSettingsMusicOn(!PlayerInventory.isSettingsMusicOn());

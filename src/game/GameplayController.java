@@ -88,6 +88,7 @@ public class GameplayController implements KeyboardControllable {
         playerPressedHandler.handleInput(e);
     }
 
+
     /**
      *
      * @param e
@@ -101,19 +102,14 @@ public class GameplayController implements KeyboardControllable {
      *
      */
     public void checkCollision() {
-        ArrayList<Obstacle> obstacles = obstacleManager.getObstacles();
 
-        for (int i = 0; i < obstacles.size(); i++) {
-            Obstacle o = obstacles.get(0);
+        if (obstacleManager.checkCollision(player)) {
+            if (!decreaseHealth()) {
+                obstacleManager.stop();
+                System.out.println("FINAL SCORE: " + getScore());
+                PlayerInventory.setHighScore(getScore());
+                canvas.initGameOverScreen(getScore());
 
-            if (o.getBounds().intersects(player.getBounds())) {
-                o.despawn();
-
-                if (!decreaseHealth()) {
-                    obstacleManager.stop();
-                    System.out.println("FINAL SCORE: " + getScore());
-                    canvas.initMenu();
-                }
             }
         }
 

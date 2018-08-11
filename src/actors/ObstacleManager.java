@@ -27,8 +27,19 @@ public class ObstacleManager {
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
         gameplayActive = true;
-        spawnMoose();
-        spawnStatic();
+
+
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("Spawning");
+                        spawnMoose();
+                        spawnStatic();
+                        spawnVehicle();
+                    }
+                }, 1000);
+
 
 
     }
@@ -38,29 +49,32 @@ public class ObstacleManager {
     }
 
     public void stop(){
-        System.out.println("Stopping moose spawn");
+        activeObstacles = new ArrayList<Obstacle>();
         gameplayActive = false;
     }
 
 
     public void spawnMoose(){
+
+        if (!gameplayActive) {
+            return;
+        }
+
         Obstacle obstacle = new MooseObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
 
         Random random = new Random();
 
-        if (!gameplayActive) {
-            return;
-        }
-
-        int maxTime = 10;
+        int maxTime = 6;
         int minTime = 5;
 
         new Timer().schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
+                        System.out.println("Active Objects: " + activeObstacles.size());
+
                         spawnMoose();
                     }
                 }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
@@ -68,15 +82,16 @@ public class ObstacleManager {
 
     public void spawnStatic(){
 
+        if (!gameplayActive) {
+            return;
+        }
+
         Obstacle obstacle = new StaticObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
 
         Random random = new Random();
 
-        if (!gameplayActive) {
-            return;
-        }
 
         int maxTime = 3;
         int minTime = 2;
@@ -90,7 +105,36 @@ public class ObstacleManager {
                 }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
     }
 
+    public void spawnVehicle(){
+
+        if (!gameplayActive) {
+            return;
+        }
+
+        Obstacle obstacle = new VehicleObstacle(canvas);
+        obstacle.spawn();
+        activeObstacles.add(obstacle);
+
+        Random random = new Random();
+
+        int maxTime = 2;
+        int minTime = 1;
+
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        spawnVehicle();
+                    }
+                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
+    }
+
     public void update() {
+
+        if (!gameplayActive) {
+            return;
+        }
+
         for (int i = 0; i < activeObstacles.size(); i++) {
 
             Obstacle o = activeObstacles.get(i);
@@ -103,9 +147,31 @@ public class ObstacleManager {
     }
 
     public void paint(Graphics g) {
+        if (!gameplayActive) {
+            return;
+        }
+
         for (int i = 0; i < activeObstacles.size(); i++) {
             activeObstacles.get(i).paint(g);
         }
+    }
+
+    public boolean checkCollision(Actor player) {
+        if (!gameplayActive) {
+            return false;
+        }
+
+        for (int i = 0; i < activeObstacles.size(); i++) {
+            Obstacle o = activeObstacles.get(i);
+
+            if (o.getBounds().intersects(player.getBounds())) {
+                o.despawn();
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

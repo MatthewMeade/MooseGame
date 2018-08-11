@@ -31,7 +31,7 @@ public class StaticObstacle extends Obstacle {
 
         Random random = new Random();
 
-        posX = ((int) (Stage.WIDTH * random.nextDouble()));
+        setX(124 + random.nextInt(Stage.WIDTH - 124));
         posY = -100;
 
 
