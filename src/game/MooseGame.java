@@ -35,10 +35,9 @@ public class MooseGame extends Stage implements KeyListener {
     private GameplayController gameplayController;
 
 
-
     public enum gameStates {
-            MENU,
-            GAME
+        MENU,
+        GAME
     }
 
     private gameStates gameState;
@@ -70,22 +69,15 @@ public class MooseGame extends Stage implements KeyListener {
         frame.setResizable(false);
         frame.setVisible(true);
 
-//<<<<<<< HEAD
         /**
          * WindowListener is added to the JFrame instance to clean up resources upon
          * closing of the window
          */
-//=======
-
-
-        //cleanup resources on exit
-//>>>>>>> ae5515a6484822171d0c3fb8b55e775b582cdee1
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
             }
         });
-
 
 
         addKeyListener(this);
@@ -97,6 +89,7 @@ public class MooseGame extends Stage implements KeyListener {
         initMenu();
 
     }
+
 
     /**
      * Method declares game state as Game, declares new instance of GameplayController class,
@@ -168,7 +161,7 @@ public class MooseGame extends Stage implements KeyListener {
     public void paint(Graphics g) {
     }
 
-    public void paintMenu(Graphics g){
+    public void paintMenu(Graphics g) {
         menuController.paint(g);
     }
 
@@ -221,7 +214,7 @@ public class MooseGame extends Stage implements KeyListener {
 
         if (gameState == gameStates.GAME) {
             gameKeyPressedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU){
+        } else if (gameState == gameStates.MENU) {
             menuKeyPressedHandler.handleInput(e);
         }
     }
@@ -233,7 +226,7 @@ public class MooseGame extends Stage implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (gameState == gameStates.GAME) {
             gameKeyReleasedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU){
+        } else if (gameState == gameStates.MENU) {
             menuKeyReleasedHandler.handleInput(e);
         }
     }
@@ -245,10 +238,11 @@ public class MooseGame extends Stage implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+
     /**
      *
-     */
-    public void exit(){
+      */
+    public static void exit(){
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }

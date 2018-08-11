@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
- * Actor class created to provide functionality for users of Moose game
+ * Provide functionality for objects in Moose game
  */
 public class Actor {
 
@@ -148,7 +148,7 @@ public class Actor {
 	}
 
 	/**
-	 *
+	 * Get value for vx
 	 * @return
 	 */
 	public int getVx() {

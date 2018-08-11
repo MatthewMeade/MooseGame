@@ -1,5 +1,6 @@
 package actors;
 
+import game.MooseGame;
 import game.Stage;
 
 import java.awt.event.KeyEvent;
@@ -7,7 +8,6 @@ import java.awt.event.KeyEvent;
 public class Player extends Actor implements KeyboardControllable {
 
     private boolean left, right;
-    private int score = 0;
 
 
     public Player(Stage stage) {
@@ -23,7 +23,6 @@ public class Player extends Actor implements KeyboardControllable {
         posY = 8 * Stage.HEIGHT / 10;
     }
 
-
     public void update() {
         super.update();
         updateSpeed();
@@ -37,7 +36,7 @@ public class Player extends Actor implements KeyboardControllable {
             vx = actorSpeed;
 
         //don't allow scrolling off the edge of the screen
-        if (posX> 0 && vx < 0) {
+        if (posX > 0 && vx < 0) {
             posX += vx;
         } else if (posX + width < Stage.WIDTH - 15 && vx > 0) {
             posX += vx;
@@ -77,16 +76,6 @@ public class Player extends Actor implements KeyboardControllable {
     public void collision(Actor a) {
         stage.endGame();
     }
-
-    public void updateScore(int score) {
-        this.score += score;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-
 
 
 }
