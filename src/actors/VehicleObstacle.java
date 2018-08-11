@@ -6,14 +6,22 @@ import game.Stage;
 import java.util.Random;
 
 /**
- * Class gives functionality to vehicle obstacles
+ * Class adds, removes, and updates positioning of vehicle obstacles.
  */
 public class VehicleObstacle extends Obstacle {
+
+    /**
+     * Initializes a vehicle obstacle to add to the game window.
+     * @param canvas game window
+     */
     public VehicleObstacle(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"TempBadCar.png"};
     }
 
+    /**
+     * Adds vehicle obstacle to game window.
+     */
     @Override
     public void spawn() {
         isActive = true;
@@ -30,6 +38,9 @@ public class VehicleObstacle extends Obstacle {
         setVy(random.nextInt(5) + 11);
     }
 
+    /**
+     * Removes vehicle obstacle from game window.
+     */
     @Override
     public void despawn() {
         isActive = false;
@@ -37,6 +48,9 @@ public class VehicleObstacle extends Obstacle {
         posY = -100;
     }
 
+    /**
+     * Updates positioning of vehicle obstacle within game window.
+     */
     public void update() {
         if(isActive){
             posX += vx;

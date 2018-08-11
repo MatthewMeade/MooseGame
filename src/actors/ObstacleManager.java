@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Provides functionality to each separate obstacle during gameplay
+ * Spawns, renders graphics for, and removes obstacles during gameplay dependent on their status and position.
  */
 public class ObstacleManager {
 
@@ -42,7 +42,9 @@ public class ObstacleManager {
         this.canvas = canvas;
         gameplayActive = true;
 
-
+        /**
+         * Provides chronological order in which obstacles spawn
+         */
         new Timer().schedule(
                 new TimerTask() {
                     @Override
@@ -58,10 +60,17 @@ public class ObstacleManager {
 
     }
 
+    /**
+     * Gets value of an obstacle from array
+     * @return active obstacle
+     */
     public ArrayList<Obstacle> getObstacles(){
         return activeObstacles;
     }
 
+    /**
+     *
+     */
     public void stop(){
         activeObstacles = new ArrayList<Obstacle>();
         gameplayActive = false;
@@ -77,7 +86,9 @@ public class ObstacleManager {
 
     }
 
-
+    /**
+     * Spawns a moose obstacle at random and adds its value to the active obstacle array
+     */
     public void spawnMoose(){
 
         if (!gameplayActive) {
@@ -103,6 +114,9 @@ public class ObstacleManager {
                 }, (random.nextInt(MOOSE_MAX_SPAWN_TIME - MOOSE_MIN_SPAWN_TIME) + MOOSE_MIN_SPAWN_TIME ));
     }
 
+    /**
+     * Spawns a static obstacle at random and adds its value to the active obstacle array
+     */
     public void spawnStatic(){
 
         if (!gameplayActive) {
@@ -127,6 +141,9 @@ public class ObstacleManager {
                 }, (random.nextInt(STATIC_MAX_SPAWN_TIME - STATIC_MIN_SPAWN_TIME) + STATIC_MIN_SPAWN_TIME ));
     }
 
+    /**
+     * Spawns a vehicle obstacle at random and adds its value to the active obstacle array
+     */
     public void spawnVehicle(){
 
         if (!gameplayActive) {
@@ -151,6 +168,9 @@ public class ObstacleManager {
                 }, (random.nextInt(VEHICLE_MAX_SPAWN_TIME - VEHICLE_MIN_SPAWN_TIME) + VEHICLE_MIN_SPAWN_TIME ));
     }
 
+    /**
+     * Removes obstacles from active obstacle array after they have left the screen
+     */
     public void update() {
 
         if (!gameplayActive) {
@@ -168,6 +188,10 @@ public class ObstacleManager {
         }
     }
 
+    /**
+     * Render graphics for obstacles
+     * @param g obstacle to be painted
+     */
     public void paint(Graphics g) {
         if (!gameplayActive) {
             return;
@@ -178,6 +202,11 @@ public class ObstacleManager {
         }
     }
 
+    /**
+     * Checks to see if current player has suffered a collision with an obstacle
+     * @param player Current game player
+     * @return Collision status of user
+     */
     public boolean checkCollision(Actor player) {
         if (!gameplayActive) {
             return false;
