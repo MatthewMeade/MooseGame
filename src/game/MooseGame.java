@@ -32,10 +32,9 @@ public class MooseGame extends Stage implements KeyListener {
     private GameplayController gameplayController;
 
 
-
     public enum gameStates {
-            MENU,
-            GAME
+        MENU,
+        GAME
     }
 
     private gameStates gameState;
@@ -59,14 +58,12 @@ public class MooseGame extends Stage implements KeyListener {
         frame.setVisible(true);
 
 
-
         //cleanup resources on exit
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
             }
         });
-
 
 
         addKeyListener(this);
@@ -80,7 +77,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
 
-    public void initGame(){
+    public void initGame() {
         gameState = gameStates.GAME;
         gameplayController = new GameplayController(this);
 
@@ -135,7 +132,7 @@ public class MooseGame extends Stage implements KeyListener {
     public void paint(Graphics g) {
     }
 
-    public void paintMenu(Graphics g){
+    public void paintMenu(Graphics g) {
         menuController.paint(g);
     }
 
@@ -182,7 +179,7 @@ public class MooseGame extends Stage implements KeyListener {
 
         if (gameState == gameStates.GAME) {
             gameKeyPressedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU){
+        } else if (gameState == gameStates.MENU) {
             menuKeyPressedHandler.handleInput(e);
         }
     }
@@ -190,7 +187,7 @@ public class MooseGame extends Stage implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (gameState == gameStates.GAME) {
             gameKeyReleasedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU){
+        } else if (gameState == gameStates.MENU) {
             menuKeyReleasedHandler.handleInput(e);
         }
     }
@@ -199,10 +196,11 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
 
-    public void exit(){
+    public void exit() {
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
+
     public static void main(String[] args) {
         MooseGame mooseGame = new MooseGame();
         mooseGame.game();
