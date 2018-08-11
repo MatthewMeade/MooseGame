@@ -50,6 +50,8 @@ public class GameplayController implements KeyboardControllable {
 
 
         incrementOverlayLevel();
+
+
     }
 
     /**
@@ -131,15 +133,23 @@ public class GameplayController implements KeyboardControllable {
     public void checkCollision() {
 
         if (obstacleManager.checkCollision(player)) {
-            if (!decreaseHealth()) {
-                obstacleManager.stop();
-                System.out.println("FINAL SCORE: " + getScore());
-                PlayerInventory.setHighScore(getScore());
-                canvas.initGameOverScreen(getScore());
-
-            }
+            damagePlayer();
         }
 
+        if (player.getX() < 75 || player.getX() > Stage.WIDTH - 125) {
+            damagePlayer();
+            player.setX(Stage.WIDTH / 2 - 25);
+        }
+
+    }
+
+    public void damagePlayer(){
+        if (!decreaseHealth()) {
+            obstacleManager.stop();
+            System.out.println("FINAL SCORE: " + getScore());
+            PlayerInventory.setHighScore(getScore());
+            canvas.initGameOverScreen(getScore());
+        }
     }
 
     /**
