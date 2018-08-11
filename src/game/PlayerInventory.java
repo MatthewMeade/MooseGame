@@ -25,11 +25,10 @@ public class PlayerInventory {
 
     public static boolean decreaseHealth() {
         System.out.println("Hit moose!");
+        health--;
         if (health > 0) {
-            health--;
             return true;
         }
-
         health = 3;
         return false;
 
