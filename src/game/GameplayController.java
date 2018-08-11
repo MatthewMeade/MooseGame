@@ -80,11 +80,14 @@ public class GameplayController implements KeyboardControllable {
     }
 
     public void checkCollision() {
+
         if (obstacleManager.checkCollision(player)) {
             if (!decreaseHealth()) {
                 obstacleManager.stop();
                 System.out.println("FINAL SCORE: " + getScore());
-                canvas.initMenu();
+                PlayerInventory.setHighScore(getScore());
+                canvas.initGameOverScreen(getScore());
+
             }
         }
 

@@ -26,13 +26,7 @@ public class InputHandler {
 
     public void handleInput(KeyEvent event) {
         if (action == Action.PRESS) {
-//            if (KeyEvent.VK_ENTER == event.getKeyCode()) {
-//                if (stage.gameOver || stage.gameWon) {
-//                    stage.initWorld();
-//                    stage.game();
-//                }
-//            } else
-                player.triggerKeyPress(event);
+            player.triggerKeyPress(event);
         } else if (action == Action.RELEASE)
             player.triggerKeyRelease(event);
     }
