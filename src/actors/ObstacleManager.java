@@ -57,21 +57,21 @@ public class ObstacleManager {
                 }, SPAWN_WAIT_TIME);
 
 
-
     }
 
     /**
      * Gets value of an obstacle from array
+     *
      * @return active obstacle
      */
-    public ArrayList<Obstacle> getObstacles(){
+    public ArrayList<Obstacle> getObstacles() {
         return activeObstacles;
     }
 
     /**
      *
      */
-    public void stop(){
+    public void stop() {
         activeObstacles = new ArrayList<Obstacle>();
         gameplayActive = false;
 
@@ -89,7 +89,7 @@ public class ObstacleManager {
     /**
      * Spawns a moose obstacle at random and adds its value to the active obstacle array
      */
-    public void spawnMoose(){
+    public void spawnMoose() {
 
         if (!gameplayActive) {
             return;
@@ -111,18 +111,13 @@ public class ObstacleManager {
                     public void run() {
                         spawnMoose();
                     }
-                }, (random.nextInt(MOOSE_MAX_SPAWN_TIME - MOOSE_MIN_SPAWN_TIME) + MOOSE_MIN_SPAWN_TIME ));
+                }, (random.nextInt(MOOSE_MAX_SPAWN_TIME - MOOSE_MIN_SPAWN_TIME) + MOOSE_MIN_SPAWN_TIME));
     }
 
     /**
      * Spawns a static obstacle at random and adds its value to the active obstacle array
      */
-    public void spawnStatic(){
-
-        if (!gameplayActive) {
-            return;
-        }
-
+    public void spawnStatic() {
         Obstacle obstacle = new StaticObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
@@ -138,17 +133,13 @@ public class ObstacleManager {
                     public void run() {
                         spawnStatic();
                     }
-                }, (random.nextInt(STATIC_MAX_SPAWN_TIME - STATIC_MIN_SPAWN_TIME) + STATIC_MIN_SPAWN_TIME ));
+                }, (random.nextInt(STATIC_MAX_SPAWN_TIME - STATIC_MIN_SPAWN_TIME) + STATIC_MIN_SPAWN_TIME));
     }
 
     /**
      * Spawns a vehicle obstacle at random and adds its value to the active obstacle array
      */
-    public void spawnVehicle(){
-
-        if (!gameplayActive) {
-            return;
-        }
+    public void spawnVehicle() {
 
         Obstacle obstacle = new VehicleObstacle(canvas);
         obstacle.spawn();
@@ -165,17 +156,13 @@ public class ObstacleManager {
                     public void run() {
                         spawnVehicle();
                     }
-                }, (random.nextInt(VEHICLE_MAX_SPAWN_TIME - VEHICLE_MIN_SPAWN_TIME) + VEHICLE_MIN_SPAWN_TIME ));
+                }, (random.nextInt(VEHICLE_MAX_SPAWN_TIME - VEHICLE_MIN_SPAWN_TIME) + VEHICLE_MIN_SPAWN_TIME));
     }
 
     /**
      * Removes obstacles from active obstacle array after they have left the screen
      */
     public void update() {
-
-        if (!gameplayActive) {
-            return;
-        }
 
         for (int i = 0; i < activeObstacles.size(); i++) {
 
@@ -190,12 +177,10 @@ public class ObstacleManager {
 
     /**
      * Render graphics for obstacles
+     *
      * @param g obstacle to be painted
      */
     public void paint(Graphics g) {
-        if (!gameplayActive) {
-            return;
-        }
 
         for (int i = 0; i < activeObstacles.size(); i++) {
             activeObstacles.get(i).paint(g);
@@ -204,13 +189,11 @@ public class ObstacleManager {
 
     /**
      * Checks to see if current player has suffered a collision with an obstacle
+     *
      * @param player Current game player
      * @return Collision status of user
      */
     public boolean checkCollision(Actor player) {
-        if (!gameplayActive) {
-            return false;
-        }
 
         for (int i = 0; i < activeObstacles.size(); i++) {
             Obstacle o = activeObstacles.get(i);
