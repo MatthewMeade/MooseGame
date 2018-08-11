@@ -77,6 +77,7 @@ public class MooseGame extends Stage implements KeyListener {
 
 
     public void initGame() {
+        System.out.println("New game");
         gameState = gameStates.GAME;
         gameplayController = new GameplayController(this);
 

@@ -73,26 +73,18 @@ public class GameplayController implements KeyboardControllable {
         playerPressedHandler.handleInput(e);
     }
 
-    //
+
     @Override
     public void triggerKeyRelease(KeyEvent e) {
         playerReleasedHandler.handleInput(e);
     }
 
     public void checkCollision() {
-        ArrayList<Obstacle> obstacles = obstacleManager.getObstacles();
-
-        for (int i = 0; i < obstacles.size(); i++) {
-            Obstacle o = obstacles.get(0);
-
-            if (o.getBounds().intersects(player.getBounds())) {
-                o.despawn();
-
-                if (!decreaseHealth()) {
-                    obstacleManager.stop();
-                    System.out.println("FINAL SCORE: " + getScore());
-                    canvas.initMenu();
-                }
+        if (obstacleManager.checkCollision(player)) {
+            if (!decreaseHealth()) {
+                obstacleManager.stop();
+                System.out.println("FINAL SCORE: " + getScore());
+                canvas.initMenu();
             }
         }
 

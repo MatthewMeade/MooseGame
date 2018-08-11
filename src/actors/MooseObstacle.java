@@ -13,8 +13,6 @@ public class MooseObstacle extends Obstacle{
     public MooseObstacle(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"moose.png"};
-
-
     }
 
     @Override
