@@ -24,6 +24,18 @@ public class ObstacleManager {
 
     private MooseGame canvas;
 
+    private static final int SPAWN_WAIT_TIME = 2 * 1000;
+
+    private static final int MOOSE_MIN_SPAWN_TIME = 5 * 1000;
+    private static final int MOOSE_MAX_SPAWN_TIME = 6 * 1000;
+
+    private static final int STATIC_MIN_SPAWN_TIME = 2 * 1000;
+    private static final int STATIC_MAX_SPAWN_TIME = 3 * 1000;
+
+    private static final int VEHICLE_MIN_SPAWN_TIME = 1 * 1000;
+    private static final int VEHICLE_MAX_SPAWN_TIME = 2 * 1000;
+
+
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
         gameplayActive = true;
@@ -40,7 +52,7 @@ public class ObstacleManager {
                         spawnStatic();
                         spawnVehicle();
                     }
-                }, 1000);
+                }, SPAWN_WAIT_TIME);
 
 
 
@@ -77,18 +89,13 @@ public class ObstacleManager {
 
         Random random = new Random();
 
-        int maxTime = 6;
-        int minTime = 5;
-
         new Timer().schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("Active Objects: " + activeObstacles.size());
-
                         spawnMoose();
                     }
-                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
+                }, (random.nextInt(MOOSE_MAX_SPAWN_TIME - MOOSE_MIN_SPAWN_TIME) + MOOSE_MIN_SPAWN_TIME ));
     }
 
     /**
@@ -116,7 +123,7 @@ public class ObstacleManager {
                     public void run() {
                         spawnStatic();
                     }
-                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
+                }, (random.nextInt(STATIC_MAX_SPAWN_TIME - STATIC_MIN_SPAWN_TIME) + STATIC_MIN_SPAWN_TIME ));
     }
 
     /**
@@ -134,16 +141,13 @@ public class ObstacleManager {
 
         Random random = new Random();
 
-        int maxTime = 2;
-        int minTime = 1;
-
         new Timer().schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
                         spawnVehicle();
                     }
-                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
+                }, (random.nextInt(VEHICLE_MAX_SPAWN_TIME - VEHICLE_MIN_SPAWN_TIME) + VEHICLE_MIN_SPAWN_TIME ));
     }
 
     /**
