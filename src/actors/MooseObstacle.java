@@ -36,7 +36,6 @@ public class MooseObstacle extends Obstacle{
 
     @Override
     public void despawn() {
-        System.out.println("Despawning moose");
         isActive = false;
         posX = -100;
         posY = -100;

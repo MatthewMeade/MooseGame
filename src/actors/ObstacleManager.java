@@ -25,6 +25,7 @@ public class ObstacleManager {
         this.canvas = canvas;
         gameplayActive = true;
         spawnMoose();
+        spawnStatic();
 
 
     }
@@ -38,11 +39,11 @@ public class ObstacleManager {
         gameplayActive = false;
     }
 
-    public void spawnMoose() {
-        System.out.println("Spawning moose");
-        Obstacle moose = new MooseObstacle(canvas);
-        moose.spawn();
-        activeObstacles.add(moose);
+
+    public void spawnMoose(){
+        Obstacle obstacle = new MooseObstacle(canvas);
+        obstacle.spawn();
+        activeObstacles.add(obstacle);
 
         Random random = new Random();
 
@@ -50,13 +51,40 @@ public class ObstacleManager {
             return;
         }
 
+        int maxTime = 10;
+        int minTime = 5;
+
         new Timer().schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
                         spawnMoose();
                     }
-                }, 500 * (random.nextInt(5) + 5 ));
+                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
+    }
+
+    public void spawnStatic(){
+
+        Obstacle obstacle = new StaticObstacle(canvas);
+        obstacle.spawn();
+        activeObstacles.add(obstacle);
+
+        Random random = new Random();
+
+        if (!gameplayActive) {
+            return;
+        }
+
+        int maxTime = 3;
+        int minTime = 2;
+
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        spawnStatic();
+                    }
+                }, 1000 * (random.nextInt(maxTime - minTime) + minTime ));
     }
 
     public void update() {

@@ -89,7 +89,7 @@ public class MenuController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
                 case 3:
-                    canvas.exit();
+                    MooseGame.exit();
                     break;
             }
         } else if (menuState == 1) {

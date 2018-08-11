@@ -199,7 +199,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
 
-    public void exit(){
+    public static void exit(){
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
