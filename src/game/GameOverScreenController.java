@@ -5,18 +5,30 @@ import actors.KeyboardControllable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * Handles creation of game over screen.
+ */
 public class GameOverScreenController implements KeyboardControllable {
 
     private MooseGame stage;
     private int menuSelection = 0;
     private int finalScore;
 
+    /**
+     *
+     * @param stage
+     * @param finalScore
+     */
     public GameOverScreenController(MooseGame stage, int finalScore) {
         this.stage = stage;
         this.finalScore = finalScore;
 
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paint(Graphics g) {
 
         // Draw background
@@ -60,6 +72,9 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     *
+     */
     private void handleEnterPress() {
 
         if (menuSelection == 0) {
@@ -70,6 +85,10 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void triggerKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -90,6 +109,10 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
 

@@ -12,7 +12,7 @@ public abstract class Obstacle extends Actor{
     public  boolean isActive = false;
 
     /**
-     * Initializes obstacle to add to the game window.
+     * Obstacle constructor.
      * @param canvas game window
      */
     public Obstacle(MooseGame canvas) {

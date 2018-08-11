@@ -22,26 +22,52 @@ public class Stage extends Canvas implements ImageObserver {
     protected boolean gameOver = false;
     public List<Actor> actors = new ArrayList<Actor>();
 
+    /**
+     *
+     */
     public Stage() {
     }
 
+    /**
+     *
+     */
     public void endGame() {
         gameOver = true;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isGameOver() {
         return gameOver;
     }
 
+    /**
+     *
+     * @param img
+     * @param infoflags
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return
+     */
     public boolean imageUpdate(Image img, int infoflags, int x, int y,
                                int width, int height) {
         return false;
     }
 
+    /**
+     *
+     */
     public void initWorld() {
 
     }
 
+    /**
+     *
+     */
     public void game() {
 
     }

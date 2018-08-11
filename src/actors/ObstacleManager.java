@@ -36,6 +36,10 @@ public class ObstacleManager {
     private static final int VEHICLE_MAX_SPAWN_TIME = 2 * 1000;
 
 
+    /**
+     * ObstacleManager constructor.
+     * @param canvas game window
+     */
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
         gameplayActive = true;
@@ -67,7 +71,7 @@ public class ObstacleManager {
     }
 
     /**
-     *
+     * Resets activeObstacles array when gameplay stops.
      */
     public void stop(){
         activeObstacles = new ArrayList<Obstacle>();

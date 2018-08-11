@@ -181,18 +181,34 @@ public class MooseGame extends Stage implements KeyListener {
             g.drawString("--- fps", 0, Stage.HEIGHT - 50);
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paint(Graphics g) {
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paintMenu(Graphics g) {
         menuController.paint(g);
     }
 
+    /**
+     *
+     * @param g
+     */
     public void paintGameOverScreen(Graphics g) {
         gameOverScreenController.paint(g);
     }
 
 
+    /**
+     *
+     * @param name
+     */
     public void loopSound(final String name) {
         new Thread(new Runnable() {
             public void run() {

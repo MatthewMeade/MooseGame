@@ -11,7 +11,7 @@ import java.util.Random;
 public class VehicleObstacle extends Obstacle {
 
     /**
-     * Initializes a vehicle obstacle to add to the game window.
+     * Constructor for VehicleObstacle.
      * @param canvas game window
      */
     public VehicleObstacle(MooseGame canvas) {
