@@ -17,10 +17,10 @@ public class Player extends Actor implements KeyboardControllable {
         frame = 0;
         frameSpeed = 35;
         actorSpeed = 10;
-        width = 100;
-        height = 100;
+        width = 70;
+        height = 140;
         posX = Stage.WIDTH / 2;
-        posY = 6 * Stage.HEIGHT / 10;
+        posY = 8 * Stage.HEIGHT / 10;
     }
 
 

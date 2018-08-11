@@ -70,10 +70,16 @@ public class MooseGame extends Stage implements KeyListener {
         frame.setResizable(false);
         frame.setVisible(true);
 
+//<<<<<<< HEAD
         /**
          * WindowListener is added to the JFrame instance to clean up resources upon
          * closing of the window
          */
+//=======
+
+
+        //cleanup resources on exit
+//>>>>>>> ae5515a6484822171d0c3fb8b55e775b582cdee1
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
@@ -129,14 +135,17 @@ public class MooseGame extends Stage implements KeyListener {
         Graphics g = strategy.getDrawGraphics();
         //init image to background
         g.setColor(getBackground());
+
         g.fillRect(0, 0, getWidth(), getHeight());
+
+
         //load subimage from the background
 
         paintFPS(g);
 
-        if (gameState == gameStates.MENU) {
+        if (menuController != null && gameState == gameStates.MENU) {
             menuController.paint(g);
-        } else if (gameState == gameStates.GAME) {
+        } else if (gameplayController != null && gameState == gameStates.GAME) {
             gameplayController.paint(g);
         }
 
@@ -181,8 +190,8 @@ public class MooseGame extends Stage implements KeyListener {
         while (isVisible()) {
             long startTime = System.currentTimeMillis();
 
-            if (gameState == gameStates.GAME) {
-//                gameplayController.checkCollision();
+            if (gameplayController != null && gameState == gameStates.GAME) {
+                gameplayController.checkCollision();
                 gameplayController.update();
             }
             paintWorld();
