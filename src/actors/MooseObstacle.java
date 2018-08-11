@@ -5,16 +5,23 @@ import game.Stage;
 
 import java.util.Random;
 
+/**
+ * Class adds, removes, and updates positioning of moose obstacles.
+ */
 public class MooseObstacle extends Obstacle{
 
-
-
-
+    /**
+     * Initializes a moose obstacle to add to the game window.
+     * @param canvas Game window
+     */
     public MooseObstacle(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"moose.png"};
     }
 
+    /**
+     * Adds moose obstacle to game window.
+     */
     @Override
     public void spawn() {
 
@@ -32,6 +39,9 @@ public class MooseObstacle extends Obstacle{
         setVy(random.nextInt(5) + 5);
     }
 
+    /**
+     * Removes moose obstacle from game window.
+     */
     @Override
     public void despawn() {
         isActive = false;
@@ -39,6 +49,9 @@ public class MooseObstacle extends Obstacle{
         posY = -100;
     }
 
+    /**
+     * Updates positioning of moose obstacle within game window.
+     */
     public void update() {
         if(isActive){
             posX += vx;

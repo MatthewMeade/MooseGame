@@ -5,18 +5,28 @@ import game.MooseGame;
 import java.util.ArrayList;
 
 /**
- * Class provides
+ * Base class for all in-game obstacles
  */
 public abstract class Obstacle extends Actor{
 
     public  boolean isActive = false;
 
+    /**
+     * Initializes obstacle to add to the game window.
+     * @param canvas game window
+     */
     public Obstacle(MooseGame canvas) {
         super(canvas);
     }
 
+    /**
+     * Adds obstacle to game window.
+     */
     public abstract void spawn();
 
+    /**
+     * Removes obstacle from game window.
+     */
     public abstract void despawn();
 
 

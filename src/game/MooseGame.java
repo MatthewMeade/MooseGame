@@ -14,7 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * MooseGame class extends Stage class and implements KeyListener interface
+ * MooseGame class defines behaviors and renders graphics for different game states.
+ * Class extends Stage class and implements KeyListener interface.
  */
 public class MooseGame extends Stage implements KeyListener {
 
@@ -37,7 +38,9 @@ public class MooseGame extends Stage implements KeyListener {
     private GameplayController gameplayController;
     private GameOverScreenController gameOverScreenController;
 
-
+    /**
+     * Initializes different game states
+     */
     public enum gameStates {
         MENU,
         GAME,
@@ -96,8 +99,8 @@ public class MooseGame extends Stage implements KeyListener {
 
 
     /**
-     * Method declares game state as Game, declares new instance of GameplayController class,
-     * instantiates PRESS and RELEASE key action from InputHandler class.
+     * Method declares game state as GAME, creates new instance of GameplayController class,
+     * calls PRESS and RELEASE key action from InputHandler class.
      */
     public void initGame(){
         System.out.println("New game");
@@ -111,8 +114,8 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     * Method declares game state as Menu, declares new instance of MenuController class,
-     * instantiates PRESS and RELEASE key actions from InputHandler class.
+     * Method declares game state as MENU, creates new instance of MenuController class,
+     * calls PRESS and RELEASE key actions from InputHandler class.
      */
     public void initMenu() {
         gameState = gameStates.MENU;
@@ -125,7 +128,9 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     * Method to retrieve, set the background with conditional statement to apply correct settings based on game state.
+     * Method declares game state as GAME_OVER, creates new instance of GameOverScreenControlles class,
+     * calls PRESS and RELEASE key actions from InputHandler class.
+     * @param finalScore Holds the value of the final score for one gameplay instance
      */
     public void initGameOverScreen(int finalScore) {
         gameState = gameStates.GAME_OVER;
@@ -137,6 +142,9 @@ public class MooseGame extends Stage implements KeyListener {
         gameOverKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    /**
+     * Renders background graphics
+     */
     public void paintWorld() {
 
         //get the graphics from the buffer
@@ -145,7 +153,6 @@ public class MooseGame extends Stage implements KeyListener {
         g.setColor(getBackground());
 
         g.fillRect(0, 0, getWidth(), getHeight());
-
 
         //load subimage from the background
         paintFPS(g);

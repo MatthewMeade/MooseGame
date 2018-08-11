@@ -6,13 +6,13 @@ import game.Stage;
 import java.util.Random;
 
 /**
- * Initializes, and provides spawning and despawning capabilities for static obstacles
+ * Class adds, removes, and updates positioning of static obstacles.
  */
 public class StaticObstacle extends Obstacle {
 
     /**
-     * Initializes a static obstacle
-     * @param canvas
+     * Initializes a static obstacle to add to the game window.
+     * @param canvas game window
      */
     public StaticObstacle(MooseGame canvas) {
 
@@ -22,7 +22,7 @@ public class StaticObstacle extends Obstacle {
     }
 
     /**
-     *
+     * Adds static obstacle to game window.
      */
     @Override
     public void spawn() {
@@ -43,7 +43,7 @@ public class StaticObstacle extends Obstacle {
     }
 
     /**
-     *
+     * Removes static obstacle from game window.
      */
     @Override
     public void despawn() {
@@ -53,7 +53,7 @@ public class StaticObstacle extends Obstacle {
     }
 
     /**
-     *
+     * Updates positioning of static obstacle within game window.
      */
     public void update() {
         if (isActive) {

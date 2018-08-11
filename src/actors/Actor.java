@@ -38,7 +38,7 @@ public class Actor {
 	}
 
 	/**
-	 *
+	 * Method is called to change sprite animation
 	 */
 	public void update() {
 		updateSpriteAnimation();
@@ -68,8 +68,8 @@ public class Actor {
 	}
 
 	/**
-	 *
-	 * @param g
+	 * Sprite is loaded and rendered
+	 * @param g value to be processed
 	 */
 	public void paint(Graphics g) {		
 		g.drawImage(ResourceLoader.getInstance().getSprite(sprites[frame]), posX, posY, stage);
@@ -141,7 +141,7 @@ public class Actor {
 
 	/**
 	 * Set value for vx
-	 * @param vx
+	 * @param vx velocity of x
 	 */
 	public void setVx(int vx) {
 		this.vx = vx;
@@ -149,7 +149,7 @@ public class Actor {
 
 	/**
 	 * Get value for vx
-	 * @return
+	 * @return velocity of x
 	 */
 	public int getVx() {
 		return vx;
@@ -157,7 +157,7 @@ public class Actor {
 
 	/**
 	 * Set value for vy
-	 * @param vy
+	 * @param vy velocity of y
 	 */
 	public void setVy(int vy) {
 		this.vy = vy;
@@ -165,7 +165,7 @@ public class Actor {
 
 	/**
 	 * Get value for vy
-	 * @return
+	 * @return velocity of y
 	 */
 	public int getVy() {
 		return vy;
@@ -180,7 +180,7 @@ public class Actor {
 	}
 
 	/**
-	 *
+	 * Test for collision with another actor
 	 * @param a
 	 */
 	public void collision(Actor a) {		
