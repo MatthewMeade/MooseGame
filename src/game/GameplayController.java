@@ -18,6 +18,7 @@ public class GameplayController implements KeyboardControllable {
     private ArrayList<Actor> actors = new ArrayList<>();
     private Player player;
     private ObstacleManager obstacleManager;
+    private PickupManager pickupManager;
 
     private InputHandler playerPressedHandler;
     private InputHandler playerReleasedHandler;
@@ -45,6 +46,8 @@ public class GameplayController implements KeyboardControllable {
         playerReleasedHandler.action = InputHandler.Action.RELEASE;
 
         obstacleManager = new ObstacleManager(canvas);
+        pickupManager = new PickupManager(canvas);
+
 
         incrementOverlayLevel();
     }
@@ -83,11 +86,11 @@ public class GameplayController implements KeyboardControllable {
         }
         player.paint(g);
         obstacleManager.paint(g);
+        pickupManager.paint(g);
         paintOverlay(g);
     }
 
     public void incrementOverlayLevel() {
-        System.out.println("Incrementing");
         opacityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -156,6 +159,7 @@ public class GameplayController implements KeyboardControllable {
     public void update() {
         player.update();
         obstacleManager.update();
+        pickupManager.update();
         updateScore();
     }
 

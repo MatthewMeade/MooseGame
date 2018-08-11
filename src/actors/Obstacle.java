@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public abstract class Obstacle extends Actor{
 
-    public  boolean isActive = false;
+    public boolean isActive = false;
 
     /**
      * Initializes obstacle to add to the game window.

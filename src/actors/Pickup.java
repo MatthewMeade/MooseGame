@@ -4,6 +4,8 @@ import game.MooseGame;
 
 public abstract class Pickup extends Actor {
 
+    public boolean isActive = false;
+
     /**
      * Constructs
      * @param canvas
