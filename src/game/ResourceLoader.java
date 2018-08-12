@@ -14,7 +14,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * Handles resources to be implemented within the game environment.
  */
 public class ResourceLoader implements ImageObserver {
 
@@ -25,21 +25,21 @@ public class ResourceLoader implements ImageObserver {
     private static ResourceLoader instance = new ResourceLoader();
 
     /**
-     *
+     * Default constructor for ResourceLoader.
      */
     private ResourceLoader() {
     }
 
     /**
-     *
-     * @return
+     * Get value for instance
+     * @return instance of resource
      */
     public static ResourceLoader getInstance() {
         return instance;
     }
 
     /**
-     *
+     * Stop sounds and clean up resources.
      */
     public void cleanup() {
         for (AudioClip sound : sounds.values()) {
@@ -49,9 +49,9 @@ public class ResourceLoader implements ImageObserver {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Checks whether sound is available and loads it.
+     * @param name location of sound
+     * @return status of sound
      */
     public AudioClip getSound(String name) {
         AudioClip sound = sounds.get(name);
@@ -64,7 +64,7 @@ public class ResourceLoader implements ImageObserver {
             sound = Applet.newAudioClip(url);
             sounds.put(name, sound);
         } catch (Exception e) {
-            System.err.println("Cound not locate sound " + name + ": " + e.getMessage());
+            System.err.println("Could not locate sound " + name + ": " + e.getMessage());
         }
 
         return sound;
@@ -89,7 +89,7 @@ public class ResourceLoader implements ImageObserver {
     /**
      * check if image is cached, if not, load it
      *
-     * @param name
+     * @param name name of image
      * @return
      */
     public BufferedImage getSprite(String name) {

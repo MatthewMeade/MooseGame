@@ -9,7 +9,7 @@ import java.util.List;
 import actors.Actor;
 
 /**
- *
+ * Provides functionality for game window.
  */
 public class Stage extends Canvas implements ImageObserver {
 
@@ -23,21 +23,21 @@ public class Stage extends Canvas implements ImageObserver {
     public List<Actor> actors = new ArrayList<Actor>();
 
     /**
-     *
+     * Default constructor for Stage
      */
     public Stage() {
     }
 
     /**
-     *
+     * Set value for gameOver
      */
     public void endGame() {
         gameOver = true;
     }
 
     /**
-     *
-     * @return
+     * Check to see if current game is over.
+     * @return gameplay status
      */
     public boolean isGameOver() {
         return gameOver;
@@ -66,7 +66,7 @@ public class Stage extends Canvas implements ImageObserver {
     }
 
     /**
-     *
+     * 
      */
     public void game() {
 

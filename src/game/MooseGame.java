@@ -249,7 +249,8 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     * @param e
+     * Handles key press events dependent on which state the game is in.
+     * @param e key control pressed
      */
     public void keyPressed(KeyEvent e) {
 
@@ -264,7 +265,8 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     * @param e
+     * Handles key release events dependent on which state the game is in.
+     * @param e key control released
      */
     public void keyReleased(KeyEvent e) {
         if (gameState == gameStates.GAME) {
@@ -277,13 +279,14 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
+     * Default constructor for keyTyped events.
      * @param e
      */
     public void keyTyped(KeyEvent e) {
     }
 
     /**
-     *
+     * Exits game and cleans up resources upon closing.
      */
     public static void exit() {
         ResourceLoader.getInstance().cleanup();
