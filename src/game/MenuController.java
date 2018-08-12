@@ -20,7 +20,7 @@ public class MenuController implements KeyboardControllable {
             "MenuOptionsExit.png"
     };
 
-    private int[] menuLengths = new int[]{4, 4};
+    private int[] menuLengths = new int[]{4, 5};
 
     // 0 main menu
     // 1 settings
@@ -58,10 +58,10 @@ public class MenuController implements KeyboardControllable {
 
         } else if (menuState == 1) {
 
-
             String[] text = new String[]{
                     "Music: " + (PlayerInventory.isSettingsMusicOn() ? "On" : "Off"),
                     "Sounds: " + (PlayerInventory.isSettingSoundsOn() ? "On" : "Off"),
+                    "FPS: " + "On",
                     "Reset Save",
                     "Back"
             };
@@ -103,6 +103,8 @@ public class MenuController implements KeyboardControllable {
                 case 2:
                     break;
                 case 3:
+                    break;
+                case 4:
                     menuState = 0;
                     menuSelection = 0;
                     break;
