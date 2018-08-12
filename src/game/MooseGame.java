@@ -159,15 +159,16 @@ public class MooseGame extends Stage implements KeyListener {
 
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        //load subimage from the background
-        paintFPS(g);
-
         if (menuController != null && gameState == gameStates.MENU) {
             menuController.paint(g);
         } else if (gameplayController != null && gameState == gameStates.GAME) {
             gameplayController.paint(g);
         } else if (gameOverScreenController != null && gameState == gameState.GAME_OVER) {
             gameOverScreenController.paint(g);
+        }
+
+        if (PlayerInventory.isShowFPSOverlayOn()) {
+            paintFPS(g);
         }
 
         //swap buffer
