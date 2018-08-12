@@ -94,6 +94,9 @@ public class GameplayController implements KeyboardControllable {
         paintOverlay(g);
     }
 
+    /**
+     * Increases and decreases level of opacity incrementally during gameplay.
+     */
     public void incrementOverlayLevel() {
         opacityTimer.schedule(new TimerTask() {
             @Override
@@ -105,7 +108,10 @@ public class GameplayController implements KeyboardControllable {
         }, OPACITY_CYCLE_INTERVAL);
     }
 
-
+    /**
+     * Sets overlay graphics.
+     * @param g overlay to be rendered
+     */
     public void paintOverlay(Graphics g) {
         Color color = new Color(0, 0, 0, opacityLevel[opacityLevelCounter % opacityLevel.length]);
         g.setColor(color);
@@ -148,6 +154,9 @@ public class GameplayController implements KeyboardControllable {
 
     }
 
+    /**
+     * Processes damage to the player during gameplay
+     */
     public void damagePlayer(){
         if (!decreaseHealth()) {
             obstacleManager.stop();

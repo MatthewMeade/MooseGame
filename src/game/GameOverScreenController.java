@@ -15,9 +15,9 @@ public class GameOverScreenController implements KeyboardControllable {
     private int finalScore;
 
     /**
-     *
-     * @param stage
-     * @param finalScore
+     * Constructor for GameOverScreenController.
+     * @param stage game window
+     * @param finalScore final score of current game
      */
     public GameOverScreenController(MooseGame stage, int finalScore) {
         this.stage = stage;
@@ -26,8 +26,8 @@ public class GameOverScreenController implements KeyboardControllable {
     }
 
     /**
-     *
-     * @param g
+     * Render graphics for game over screen
+     * @param g screen to be rendered
      */
     public void paint(Graphics g) {
 
@@ -73,7 +73,8 @@ public class GameOverScreenController implements KeyboardControllable {
     }
 
     /**
-     *
+     * Checks which game stage has been selected using the Enter key,
+     * goes to the selected stage.
      */
     private void handleEnterPress() {
 
@@ -86,8 +87,8 @@ public class GameOverScreenController implements KeyboardControllable {
     }
 
     /**
-     *
-     * @param e
+     * Handles key press events for game over screen.
+     * @param e key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
@@ -110,8 +111,8 @@ public class GameOverScreenController implements KeyboardControllable {
     }
 
     /**
-     *
-     * @param e
+     * Handles key release events for game over screen.
+     * @param e key release event
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {

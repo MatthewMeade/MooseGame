@@ -27,7 +27,7 @@ public class MenuController implements KeyboardControllable {
     private int menuState = 0;
 
     /**
-     *
+     * Constructor for MenuController.
      * @param canvas game window
      */
     public MenuController(MooseGame canvas) {
@@ -85,7 +85,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     *
+     * Handles enter key press event on Main Menu.
      */
     private void handleEnterPress() {
 
@@ -124,8 +124,8 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     *
-     * @param e
+     * Handles key press event
+     * @param e key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
@@ -144,8 +144,8 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     *
-     * @param e
+     * Handles key release event
+     * @param e key release event
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {

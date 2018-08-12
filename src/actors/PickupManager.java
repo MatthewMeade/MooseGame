@@ -9,6 +9,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Spawns, renders graphics for, and removes pickup items during gameplay dependent on their status and position.
+ */
 public class PickupManager {
 
     private static ArrayList<Pickup> fogLightsPickups = new ArrayList<>();
@@ -33,11 +36,15 @@ public class PickupManager {
     private static final int INVINCIBILITY_MAX_SPAWN_TIME = 22 * 1000;
     private Timer invincibilityTimer = new Timer();
 
+    /**
+     * PickupManager constructor.
+     * @param canvas game window
+     */
     public PickupManager(MooseGame canvas) {
         this.canvas = canvas;
 
         /**
-         * Provides chronological order in which obstacles spawn
+         * Provides chronological order in which pickup items spawn.
          */
         new Timer().schedule(
                 new TimerTask() {
@@ -51,10 +58,17 @@ public class PickupManager {
                 }, SPAWN_WAIT_TIME);
     }
 
+    /**
+     * Get pickup values
+     * @return active pickup value
+     */
     public ArrayList<Pickup> getPickups() {
         return activePickups;
     }
 
+    /**
+     * Stops the continuity of a pickup item and clears it from the screen.
+     */
     public void stop() {
         activePickups = new ArrayList<Pickup>();
 
@@ -68,6 +82,10 @@ public class PickupManager {
         invincibilityTimer.purge();
     }
 
+    /**
+     * Spawns a Fog Lights pickup item, adds it to an array of
+     * active pickups for its duration.
+     */
     public void spawnFogLightsPickup() {
         Random random = new Random();
 
@@ -86,6 +104,10 @@ public class PickupManager {
                 }, (random.nextInt(FOG_LIGHTS_MAX_SPAWN_TIME - FOG_LIGHTS_MIN_SPAWN_TIME) + FOG_LIGHTS_MIN_SPAWN_TIME));
     }
 
+    /**
+     * Spawns a Slow Motion pickup item, adds it to an array of
+     * active pickups for its duration.
+     */
     public void spawnSlowMotionPickup() {
         Random random = new Random();
 
@@ -105,6 +127,10 @@ public class PickupManager {
     }
 
 
+    /**
+     * Spawns an Invincibility pickup item, adds it to an array of
+     * active pickups for its duration.
+     */
     public void spawnInvincibilityPickup() {
 
 
@@ -125,7 +151,9 @@ public class PickupManager {
                 }, (random.nextInt(INVINCIBILITY_MAX_SPAWN_TIME - INVINCIBILITY_MIN_SPAWN_TIME) + INVINCIBILITY_MIN_SPAWN_TIME));
     }
 
-
+    /**
+     * Updates the position of all items in the activePickups array during gameplay.
+     */
     public void update() {
         for (int i = 0; i < activePickups.size(); i++) {
 
@@ -139,6 +167,10 @@ public class PickupManager {
 
     }
 
+    /**
+     * Render graphics for pickup items
+     * @param g pickup item to be painted
+     */
     public void paint(Graphics g) {
 
         for (int i = 0; i < activePickups.size(); i++) {
@@ -146,6 +178,11 @@ public class PickupManager {
         }
     }
 
+    /**
+     * Checks to see if current player has collected a pickup item.
+     * @param player Current game player
+     * @return Item collection status of player
+     */
     public boolean checkCollision(Actor player) {
 
         for (int i = 0; i < activePickups.size(); i++) {

@@ -5,14 +5,24 @@ import game.Stage;
 
 import java.util.Random;
 
+/**
+ * Class allows for Temporary Invincibility item to be picked up by player during gameplay.
+ */
 public class TemporaryInvincibilityPickup extends Pickup {
 
+    /**
+     * Constructor for Temporary Invincibility item.
+     * @param canvas game window
+     */
     public TemporaryInvincibilityPickup(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"invincible.png"};
 
     }
 
+    /**
+     * Adds Temporary Invincibility item to game window.
+     */
     @Override
     public void spawn() {
         System.out.println("Spawn invincibility");
@@ -32,6 +42,9 @@ public class TemporaryInvincibilityPickup extends Pickup {
 
     }
 
+    /**
+     * Removes Temporary Invincibility item from game window.
+     */
     @Override
     public void despawn() {
         isActive = false;
@@ -39,6 +52,9 @@ public class TemporaryInvincibilityPickup extends Pickup {
         posY = -100;
     }
 
+    /**
+     * Updates position of Temporary Invincibility item.
+     */
     public void update() {
         if (isActive) {
             posY += vy;

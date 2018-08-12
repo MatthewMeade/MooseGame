@@ -170,8 +170,8 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
-     * @param g
+     * Renders graphics for frames appearing in game window.
+     * @param g Graphics to be rendered
      */
     public void paintFPS(Graphics g) {
         g.setColor(Color.RED);
@@ -182,23 +182,23 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
-     * @param g
+     * Constructor for paint
+     * @param g object to be painted
      */
     public void paint(Graphics g) {
     }
 
     /**
-     *
-     * @param g
+     * Renders graphics to Menu screen.
+     * @param g screen
      */
     public void paintMenu(Graphics g) {
         menuController.paint(g);
     }
 
     /**
-     *
-     * @param g
+     * Renders graphics to game over screen.
+     * @param g screen
      */
     public void paintGameOverScreen(Graphics g) {
         gameOverScreenController.paint(g);
@@ -206,8 +206,8 @@ public class MooseGame extends Stage implements KeyListener {
 
 
     /**
-     *
-     * @param name
+     * Plays sound from a location.
+     * @param name location of sound
      */
     public void loopSound(final String name) {
         new Thread(new Runnable() {
@@ -218,7 +218,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
+     * Begins game loop
      */
     public void game() {
         //loopSound("music.wav");

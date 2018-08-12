@@ -5,13 +5,23 @@ import game.Stage;
 
 import java.util.Random;
 
+/**
+ * Class allows Slow Motion item to be picked up by player during gameplay
+ */
 public class SlowMotionPickup extends Pickup {
 
+    /**
+     * Constructor for Slow Motion
+     * @param canvas game window
+     */
     public SlowMotionPickup(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"slowmotion.png"};
     }
 
+    /**
+     * Add Slow Motion item to game window.
+     */
     @Override
     public void spawn() {
         System.out.println("Spawn slow motion");
@@ -30,6 +40,9 @@ public class SlowMotionPickup extends Pickup {
 
     }
 
+    /**
+     * Remove Slow Motion item from game window.
+     */
     @Override
     public void despawn() {
         isActive = false;
@@ -37,6 +50,9 @@ public class SlowMotionPickup extends Pickup {
         posY = -100;
     }
 
+    /**
+     * Update position of Slow Motion item.
+     */
     public void update() {
         if (isActive) {
             posY += vy;

@@ -5,13 +5,23 @@ import game.Stage;
 
 import java.util.Random;
 
+/**
+ * Class allows for Fog Lights item to be picked up by user during gameplay.
+ */
 public class FogLightsPickup extends Pickup {
 
+    /**
+     * Constructor for Fog Lights.
+     * @param canvas game window
+     */
     public FogLightsPickup(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"foglights.png"};
     }
 
+    /**
+     * Adds Fog Lights item to game window.
+     */
     @Override
     public void spawn() {
         System.out.println("Spawn fog lights");
@@ -31,6 +41,9 @@ public class FogLightsPickup extends Pickup {
 
     }
 
+    /**
+     * Removes Fog Lights item from game window.
+     */
     @Override
     public void despawn() {
         isActive = false;
@@ -38,6 +51,9 @@ public class FogLightsPickup extends Pickup {
         posY = -100;
     }
 
+    /**
+     * Update position of Fog Lights item.
+     */
     public void update() {
         if (isActive) {
             posY += vy;

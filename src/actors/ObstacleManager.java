@@ -62,7 +62,6 @@ public class ObstacleManager {
 
     /**
      * Gets value of an obstacle from array
-     *
      * @return active obstacle
      */
     public ArrayList<Obstacle> getObstacles() {
@@ -70,7 +69,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Resets activeObstacles array when gameplay stops.
+     * Stops the continuity of an obstacle and clears it from the screen.
      */
     public void stop() {
         activeObstacles = new ArrayList<Obstacle>();
@@ -173,7 +172,6 @@ public class ObstacleManager {
 
     /**
      * Render graphics for obstacles
-     *
      * @param g obstacle to be painted
      */
     public void paint(Graphics g) {
@@ -185,7 +183,6 @@ public class ObstacleManager {
 
     /**
      * Checks to see if current player has suffered a collision with an obstacle
-     *
      * @param player Current game player
      * @return Collision status of user
      */
