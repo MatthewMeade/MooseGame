@@ -82,6 +82,18 @@ public class GameplayController implements KeyboardControllable {
         // Draw health
         g.drawString("Health: " + health, 50, 100);
 
+        // Draw powerups
+        g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, 20, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, 80, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, 140, canvas);
+
+        g.setFont(new Font("Arial", Font.PLAIN, 30));
+        g.setColor(Color.WHITE);
+        g.drawString(Integer.toString(PlayerInventory.getFogLightsCount()), 660, 50);
+        g.drawString(Integer.toString(PlayerInventory.getInvincibilityCount()), 660, 110);
+        g.drawString(Integer.toString(PlayerInventory.getSlowMotionCount()), 660, 170);
+
+
         for (int i = 0; i < actors.size(); i++) {
             Actor actor = actors.get(i);
             actor.paint(g);
@@ -136,6 +148,8 @@ public class GameplayController implements KeyboardControllable {
             damagePlayer();
         }
 
+        pickupManager.checkCollision(player);
+
         if (player.getX() < 75 || player.getX() > Stage.WIDTH - 125) {
             damagePlayer();
             player.setX(Stage.WIDTH / 2 - 25);
@@ -143,10 +157,15 @@ public class GameplayController implements KeyboardControllable {
 
     }
 
-    public void damagePlayer(){
+    public void damagePlayer() {
         if (!decreaseHealth()) {
             obstacleManager.stop();
+            pickupManager.stop();
+            opacityTimer.cancel();
+            opacityTimer.purge();
+            PlayerInventory.clearPowerups();
             System.out.println("FINAL SCORE: " + getScore());
+            ;
             PlayerInventory.setHighScore(getScore());
             canvas.initGameOverScreen(getScore());
         }

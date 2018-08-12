@@ -1,6 +1,7 @@
 package actors;
 
 import game.MooseGame;
+import game.PlayerInventory;
 import game.Stage;
 
 import java.awt.*;
@@ -43,7 +44,6 @@ public class PickupManager {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("Spawning");
                         spawnFogLightsPickup();
                         spawnSlowMotionPickup();
                         spawnInvincibilityPickup();
@@ -153,7 +153,13 @@ public class PickupManager {
 
             if (p.getBounds().intersects(player.getBounds())) {
                 p.despawn();
-
+                if (p instanceof FogLightsPickup) {
+                    PlayerInventory.incrementFogLights();
+                } else if (p instanceof SlowMotionPickup) {
+                    PlayerInventory.incrementSlowMotion();
+                } else if (p instanceof TemporaryInvincibilityPickup) {
+                    PlayerInventory.incrementInvincibility();
+                }
                 return true;
             }
         }

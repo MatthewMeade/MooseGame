@@ -46,7 +46,6 @@ public class ObstacleManager {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("Spawning");
                         spawnMoose();
                         spawnStatic();
                         spawnVehicle();
