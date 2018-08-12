@@ -95,6 +95,7 @@ public class MenuController implements KeyboardControllable {
                     stage.initGame();
                     break;
                 case 1: // Store
+                    stage.initStore();
                     break;
                 case 2: // Enter Settings
                     menuState = 1;
