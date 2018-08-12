@@ -55,6 +55,10 @@ public class MooseGame extends Stage implements KeyListener {
      * from Stage class and background color set to blue.
      */
     public MooseGame() {
+
+        // Load high score, currency, and saved settings
+        PlayerInventory.loadFromFile();
+
         //init the UI
         setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
         setBackground(Color.BLUE);
@@ -256,6 +260,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Handles key press events dependent on which state the game is in.
+     *
      * @param e key control pressed
      */
     public void keyPressed(KeyEvent e) {
@@ -272,6 +277,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Handles key release events dependent on which state the game is in.
+     *
      * @param e key control released
      */
     public void keyReleased(KeyEvent e) {
@@ -286,6 +292,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Default constructor for keyTyped events.
+     *
      * @param e
      */
     public void keyTyped(KeyEvent e) {

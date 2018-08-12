@@ -217,6 +217,7 @@ public class GameplayController implements KeyboardControllable {
             PlayerInventory.clearPowerups();
             System.out.println("FINAL SCORE: " + getScore());
             PlayerInventory.setHighScore(getScore());
+            PlayerInventory.saveToFile();
             canvas.initGameOverScreen(getScore());
         }
     }
@@ -264,6 +265,7 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Check if Fog lights powerup is active.
+     *
      * @return Whether fog Lights is active
      */
     public boolean areFogLightsActive() {
@@ -291,6 +293,7 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Check if Invincibility powerup is active.
+     *
      * @return Whether invincibility is active
      */
     public boolean isInvincibilityActive() {
@@ -309,6 +312,7 @@ public class GameplayController implements KeyboardControllable {
     /**
      * Activate Invincibility, player does not incur damage for
      * a fixed length of time during gameplay.
+     *
      * @param time fixed length of time
      */
     public void activateInvincibility(int time) {
@@ -324,6 +328,7 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Check if Slow Motion powerup is active.
+     *
      * @return Whether Slow Motion is active.
      */
     public boolean isSlowMotionActive() {
