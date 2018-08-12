@@ -102,8 +102,7 @@ public class MooseGame extends Stage implements KeyListener {
      * Method declares game state as GAME, creates new instance of GameplayController class,
      * calls PRESS and RELEASE key action from InputHandler class.
      */
-    public void initGame(){
-        System.out.println("New game");
+    public void initGame() {
         gameState = gameStates.GAME;
         gameplayController = new GameplayController(this);
 
@@ -130,6 +129,7 @@ public class MooseGame extends Stage implements KeyListener {
     /**
      * Method declares game state as GAME_OVER, creates new instance of GameOverScreenControlles class,
      * calls PRESS and RELEASE key actions from InputHandler class.
+     *
      * @param finalScore Holds the value of the final score for one gameplay instance
      */
     public void initGameOverScreen(int finalScore) {
@@ -249,7 +249,6 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
      * @param e
      */
     public void keyPressed(KeyEvent e) {
@@ -265,7 +264,6 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
      * @param e
      */
     public void keyReleased(KeyEvent e) {
@@ -279,7 +277,6 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
      * @param e
      */
     public void keyTyped(KeyEvent e) {
@@ -288,13 +285,14 @@ public class MooseGame extends Stage implements KeyListener {
     /**
      *
      */
-    public static void exit(){
+    public static void exit() {
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
 
     /**
      * Main method with new instance of MooseGame object that executes the Game method
+     *
      * @param args
      */
     public static void main(String[] args) {

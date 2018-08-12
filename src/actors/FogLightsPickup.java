@@ -24,8 +24,6 @@ public class FogLightsPickup extends Pickup {
      */
     @Override
     public void spawn() {
-        System.out.println("Spawn fog lights");
-
         isActive = true;
 
         Random random = new Random();

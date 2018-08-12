@@ -24,7 +24,6 @@ public class SlowMotionPickup extends Pickup {
      */
     @Override
     public void spawn() {
-        System.out.println("Spawn slow motion");
         isActive = true;
 
         Random random = new Random();

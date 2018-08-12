@@ -93,16 +93,13 @@ public class GameOverScreenController implements KeyboardControllable {
     @Override
     public void triggerKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("Hit down");
             menuSelection++;
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Hit up");
             menuSelection--;
             if (menuSelection < 0) {
                 menuSelection = 1;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Hit enter");
             handleEnterPress();
         }
 

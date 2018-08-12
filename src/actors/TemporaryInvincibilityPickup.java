@@ -25,8 +25,6 @@ public class TemporaryInvincibilityPickup extends Pickup {
      */
     @Override
     public void spawn() {
-        System.out.println("Spawn invincibility");
-
         isActive = true;
 
         Random random = new Random();
