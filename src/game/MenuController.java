@@ -33,6 +33,7 @@ public class MenuController implements KeyboardControllable {
 
     public void paint(Graphics g) {
 
+
         // Draw background
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
 
@@ -40,38 +41,35 @@ public class MenuController implements KeyboardControllable {
         g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
 
 
+        g.setColor(new Color(0, 0, 0, 150));
+        g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
+
         if (menuState == 0) {
 
-            // Draw menu options
-            g.drawImage(ResourceLoader.getInstance().getSprite(selectionSprites[menuSelection % selectionSprites.length]), (Stage.WIDTH / 2) - 100, 250, stage);
+            String[] text = new String[]{"Play", "Store", "Settings", "Exit"};
+            for (int i = 0; i < text.length; i++) {
+                g.setColor(menuSelection == i ? Color.YELLOW : Color.WHITE);
+                g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
+            }
+
+            g.setColor(Color.white);
+            g.drawString("Controls:", 425, 250);
+
+
         } else if (menuState == 1) {
 
-            // Draw Settings
-            g.drawImage(ResourceLoader.getInstance().getSprite(
-                    PlayerInventory.isSettingsMusicOn() ? "OptionMusicOn.png" : "OptionMusicOff.png"
-                    ),
-                    (menuSelection == 0 ? 50 : 0) + (Stage.WIDTH / 2) - 100,
-                    250,
-                    stage);
 
-            g.drawImage(ResourceLoader.getInstance().getSprite(
-                    PlayerInventory.isSettingSoundsOn() ? "OptionSoundOn.png" : "OptionSoundOff.png"
-                    ),
-                    (menuSelection == 1 ? 50 : 0) + (Stage.WIDTH / 2) - 100,
-                    300,
-                    stage);
+            String[] text = new String[]{
+                    "Music: " + (PlayerInventory.isSettingsMusicOn() ? "On" : "Off"),
+                    "Sounds: " + (PlayerInventory.isSettingSoundsOn() ? "On" : "Off"),
+                    "Reset Save",
+                    "Back"
+            };
 
-            g.drawImage(ResourceLoader.getInstance().getSprite("OptionReset.png"
-                    ),
-                    (menuSelection == 2 ? 50 : 0) + (Stage.WIDTH / 2) - 100,
-                    350,
-                    stage);
-
-            g.drawImage(ResourceLoader.getInstance().getSprite("BackText.png"
-                    ),
-                    (menuSelection == 3 ? 50 : 0) + (Stage.WIDTH / 2) - 100,
-                    400,
-                    stage);
+            for (int i = 0; i < text.length; i++) {
+                g.setColor(menuSelection == i ? Color.YELLOW : Color.WHITE);
+                g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
+            }
 
         }
 

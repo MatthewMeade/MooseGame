@@ -1,8 +1,6 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -151,6 +149,9 @@ public class MooseGame extends Stage implements KeyListener {
         Graphics g = strategy.getDrawGraphics();
         //init image to background
         g.setColor(getBackground());
+
+        g.setFont(new Font("Impact", Font.PLAIN, 40));
+
 
         g.fillRect(0, 0, getWidth(), getHeight());
 
