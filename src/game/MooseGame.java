@@ -53,6 +53,10 @@ public class MooseGame extends Stage implements KeyListener {
      * from Stage class and background color set to blue.
      */
     public MooseGame() {
+
+        // Load high score, currency, and saved settings
+        PlayerInventory.loadFromFile();
+
         //init the UI
         setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
         setBackground(Color.BLUE);
@@ -100,8 +104,7 @@ public class MooseGame extends Stage implements KeyListener {
      * Method declares game state as GAME, creates new instance of GameplayController class,
      * calls PRESS and RELEASE key action from InputHandler class.
      */
-    public void initGame(){
-        System.out.println("New game");
+    public void initGame() {
         gameState = gameStates.GAME;
         gameplayController = new GameplayController(this);
 
@@ -128,6 +131,7 @@ public class MooseGame extends Stage implements KeyListener {
     /**
      * Method declares game state as GAME_OVER, creates new instance of GameOverScreenControlles class,
      * calls PRESS and RELEASE key actions from InputHandler class.
+     *
      * @param finalScore Holds the value of the final score for one gameplay instance
      */
     public void initGameOverScreen(int finalScore) {
@@ -171,8 +175,9 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
+     * Renders graphics for frames appearing in game window.
      *
-     * @param g
+     * @param g Graphics to be rendered
      */
     public void paintFPS(Graphics g) {
         g.setColor(Color.RED);
@@ -182,18 +187,38 @@ public class MooseGame extends Stage implements KeyListener {
             g.drawString("--- fps", 0, Stage.HEIGHT - 50);
     }
 
+    /**
+     * Constructor for paint
+     *
+     * @param g object to be painted
+     */
     public void paint(Graphics g) {
     }
 
+    /**
+     * Renders graphics to Menu screen.
+     *
+     * @param g screen
+     */
     public void paintMenu(Graphics g) {
         menuController.paint(g);
     }
 
+    /**
+     * Renders graphics to game over screen.
+     *
+     * @param g screen
+     */
     public void paintGameOverScreen(Graphics g) {
         gameOverScreenController.paint(g);
     }
 
 
+    /**
+     * Plays sound from a location.
+     *
+     * @param name location of sound
+     */
     public void loopSound(final String name) {
         new Thread(new Runnable() {
             public void run() {
@@ -203,7 +228,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
+     * Begins game loop
      */
     public void game() {
         //loopSound("music.wav");
@@ -221,7 +246,8 @@ public class MooseGame extends Stage implements KeyListener {
 
             //calculate sleep time
             if (usedTime == 0) usedTime = 1;
-            int timeDiff = 1000 / DESIRED_FPS - (int) (usedTime);
+            int timeDiff = 1000 / (gameplayController != null &&
+                    gameplayController.isSlowMotionActive() ? SLOW_MOTION_FPS : DESIRED_FPS) - (int) (usedTime);
             if (timeDiff > 0) {
                 try {
                     Thread.sleep(timeDiff);
@@ -234,8 +260,9 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
+     * Handles key press events dependent on which state the game is in.
      *
-     * @param e
+     * @param e key control pressed
      */
     public void keyPressed(KeyEvent e) {
 
@@ -250,8 +277,9 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
+     * Handles key release events dependent on which state the game is in.
      *
-     * @param e
+     * @param e key control released
      */
     public void keyReleased(KeyEvent e) {
         if (gameState == gameStates.GAME) {
@@ -264,6 +292,7 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
+     * Default constructor for keyTyped events.
      *
      * @param e
      */
@@ -271,15 +300,16 @@ public class MooseGame extends Stage implements KeyListener {
     }
 
     /**
-     *
+     * Exits game and cleans up resources upon closing.
      */
-    public static void exit(){
+    public static void exit() {
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
 
     /**
      * Main method with new instance of MooseGame object that executes the Game method
+     *
      * @param args
      */
     public static void main(String[] args) {

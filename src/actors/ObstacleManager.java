@@ -20,8 +20,6 @@ public class ObstacleManager {
 
     private static ArrayList<Obstacle> activeObstacles = new ArrayList<>();
 
-    private static boolean gameplayActive;
-
     private MooseGame canvas;
 
     private static final int SPAWN_WAIT_TIME = 2 * 1000;
@@ -38,9 +36,12 @@ public class ObstacleManager {
     private static final int VEHICLE_MAX_SPAWN_TIME = 2 * 1000;
     private Timer vehicleTimer = new Timer();
 
+    /**
+     * ObstacleManager constructor.
+     * @param canvas game window
+     */
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
-        gameplayActive = true;
 
         /**
          * Provides chronological order in which obstacles spawn
@@ -49,7 +50,6 @@ public class ObstacleManager {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("Spawning");
                         spawnMoose();
                         spawnStatic();
                         spawnVehicle();
@@ -61,7 +61,6 @@ public class ObstacleManager {
 
     /**
      * Gets value of an obstacle from array
-     *
      * @return active obstacle
      */
     public ArrayList<Obstacle> getObstacles() {
@@ -69,11 +68,10 @@ public class ObstacleManager {
     }
 
     /**
-     *
+     * Stops the continuity of an obstacle and clears it from the screen.
      */
     public void stop() {
         activeObstacles = new ArrayList<Obstacle>();
-        gameplayActive = false;
 
         mooseTimer.cancel();
         mooseTimer.purge();
@@ -90,10 +88,6 @@ public class ObstacleManager {
      * Spawns a moose obstacle at random and adds its value to the active obstacle array
      */
     public void spawnMoose() {
-
-        if (!gameplayActive) {
-            return;
-        }
 
         Obstacle obstacle = new MooseObstacle(canvas);
         obstacle.spawn();
@@ -177,7 +171,6 @@ public class ObstacleManager {
 
     /**
      * Render graphics for obstacles
-     *
      * @param g obstacle to be painted
      */
     public void paint(Graphics g) {
@@ -189,7 +182,6 @@ public class ObstacleManager {
 
     /**
      * Checks to see if current player has suffered a collision with an obstacle
-     *
      * @param player Current game player
      * @return Collision status of user
      */

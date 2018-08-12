@@ -6,44 +6,41 @@ import game.Stage;
 import java.util.Random;
 
 /**
- * Class adds, removes, and updates positioning of static obstacles.
+ * Class allows for Fog Lights item to be picked up by user during gameplay.
  */
-public class StaticObstacle extends Obstacle {
+public class FogLightsPickup extends Pickup {
 
     /**
-     * Constructor for StaticObstacle
+     * Constructor for Fog Lights.
      * @param canvas game window
      */
-    public StaticObstacle(MooseGame canvas) {
-
+    public FogLightsPickup(MooseGame canvas) {
         super(canvas);
-
-        sprites = new String[]{"pothole.png"};
+        sprites = new String[]{"foglights.png"};
     }
 
     /**
-     * Adds static obstacle to game window.
+     * Adds Fog Lights item to game window.
      */
     @Override
     public void spawn() {
-
         isActive = true;
 
         Random random = new Random();
 
-        setX(125 + random.nextInt(Stage.WIDTH - 250));
+        setX(124 + random.nextInt(Stage.WIDTH - 124));
         posY = -100;
 
 
-        setWidth(38);
-        setHeight(38);
+        setWidth(50);
+        setHeight(50);
 
         setVy(10);
 
     }
 
     /**
-     * Removes static obstacle from game window.
+     * Removes Fog Lights item from game window.
      */
     @Override
     public void despawn() {
@@ -53,7 +50,7 @@ public class StaticObstacle extends Obstacle {
     }
 
     /**
-     * Updates positioning of static obstacle within game window.
+     * Update position of Fog Lights item.
      */
     public void update() {
         if (isActive) {

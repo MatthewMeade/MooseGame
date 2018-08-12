@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
- * Provide functionality for objects in Moose game
+ * Class provides rendering of graphics, get and set methods, point values for gameplay.
  */
 public class Actor {
 
@@ -19,6 +19,9 @@ public class Actor {
 	protected int width;
 	protected int frame;
 	protected int frameSpeed;
+
+
+
 	protected int actorSpeed;
 	protected int time;
 	private boolean markedForRemoval = false;
@@ -26,8 +29,8 @@ public class Actor {
 	protected Stage stage = null;
 
 	/**
-	 * Instance of Actor class created to initialize variables
-	 * @param canvas
+	 * Actor class constructor.
+	 * @param canvas game window
 	 */
 	public Actor(Stage canvas) {
 		this.stage = canvas;
@@ -37,15 +40,19 @@ public class Actor {
 		time = 0;
 	}
 
+	public void setActorSpeed(int actorSpeed) {
+		this.actorSpeed = actorSpeed;
+	}
+
 	/**
-	 * Method is called to change sprite animation
+	 * Method is called to change sprite animation.
 	 */
 	public void update() {
 		updateSpriteAnimation();
 	}
 
 	/**
-	 * Method will update sprite animation as gameplay progresses
+	 * Method will update sprite animation as gameplay progresses.
 	 */
 	private void updateSpriteAnimation() {
 		time++;
@@ -181,7 +188,7 @@ public class Actor {
 
 	/**
 	 * Test for collision with another actor
-	 * @param a
+	 * @param a actor value
 	 */
 	public void collision(Actor a) {		
 	}

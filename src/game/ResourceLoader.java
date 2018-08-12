@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
+/**
+ * Handles resources to be implemented within the game environment.
+ */
 public class ResourceLoader implements ImageObserver {
 
 
@@ -21,14 +24,23 @@ public class ResourceLoader implements ImageObserver {
 
     private static ResourceLoader instance = new ResourceLoader();
 
-
+    /**
+     * Default constructor for ResourceLoader.
+     */
     private ResourceLoader() {
     }
 
+    /**
+     * Get value for instance
+     * @return instance of resource
+     */
     public static ResourceLoader getInstance() {
         return instance;
     }
 
+    /**
+     * Stop sounds and clean up resources.
+     */
     public void cleanup() {
         for (AudioClip sound : sounds.values()) {
             sound.stop();
@@ -36,6 +48,11 @@ public class ResourceLoader implements ImageObserver {
 
     }
 
+    /**
+     * Checks whether sound is available and loads it.
+     * @param name location of sound
+     * @return status of sound
+     */
     public AudioClip getSound(String name) {
         AudioClip sound = sounds.get(name);
         if (null != sound)
@@ -47,7 +64,7 @@ public class ResourceLoader implements ImageObserver {
             sound = Applet.newAudioClip(url);
             sounds.put(name, sound);
         } catch (Exception e) {
-            System.err.println("Cound not locate sound " + name + ": " + e.getMessage());
+            System.err.println("Could not locate sound " + name + ": " + e.getMessage());
         }
 
         return sound;
@@ -72,7 +89,7 @@ public class ResourceLoader implements ImageObserver {
     /**
      * check if image is cached, if not, load it
      *
-     * @param name
+     * @param name name of image
      * @return
      */
     public BufferedImage getSprite(String name) {
@@ -96,6 +113,16 @@ public class ResourceLoader implements ImageObserver {
         return image;
     }
 
+    /**
+     *
+     * @param img
+     * @param infoflags
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return
+     */
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
         return (infoflags & (ALLBITS | ABORT)) == 0;
     }

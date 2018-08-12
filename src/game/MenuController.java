@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
- *
+ * Handles creation of main menu
  */
 public class MenuController implements KeyboardControllable {
 
@@ -26,11 +26,18 @@ public class MenuController implements KeyboardControllable {
     // 1 settings
     private int menuState = 0;
 
+    /**
+     * Constructor for MenuController.
+     * @param canvas game window
+     */
     public MenuController(MooseGame canvas) {
         this.stage = canvas;
     }
 
-
+    /**
+     * Renders graphics for Menu screen.
+     * @param g instance of Menu screen
+     */
     public void paint(Graphics g) {
 
 
@@ -75,6 +82,9 @@ public class MenuController implements KeyboardControllable {
 
     }
 
+    /**
+     * Handles enter key press event on Main Menu.
+     */
     private void handleEnterPress() {
 
         if (menuState == 0) {
@@ -113,7 +123,10 @@ public class MenuController implements KeyboardControllable {
 
     }
 
-
+    /**
+     * Handles key press event
+     * @param e key press event
+     */
     @Override
     public void triggerKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -130,6 +143,10 @@ public class MenuController implements KeyboardControllable {
         menuSelection %= menuLengths[menuState];
     }
 
+    /**
+     * Handles key release event
+     * @param e key release event
+     */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
 //        System.out.println("Key Released!");

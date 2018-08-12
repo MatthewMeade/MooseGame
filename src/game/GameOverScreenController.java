@@ -5,18 +5,30 @@ import actors.KeyboardControllable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * Handles creation of game over screen.
+ */
 public class GameOverScreenController implements KeyboardControllable {
 
     private MooseGame stage;
     private int menuSelection = 0;
     private int finalScore;
 
+    /**
+     * Constructor for GameOverScreenController.
+     * @param stage game window
+     * @param finalScore final score of current game
+     */
     public GameOverScreenController(MooseGame stage, int finalScore) {
         this.stage = stage;
         this.finalScore = finalScore;
 
     }
 
+    /**
+     * Render graphics for game over screen
+     * @param g screen to be rendered
+     */
     public void paint(Graphics g) {
 
         g.setFont(new Font("Impact", Font.PLAIN, 40));
@@ -66,6 +78,10 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     * Checks which game stage has been selected using the Enter key,
+     * goes to the selected stage.
+     */
     private void handleEnterPress() {
 
         if (menuSelection == 0) {
@@ -76,19 +92,20 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     * Handles key press events for game over screen.
+     * @param e key press event
+     */
     @Override
     public void triggerKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("Hit down");
             menuSelection++;
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Hit up");
             menuSelection--;
             if (menuSelection < 0) {
                 menuSelection = 1;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Hit enter");
             handleEnterPress();
         }
 
@@ -96,6 +113,10 @@ public class GameOverScreenController implements KeyboardControllable {
 
     }
 
+    /**
+     * Handles key release events for game over screen.
+     * @param e key release event
+     */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
 

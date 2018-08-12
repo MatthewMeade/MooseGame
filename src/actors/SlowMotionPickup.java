@@ -6,44 +6,41 @@ import game.Stage;
 import java.util.Random;
 
 /**
- * Class adds, removes, and updates positioning of static obstacles.
+ * Class allows Slow Motion item to be picked up by player during gameplay
  */
-public class StaticObstacle extends Obstacle {
+public class SlowMotionPickup extends Pickup {
 
     /**
-     * Constructor for StaticObstacle
+     * Constructor for Slow Motion
      * @param canvas game window
      */
-    public StaticObstacle(MooseGame canvas) {
-
+    public SlowMotionPickup(MooseGame canvas) {
         super(canvas);
-
-        sprites = new String[]{"pothole.png"};
+        sprites = new String[]{"slowmotion.png"};
     }
 
     /**
-     * Adds static obstacle to game window.
+     * Add Slow Motion item to game window.
      */
     @Override
     public void spawn() {
-
         isActive = true;
 
         Random random = new Random();
 
-        setX(125 + random.nextInt(Stage.WIDTH - 250));
+        setX(124 + random.nextInt(Stage.WIDTH - 124));
         posY = -100;
 
 
-        setWidth(38);
-        setHeight(38);
+        setWidth(50);
+        setHeight(50);
 
         setVy(10);
 
     }
 
     /**
-     * Removes static obstacle from game window.
+     * Remove Slow Motion item from game window.
      */
     @Override
     public void despawn() {
@@ -53,11 +50,12 @@ public class StaticObstacle extends Obstacle {
     }
 
     /**
-     * Updates positioning of static obstacle within game window.
+     * Update position of Slow Motion item.
      */
     public void update() {
         if (isActive) {
             posY += vy;
         }
     }
+
 }

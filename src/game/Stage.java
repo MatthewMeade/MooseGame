@@ -9,7 +9,7 @@ import java.util.List;
 import actors.Actor;
 
 /**
- *
+ * Provides functionality for game window.
  */
 public class Stage extends Canvas implements ImageObserver {
 
@@ -17,31 +17,58 @@ public class Stage extends Canvas implements ImageObserver {
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
     public static final int DESIRED_FPS = 60;
+    public static final int SLOW_MOTION_FPS = 30;
 
     protected boolean gameWon = false;
     protected boolean gameOver = false;
     public List<Actor> actors = new ArrayList<Actor>();
 
+    /**
+     * Default constructor for Stage
+     */
     public Stage() {
     }
 
+    /**
+     * Set value for gameOver
+     */
     public void endGame() {
         gameOver = true;
     }
 
+    /**
+     * Check to see if current game is over.
+     *
+     * @return gameplay status
+     */
     public boolean isGameOver() {
         return gameOver;
     }
 
+    /**
+     * @param img
+     * @param infoflags
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return
+     */
     public boolean imageUpdate(Image img, int infoflags, int x, int y,
                                int width, int height) {
         return false;
     }
 
+    /**
+     *
+     */
     public void initWorld() {
 
     }
 
+    /**
+     *
+     */
     public void game() {
 
     }
