@@ -262,10 +262,18 @@ public class GameplayController implements KeyboardControllable {
         return score / Stage.DESIRED_FPS;
     }
 
+    /**
+     * Check if Fog lights powerup is active.
+     * @return Whether fog Lights is active
+     */
     public boolean areFogLightsActive() {
         return fogLightsActive;
     }
 
+    /**
+     * Activate Fog Lights powerup, opacity level is changed
+     * to zero for a fixed length of time.
+     */
     public void activateFogLights() {
         if (!fogLightsActive && PlayerInventory.useFogLightsPowerup()) {
             fogLightsActive = true;
@@ -281,16 +289,28 @@ public class GameplayController implements KeyboardControllable {
         }
     }
 
+    /**
+     * Check if Invincibility powerup is active.
+     * @return Whether invincibility is active
+     */
     public boolean isInvincibilityActive() {
         return invincibilityActive;
     }
 
+    /**
+     * Activate Invincibility powerup from player inventory.
+     */
     public void activateInvincibilityPowerup() {
         if (!invincibilityActive && PlayerInventory.useInvincibilityPowerup()) {
             activateInvincibility(INVINCIBILITY_DURATION);
         }
     }
 
+    /**
+     * Activate Invincibility, player does not incur damage for
+     * a fixed length of time during gameplay.
+     * @param time fixed length of time
+     */
     public void activateInvincibility(int time) {
         invincibilityActive = true;
         invincibilityTimer.schedule(
@@ -302,10 +322,18 @@ public class GameplayController implements KeyboardControllable {
                 }, time);
     }
 
+    /**
+     * Check if Slow Motion powerup is active.
+     * @return Whether Slow Motion is active.
+     */
     public boolean isSlowMotionActive() {
         return slowMotionActive;
     }
 
+    /**
+     * Activate Slow Motion powerup, speed rate of game play is
+     * reduced for a fixed length of time.
+     */
     public void activateSlowMotion() {
         if (!slowMotionActive && PlayerInventory.useSlowMotionPowerup()) {
             slowMotionActive = true;
