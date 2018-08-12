@@ -11,7 +11,7 @@ import java.util.Random;
 public class StaticObstacle extends Obstacle {
 
     /**
-     * Initializes a static obstacle to add to the game window.
+     * Constructor for StaticObstacle
      * @param canvas game window
      */
     public StaticObstacle(MooseGame canvas) {

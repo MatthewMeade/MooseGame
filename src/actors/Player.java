@@ -5,11 +5,18 @@ import game.Stage;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * Class provides creation of player sprite, in-game updates to player and surroundings,
+ * key action event handlers.
+ */
 public class Player extends Actor implements KeyboardControllable {
 
     private boolean left, right;
 
-
+    /**
+     * Constructor for Player.
+     * @param stage game window
+     */
     public Player(Stage stage) {
         super(stage);
 
@@ -23,11 +30,17 @@ public class Player extends Actor implements KeyboardControllable {
         posY = 8 * Stage.HEIGHT / 10;
     }
 
+    /**
+     * Updates the speed at which the game moves
+     */
     public void update() {
         super.update();
         updateSpeed();
     }
 
+    /**
+     * Keeps sprite's on-screen movements balanced
+     */
     protected void updateSpeed() {
         vx = 0;
         if (left)
@@ -44,6 +57,10 @@ public class Player extends Actor implements KeyboardControllable {
 
     }
 
+    /**
+     * Gives functionality to in-game keyboard controls when a key is released.
+     * @param e Event in game
+     */
     public void triggerKeyRelease(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
@@ -58,6 +75,10 @@ public class Player extends Actor implements KeyboardControllable {
 //        updateSpeed();
     }
 
+    /**
+     * Gives functionality to in-game keyboard controls when a key is pressed.
+     * @param e Event in game
+     */
     public void triggerKeyPress(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
@@ -73,9 +94,11 @@ public class Player extends Actor implements KeyboardControllable {
 //        updateSpeed();
     }
 
+    /**
+     * Ends game upon collision between actor player and actor obstacle.
+     * @param a actor value
+     */
     public void collision(Actor a) {
         stage.endGame();
     }
-
-
 }

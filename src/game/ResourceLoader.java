@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
+/**
+ *
+ */
 public class ResourceLoader implements ImageObserver {
 
 
@@ -21,14 +24,23 @@ public class ResourceLoader implements ImageObserver {
 
     private static ResourceLoader instance = new ResourceLoader();
 
-
+    /**
+     *
+     */
     private ResourceLoader() {
     }
 
+    /**
+     *
+     * @return
+     */
     public static ResourceLoader getInstance() {
         return instance;
     }
 
+    /**
+     *
+     */
     public void cleanup() {
         for (AudioClip sound : sounds.values()) {
             sound.stop();
@@ -36,6 +48,11 @@ public class ResourceLoader implements ImageObserver {
 
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public AudioClip getSound(String name) {
         AudioClip sound = sounds.get(name);
         if (null != sound)
@@ -96,6 +113,16 @@ public class ResourceLoader implements ImageObserver {
         return image;
     }
 
+    /**
+     *
+     * @param img
+     * @param infoflags
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return
+     */
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
         return (infoflags & (ALLBITS | ABORT)) == 0;
     }

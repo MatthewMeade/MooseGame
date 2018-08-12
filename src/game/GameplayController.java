@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *
+ * Handles creation of in-game screen
  */
 public class GameplayController implements KeyboardControllable {
 
@@ -34,7 +34,8 @@ public class GameplayController implements KeyboardControllable {
     private int health = 3;
 
     /**
-     * @param canvas
+     * Constructor for GameplayController.
+     * @param canvas game window
      */
     public GameplayController(MooseGame canvas) {
         this.canvas = canvas;
@@ -55,7 +56,8 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * @param g
+     * Renders graphics and dimensions for game.
+     * @param g game window
      */
     public void paint(Graphics g) {
 
@@ -123,7 +125,8 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * @param e
+     * Handles key control press event.
+     * @param e key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
@@ -132,7 +135,8 @@ public class GameplayController implements KeyboardControllable {
 
 
     /**
-     * @param e
+     * Handles key control release event
+     * @param e key release event
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
@@ -140,7 +144,8 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     *
+     * Checks whether a collision has occured in-game, displays score if true,
+     * and resets high score to current score.
      */
     public void checkCollision() {
 
@@ -172,7 +177,8 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * @return
+     * Checks if there has been a decrease in health.
+     * @return decrease or lack thereof
      */
     public boolean decreaseHealth() {
         health--;
@@ -184,7 +190,9 @@ public class GameplayController implements KeyboardControllable {
 
     }
 
-
+    /**
+     * Updates player, obstacleManager, and score status.
+     */
     public void update() {
         player.update();
         obstacleManager.update();
@@ -192,10 +200,17 @@ public class GameplayController implements KeyboardControllable {
         updateScore();
     }
 
+    /**
+     * Increments score value.
+     */
     public void updateScore() {
         this.score++;
     }
 
+    /**
+     * Calculates score.
+     * @return game score
+     */
     public int getScore() {
         return score / Stage.DESIRED_FPS;
     }
