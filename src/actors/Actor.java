@@ -19,6 +19,9 @@ public class Actor {
 	protected int width;
 	protected int frame;
 	protected int frameSpeed;
+
+
+
 	protected int actorSpeed;
 	protected int time;
 	private boolean markedForRemoval = false;
@@ -35,6 +38,10 @@ public class Actor {
 		frameSpeed = 1;
 		actorSpeed = 10;
 		time = 0;
+	}
+
+	public void setActorSpeed(int actorSpeed) {
+		this.actorSpeed = actorSpeed;
 	}
 
 	/**

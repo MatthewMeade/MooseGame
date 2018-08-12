@@ -15,7 +15,6 @@ public class PlayerInventory {
 
 
     /**
-     *
      * @return
      */
     public static boolean isSettingsMusicOn() {
@@ -23,7 +22,6 @@ public class PlayerInventory {
     }
 
     /**
-     *
      * @param settingsMusicOn
      */
     public static void setSettingsMusicOn(boolean settingsMusicOn) {
@@ -31,7 +29,6 @@ public class PlayerInventory {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isSettingSoundsOn() {
@@ -39,7 +36,6 @@ public class PlayerInventory {
     }
 
     /**
-     *
      * @param settingSoundsOn
      */
     public static void setSettingSoundsOn(boolean settingSoundsOn) {
@@ -47,7 +43,6 @@ public class PlayerInventory {
     }
 
     /**
-     *
      * @return
      */
     public static int getHighScore() {
@@ -55,7 +50,6 @@ public class PlayerInventory {
     }
 
     /**
-     *
      * @param currentScore
      */
     public static void setHighScore(int currentScore) {

@@ -39,6 +39,7 @@ public class PickupManager {
 
     /**
      * PickupManager constructor.
+     *
      * @param canvas game window
      */
     public PickupManager(MooseGame canvas) {
@@ -60,6 +61,7 @@ public class PickupManager {
 
     /**
      * Get pickup values
+     *
      * @return active pickup value
      */
     public ArrayList<Pickup> getPickups() {
@@ -133,7 +135,6 @@ public class PickupManager {
      */
     public void spawnInvincibilityPickup() {
 
-
         Random random = new Random();
 
         invincibilityTimer.cancel();
@@ -169,6 +170,7 @@ public class PickupManager {
 
     /**
      * Render graphics for pickup items
+     *
      * @param g pickup item to be painted
      */
     public void paint(Graphics g) {
@@ -180,6 +182,7 @@ public class PickupManager {
 
     /**
      * Checks to see if current player has collected a pickup item.
+     *
      * @param player Current game player
      * @return Item collection status of player
      */

@@ -171,6 +171,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Renders graphics for frames appearing in game window.
+     *
      * @param g Graphics to be rendered
      */
     public void paintFPS(Graphics g) {
@@ -183,6 +184,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Constructor for paint
+     *
      * @param g object to be painted
      */
     public void paint(Graphics g) {
@@ -190,6 +192,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Renders graphics to Menu screen.
+     *
      * @param g screen
      */
     public void paintMenu(Graphics g) {
@@ -198,6 +201,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Renders graphics to game over screen.
+     *
      * @param g screen
      */
     public void paintGameOverScreen(Graphics g) {
@@ -207,6 +211,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     /**
      * Plays sound from a location.
+     *
      * @param name location of sound
      */
     public void loopSound(final String name) {
@@ -236,7 +241,8 @@ public class MooseGame extends Stage implements KeyListener {
 
             //calculate sleep time
             if (usedTime == 0) usedTime = 1;
-            int timeDiff = 1000 / DESIRED_FPS - (int) (usedTime);
+            int timeDiff = 1000 / (gameplayController != null &&
+                    gameplayController.isSlowMotionActive() ? SLOW_MOTION_FPS : DESIRED_FPS) - (int) (usedTime);
             if (timeDiff > 0) {
                 try {
                     Thread.sleep(timeDiff);

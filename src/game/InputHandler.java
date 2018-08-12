@@ -21,7 +21,8 @@ public class InputHandler {
 
     /**
      * Constructor for InputHandler
-     * @param stg game window
+     *
+     * @param stg    game window
      * @param player game user
      */
     public InputHandler(Stage stg, KeyboardControllable player) {
@@ -31,6 +32,7 @@ public class InputHandler {
 
     /**
      * Handles events for the press and release of key controls.
+     *
      * @param event
      */
     public void handleInput(KeyEvent event) {

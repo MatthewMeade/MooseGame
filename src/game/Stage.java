@@ -17,6 +17,7 @@ public class Stage extends Canvas implements ImageObserver {
     public static final int WIDTH = 750;
     public static final int HEIGHT = 750;
     public static final int DESIRED_FPS = 60;
+    public static final int SLOW_MOTION_FPS = 30;
 
     protected boolean gameWon = false;
     protected boolean gameOver = false;
@@ -36,7 +37,6 @@ public class Stage extends Canvas implements ImageObserver {
     }
 
     /**
-     *
      * @return
      */
     public boolean isGameOver() {
@@ -44,7 +44,6 @@ public class Stage extends Canvas implements ImageObserver {
     }
 
     /**
-     *
      * @param img
      * @param infoflags
      * @param x

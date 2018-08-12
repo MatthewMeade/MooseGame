@@ -33,8 +33,21 @@ public class GameplayController implements KeyboardControllable {
     private int score = 0;
     private int health = 3;
 
+    private boolean fogLightsActive = false;
+    private boolean invincibilityActive = false;
+    private boolean slowMotionActive = false;
+
+    private static final int FOG_LIGHTS_DURATION = 15 * 1000;
+    private static final int INVINCIBILITY_DURATION = 15 * 1000;
+    private static final int SLOW_MOTION_DURATION = 15 * 1000;
+
+    private Timer fogLightsTimer = new Timer();
+    private Timer invincibilityTimer = new Timer();
+    private Timer slowMotionTimer = new Timer();
+
     /**
      * Constructor for GameplayController.
+     *
      * @param canvas game window
      */
     public GameplayController(MooseGame canvas) {
@@ -57,6 +70,7 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Renders graphics and dimensions for game.
+     *
      * @param g game window
      */
     public void paint(Graphics g) {
@@ -107,21 +121,26 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Increases and decreases level of opacity incrementally during gameplay.
+     * Increases and decreases level of opacity incrementally during gameplay if fog lights
+     * powerup is not active.
      */
     public void incrementOverlayLevel() {
+
         opacityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                opacityLevelCounter++;
+                if (!fogLightsActive) {
+                    opacityLevelCounter++;
+                }
                 incrementOverlayLevel();
-
             }
         }, OPACITY_CYCLE_INTERVAL);
+
     }
 
     /**
      * Sets overlay graphics.
+     *
      * @param g overlay to be rendered
      */
     public void paintOverlay(Graphics g) {
@@ -132,16 +151,32 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Handles key control press event.
+     *
      * @param e key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_1:
+            case KeyEvent.VK_NUMPAD1:
+                activateFogLights();
+                break;
+            case KeyEvent.VK_2:
+            case KeyEvent.VK_NUMPAD2:
+                activateInvincibilityPowerup();
+                break;
+            case KeyEvent.VK_3:
+            case KeyEvent.VK_NUMPAD3:
+                activateSlowMotion();
+                break;
+        }
         playerPressedHandler.handleInput(e);
     }
 
 
     /**
      * Handles key control release event
+     *
      * @param e key release event
      */
     @Override
@@ -156,7 +191,9 @@ public class GameplayController implements KeyboardControllable {
     public void checkCollision() {
 
         if (obstacleManager.checkCollision(player)) {
-            damagePlayer();
+            if (!invincibilityActive) {
+                damagePlayer();
+            }
         }
 
         pickupManager.checkCollision(player);
@@ -171,7 +208,7 @@ public class GameplayController implements KeyboardControllable {
     /**
      * Processes damage to the player during gameplay
      */
-    public void damagePlayer(){
+    public void damagePlayer() {
         if (!decreaseHealth()) {
             obstacleManager.stop();
             pickupManager.stop();
@@ -179,7 +216,6 @@ public class GameplayController implements KeyboardControllable {
             opacityTimer.purge();
             PlayerInventory.clearPowerups();
             System.out.println("FINAL SCORE: " + getScore());
-            ;
             PlayerInventory.setHighScore(getScore());
             canvas.initGameOverScreen(getScore());
         }
@@ -187,6 +223,7 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Checks if there has been a decrease in health.
+     *
      * @return decrease or lack thereof
      */
     public boolean decreaseHealth() {
@@ -218,10 +255,71 @@ public class GameplayController implements KeyboardControllable {
 
     /**
      * Calculates score.
+     *
      * @return game score
      */
     public int getScore() {
         return score / Stage.DESIRED_FPS;
+    }
+
+    public boolean areFogLightsActive() {
+        return fogLightsActive;
+    }
+
+    public void activateFogLights() {
+        if (!fogLightsActive && PlayerInventory.useFogLightsPowerup()) {
+            fogLightsActive = true;
+            opacityLevelCounter = 0;
+            fogLightsTimer.schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            fogLightsActive = false;
+                        }
+                    }, FOG_LIGHTS_DURATION);
+
+        }
+    }
+
+    public boolean isInvincibilityActive() {
+        return invincibilityActive;
+    }
+
+    public void activateInvincibilityPowerup() {
+        if (!invincibilityActive && PlayerInventory.useInvincibilityPowerup()) {
+            activateInvincibility(INVINCIBILITY_DURATION);
+        }
+    }
+
+    public void activateInvincibility(int time) {
+        invincibilityActive = true;
+        invincibilityTimer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        invincibilityActive = false;
+                    }
+                }, time);
+    }
+
+    public boolean isSlowMotionActive() {
+        return slowMotionActive;
+    }
+
+    public void activateSlowMotion() {
+        if (!slowMotionActive && PlayerInventory.useSlowMotionPowerup()) {
+            slowMotionActive = true;
+            player.setActorSpeed(20);
+            slowMotionTimer.schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            slowMotionActive = false;
+                            player.setActorSpeed(10);
+                        }
+                    }, SLOW_MOTION_DURATION);
+
+        }
     }
 
 

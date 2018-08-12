@@ -89,9 +89,8 @@ public class Player extends Actor implements KeyboardControllable {
             case KeyEvent.VK_D:
                 right = true;
                 break;
-
         }
-//        updateSpeed();
+;
     }
 
     /**
