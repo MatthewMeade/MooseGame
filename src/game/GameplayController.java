@@ -206,9 +206,7 @@ public class GameplayController implements KeyboardControllable {
     public void checkCollision() {
 
         if (obstacleManager.checkCollision(player)) {
-            if (!invincibilityActive) {
-                damagePlayer();
-            }
+            damagePlayer();
         }
 
         pickupManager.checkCollision(player);
@@ -224,17 +222,19 @@ public class GameplayController implements KeyboardControllable {
      * Processes damage to the player during gameplay
      */
     public void damagePlayer() {
-        if (!decreaseHealth()) {
-            canvas.playSound("gameover.wav");
-            obstacleManager.stop();
-            pickupManager.stop();
-            opacityTimer.cancel();
-            opacityTimer.purge();
-            PlayerInventory.addCurrency(pickupManager.getCoinsPickedUp());
-            PlayerInventory.clearPowerups();
-            PlayerInventory.setHighScore(getScore());
-            PlayerInventory.saveToFile();
-            canvas.initGameOverScreen(getScore(), pickupManager.getCoinsPickedUp());
+        if (!invincibilityActive) {
+            if (!decreaseHealth()) {
+                canvas.playSound("gameover.wav");
+                obstacleManager.stop();
+                pickupManager.stop();
+                opacityTimer.cancel();
+                opacityTimer.purge();
+                PlayerInventory.addCurrency(pickupManager.getCoinsPickedUp());
+                PlayerInventory.clearPowerups();
+                PlayerInventory.setHighScore(getScore());
+                PlayerInventory.saveToFile();
+                canvas.initGameOverScreen(getScore(), pickupManager.getCoinsPickedUp());
+            }
         }
     }
 
