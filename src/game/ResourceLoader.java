@@ -99,7 +99,8 @@ public class ResourceLoader implements ImageObserver {
 
         URL url = null;
         try {
-            url = getClass().getClassLoader().getResource("res/" + name);
+            url =
+                    getClass().getClassLoader().getResource("res/" + name);
             image = ImageIO.read(url);
             //store a compatible image instead of the original format
             BufferedImage compatible = createCompatible(image.getWidth(), image.getHeight(), Transparency.BITMASK);

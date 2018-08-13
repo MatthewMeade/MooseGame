@@ -15,12 +15,6 @@ public class MenuController implements KeyboardControllable {
 
     private MooseGame stage;
     private int menuSelection = 0;
-    private String[] selectionSprites = new String[]{
-            "MenuOptionsPlay.png",
-            "MenuOptionsStore.png",
-            "MenuOptionsSettings.png",
-            "MenuOptionsExit.png"
-    };
 
     private int[] menuLengths = new int[]{4, 5};
 

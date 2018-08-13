@@ -251,6 +251,11 @@ public class PlayerInventory {
     public static void loadFromFile() {
 
         File saveFile = new File("./save.txt");
+
+        if (!saveFile.exists()) {
+            return;
+        }
+
         try {
             Scanner scanner = new Scanner(saveFile);
             String line = scanner.nextLine();

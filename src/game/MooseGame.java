@@ -98,7 +98,6 @@ public class MooseGame extends Stage implements KeyListener {
         strategy = getBufferStrategy();
         requestFocus();
         initMenu();
-
     }
 
 
