@@ -21,10 +21,10 @@ public class MooseGame extends Stage implements KeyListener {
 
     private InputHandler gameKeyPressedHandler;
     private InputHandler gameKeyReleasedHandler;
-
     private InputHandler menuKeyPressedHandler;
     private InputHandler menuKeyReleasedHandler;
-
+    private InputHandler storeKeyPressedHandler;
+    private InputHandler storeKeyReleasedHandler;
     private InputHandler gameOverKeyPressedHandler;
     private InputHandler gameOverKeyReleasedHandler;
 
@@ -34,6 +34,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     private MenuController menuController;
     private GameplayController gameplayController;
+    private StoreController storeController;
     private GameOverScreenController gameOverScreenController;
 
     /**
@@ -41,6 +42,7 @@ public class MooseGame extends Stage implements KeyListener {
      */
     public enum gameStates {
         MENU,
+        STORE,
         GAME,
         GAME_OVER
     }
@@ -128,6 +130,16 @@ public class MooseGame extends Stage implements KeyListener {
         menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    public void initStore() {
+        gameState = gameStates.STORE;
+        storeController = new StoreController(this);
+
+        storeKeyPressedHandler = new InputHandler(this, storeController);
+        storeKeyPressedHandler.action = InputHandler.Action.PRESS;
+        storeKeyReleasedHandler = new InputHandler(this, storeController);
+        storeKeyReleasedHandler.action = InputHandler.Action.RELEASE;
+    }
+
     /**
      * Method declares game state as GAME_OVER, creates new instance of GameOverScreenControlles class,
      * calls PRESS and RELEASE key actions from InputHandler class.
@@ -159,15 +171,18 @@ public class MooseGame extends Stage implements KeyListener {
 
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        //load subimage from the background
-        paintFPS(g);
-
         if (menuController != null && gameState == gameStates.MENU) {
             menuController.paint(g);
         } else if (gameplayController != null && gameState == gameStates.GAME) {
             gameplayController.paint(g);
+        } else if (storeController != null && gameState == gameStates.STORE) {
+            storeController.paint(g);
         } else if (gameOverScreenController != null && gameState == gameState.GAME_OVER) {
             gameOverScreenController.paint(g);
+        }
+
+        if (PlayerInventory.isShowFPSOverlayOn()) {
+            paintFPS(g);
         }
 
         //swap buffer
@@ -271,9 +286,12 @@ public class MooseGame extends Stage implements KeyListener {
             gameKeyPressedHandler.handleInput(e);
         } else if (gameState == gameStates.MENU) {
             menuKeyPressedHandler.handleInput(e);
+        } else if (gameState == gameStates.STORE) {
+            storeKeyPressedHandler.handleInput(e);
         } else if (gameState == gameStates.GAME_OVER) {
             gameOverKeyPressedHandler.handleInput((e));
         }
+
     }
 
     /**

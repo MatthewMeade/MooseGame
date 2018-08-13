@@ -22,6 +22,7 @@ public class MenuController implements KeyboardControllable {
 
     /**
      * Constructor for MenuController.
+     *
      * @param canvas game window
      */
     public MenuController(MooseGame canvas) {
@@ -30,6 +31,7 @@ public class MenuController implements KeyboardControllable {
 
     /**
      * Renders graphics for Menu screen.
+     *
      * @param g instance of Menu screen
      */
     public void paint(Graphics g) {
@@ -62,7 +64,7 @@ public class MenuController implements KeyboardControllable {
             String[] text = new String[]{
                     "Music: " + (PlayerInventory.isSettingsMusicOn() ? "On" : "Off"),
                     "Sounds: " + (PlayerInventory.isSettingSoundsOn() ? "On" : "Off"),
-                    "FPS: " + "On",
+                    "FPS: " + (PlayerInventory.isShowFPSOverlayOn() ? "On" : "Off"),
                     "Reset Save",
                     "Back"
             };
@@ -87,6 +89,7 @@ public class MenuController implements KeyboardControllable {
                     stage.initGame();
                     break;
                 case 1: // Store
+                    stage.initStore();
                     break;
                 case 2: // Enter Settings
                     menuState = 1;
@@ -105,10 +108,13 @@ public class MenuController implements KeyboardControllable {
                     PlayerInventory.setSettingSoundsOn(!PlayerInventory.isSettingSoundsOn());
                     break;
                 case 2:
+                    PlayerInventory.setShowFPSOverlay(!PlayerInventory.isShowFPSOverlayOn());
                     break;
                 case 3:
+                    PlayerInventory.clearSave();
                     break;
                 case 4:
+                    PlayerInventory.saveToFile();
                     menuState = 0;
                     menuSelection = 0;
                     break;
@@ -119,6 +125,7 @@ public class MenuController implements KeyboardControllable {
 
     /**
      * Handles key press event
+     *
      * @param e key press event
      */
     @Override
@@ -128,7 +135,7 @@ public class MenuController implements KeyboardControllable {
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             menuSelection--;
             if (menuSelection < 0) {
-                menuSelection = 3;
+                menuSelection = menuLengths[menuState] - 1;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             handleEnterPress();
@@ -139,6 +146,7 @@ public class MenuController implements KeyboardControllable {
 
     /**
      * Handles key release event
+     *
      * @param e key release event
      */
     @Override

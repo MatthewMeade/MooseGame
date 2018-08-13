@@ -1,9 +1,7 @@
 package game;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 /**
  * Keeps track of player inventory obtained within the game,
@@ -13,6 +11,7 @@ public class PlayerInventory {
 
     private static boolean settingsMusicOn = true;
     private static boolean settingSoundsOn = true;
+    private static boolean showFPSOverlay = false;
     private static int highScore = 0;
     private static int fogLightsCount = 0;
     private static int slowMotionCount = 0;
@@ -76,10 +75,38 @@ public class PlayerInventory {
         }
     }
 
+    /**
+     * Gets value for showFPSOverlay setting
+     *
+     * @return showFPSOverlay boolean true if FPS overlay setting enabled
+     */
+    public static boolean isShowFPSOverlayOn() {
+        return showFPSOverlay;
+    }
+
+    /**
+     * Sets value for showFPSOverlay setting
+     *
+     * @param showFPSOverlay boolean true if FPS overlay setting enabled
+     */
+    public static void setShowFPSOverlay(boolean showFPSOverlay) {
+        PlayerInventory.showFPSOverlay = showFPSOverlay;
+    }
+
+    /**
+     * Gets the player's currency
+     *
+     * @return currency int
+     */
     public static int getCurrency() {
         return currency;
     }
 
+    /**
+     * Adds additional currency to the player's inventory
+     *
+     * @param additionalCurrency int amount of currency to add
+     */
     public static void addCurrency(int additionalCurrency) {
         currency += additionalCurrency;
     }
@@ -189,7 +216,11 @@ public class PlayerInventory {
 
     public static void saveToFile() {
 
-        String s = (Integer.toString(getHighScore()) + "," + Integer.toString(getCurrency()));
+        String s = (Integer.toString(highScore) + "," +
+                Integer.toString(currency) + "," +
+                Boolean.toString(settingsMusicOn) + "," +
+                Boolean.toString(settingSoundsOn) + "," +
+                Boolean.toString(showFPSOverlay));
         System.out.println(s);
         File saveFile = new File("./save.txt");
         try {
@@ -201,23 +232,39 @@ public class PlayerInventory {
         }
     }
 
+    /**
+     * Loads game settings from a save file.
+     * High score, currency, music toggle, sound effects toggle, FPS overlay toggle
+     */
     public static void loadFromFile() {
 
         File saveFile = new File("./save.txt");
         try {
-            FileReader fr = new FileReader(saveFile);
-            int i;
-            while ((i = fr.read()) != -1)
-                System.out.print((char) i);
+            Scanner scanner = new Scanner(saveFile);
+            String line = scanner.nextLine();
+            String[] s = line.split(",");
+
+            highScore = Integer.parseInt(s[0]);
+            currency = Integer.parseInt(s[1]);
+            settingsMusicOn = Boolean.parseBoolean(s[2]);
+            settingSoundsOn = Boolean.parseBoolean(s[3]);
+            showFPSOverlay = Boolean.parseBoolean(s[4]);
         } catch (IOException e) {
             System.out.println("IOException occurred");
         }
 
     }
 
+    /**
+     * Clears the save file contents returning the high score and player currency
+     * values to 0 and settings to their default values.
+     */
     public static void clearSave() {
         highScore = 0;
         currency = 0;
+        settingsMusicOn = true;
+        settingSoundsOn = true;
+        showFPSOverlay = false;
         saveToFile();
     }
 

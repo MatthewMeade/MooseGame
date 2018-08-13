@@ -214,8 +214,8 @@ public class GameplayController implements KeyboardControllable {
             pickupManager.stop();
             opacityTimer.cancel();
             opacityTimer.purge();
+            PlayerInventory.addCurrency(pickupManager.getCoinsPickedUp());
             PlayerInventory.clearPowerups();
-            System.out.println("FINAL SCORE: " + getScore());
             PlayerInventory.setHighScore(getScore());
             PlayerInventory.saveToFile();
             canvas.initGameOverScreen(getScore());

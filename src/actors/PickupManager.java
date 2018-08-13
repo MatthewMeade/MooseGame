@@ -15,15 +15,19 @@ import java.util.TimerTask;
  */
 public class PickupManager {
 
-    private static ArrayList<Pickup> fogLightsPickups = new ArrayList<>();
-    private static ArrayList<Pickup> slowMotionPickups = new ArrayList<>();
-    private static ArrayList<Pickup> invincibilityPickups = new ArrayList<>();
+//    private static ArrayList<Pickup> fogLightsPickups = new ArrayList<>();
+//    private static ArrayList<Pickup> slowMotionPickups = new ArrayList<>();
+//    private static ArrayList<Pickup> invincibilityPickups = new ArrayList<>();
 
     private static ArrayList<Pickup> activePickups = new ArrayList<>();
 
     private MooseGame canvas;
 
     private static final int SPAWN_WAIT_TIME = 2 * 1000;
+
+    private static final int COIN_MIN_SPAWN_TIME = 10 * 1000;
+    private static final int COIN_MAX_SPAWN_TIME = 17 * 1000;
+    private Timer coinTimer = new Timer();
 
     private static final int FOG_LIGHTS_MIN_SPAWN_TIME = 8 * 1000;
     private static final int FOG_LIGHTS_MAX_SPAWN_TIME = 18 * 1000;
@@ -36,6 +40,8 @@ public class PickupManager {
     private static final int INVINCIBILITY_MIN_SPAWN_TIME = 12 * 1000;
     private static final int INVINCIBILITY_MAX_SPAWN_TIME = 22 * 1000;
     private Timer invincibilityTimer = new Timer();
+
+    private int coinsPickedUp = 0;
 
     /**
      * PickupManager constructor.
@@ -55,6 +61,7 @@ public class PickupManager {
                         spawnFogLightsPickup();
                         spawnSlowMotionPickup();
                         spawnInvincibilityPickup();
+                        spawnCoinPickup();
                     }
                 }, SPAWN_WAIT_TIME);
     }
@@ -66,6 +73,15 @@ public class PickupManager {
      */
     public ArrayList<Pickup> getPickups() {
         return activePickups;
+    }
+
+
+    /**
+     * Get number of coins picked up in a game
+     * @return coinsPickedUp int
+     */
+    public int getCoinsPickedUp() {
+        return coinsPickedUp;
     }
 
     /**
@@ -82,6 +98,9 @@ public class PickupManager {
 
         invincibilityTimer.cancel();
         invincibilityTimer.purge();
+
+        coinTimer.cancel();
+        coinTimer.purge();
     }
 
     /**
@@ -153,6 +172,29 @@ public class PickupManager {
     }
 
     /**
+     * Spawns a coin for pickup.
+     */
+    public void spawnCoinPickup() {
+
+        Random random = new Random();
+
+        coinTimer.cancel();
+        coinTimer.purge();
+        coinTimer = new Timer();
+        coinTimer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        Pickup pickup = new CoinPickup(canvas);
+                        pickup.spawn();
+                        activePickups.add(pickup);
+                        spawnCoinPickup();
+                    }
+                }, (random.nextInt(COIN_MAX_SPAWN_TIME - COIN_MIN_SPAWN_TIME) + COIN_MIN_SPAWN_TIME));
+    }
+
+
+    /**
      * Updates the position of all items in the activePickups array during gameplay.
      */
     public void update() {
@@ -199,6 +241,9 @@ public class PickupManager {
                     PlayerInventory.incrementSlowMotion();
                 } else if (p instanceof TemporaryInvincibilityPickup) {
                     PlayerInventory.incrementInvincibility();
+                } else if (p instanceof CoinPickup) {
+                    coinsPickedUp++;
+
                 }
                 return true;
             }
