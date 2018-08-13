@@ -134,7 +134,7 @@ public class StoreController implements KeyboardControllable {
             // VEHICLES MENU
         } else if (menuState == 2) {
 
-            String[] sprites = new String[] {"car.png", "truck.png", "atv.png"};
+            String[] sprites = new String[] {"player_bluecar.png", "player_truck.png", "atv.png"};
             Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
 
 
