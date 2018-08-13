@@ -335,6 +335,7 @@ public class GameplayController implements KeyboardControllable {
      */
     public void activateInvincibilityPowerup() {
         if (!invincibilityActive && PlayerInventory.useInvincibilityPowerup()) {
+            canvas.playSound("powerup.wav");
             activateInvincibility(INVINCIBILITY_DURATION);
         }
     }
@@ -347,7 +348,6 @@ public class GameplayController implements KeyboardControllable {
      */
     public void activateInvincibility(int time) {
         invincibilityActive = true;
-        canvas.playSound("powerup.wav");
         invincibilityTimer.schedule(
                 new TimerTask() {
                     @Override
