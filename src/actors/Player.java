@@ -1,6 +1,5 @@
 package actors;
 
-import game.MooseGame;
 import game.PlayerInventory;
 import game.Stage;
 
@@ -9,7 +8,7 @@ import java.awt.event.KeyEvent;
 import static game.PlayerInventory.Vehicles.*;
 
 /**
- * Class provides creation of player sprite, in-game updates to player and surroundings,
+ * Class provides creation of player sprites, in-game updates to player and surroundings,
  * key action event handlers.
  */
 public class Player extends Actor implements KeyboardControllable {
@@ -25,7 +24,7 @@ public class Player extends Actor implements KeyboardControllable {
         super(stage);
 
         if (PlayerInventory.getEquippedVehicle() == CAR) {
-            sprites = new String[]{"car.png"};
+            sprites = new String[]{"player_bluecar.png"};
         } else if (PlayerInventory.getEquippedVehicle() == TRUCK) {
             sprites = new String[]{"truck.png"};
         } else if (PlayerInventory.getEquippedVehicle() == ATV) {
@@ -50,7 +49,7 @@ public class Player extends Actor implements KeyboardControllable {
     }
 
     /**
-     * Keeps sprite's on-screen movements balanced
+     * Keeps sprites's on-screen movements balanced
      */
     protected void updateSpeed() {
         vx = 0;

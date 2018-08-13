@@ -137,6 +137,7 @@ public class StoreController implements KeyboardControllable {
             String[] sprites = new String[] {"car.png", "truck.png", "atv.png"};
             Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
 
+
             PlayerInventory.Vehicles equipped = PlayerInventory.getEquippedVehicle();
             Boolean[] equippedStates = new Boolean[]{equipped == CAR, equipped == TRUCK, equipped == ATV};
 

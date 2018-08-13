@@ -25,7 +25,7 @@ public class Actor {
 	protected int actorSpeed;
 	protected int time;
 	private boolean markedForRemoval = false;
-	protected String[] sprites = null; 
+	protected String[] sprites = null;
 	protected Stage stage = null;
 
 	/**
@@ -45,14 +45,14 @@ public class Actor {
 	}
 
 	/**
-	 * Method is called to change sprite animation.
+	 * Method is called to change sprites animation.
 	 */
 	public void update() {
 		updateSpriteAnimation();
 	}
 
 	/**
-	 * Method will update sprite animation as gameplay progresses.
+	 * Method will update sprites animation as gameplay progresses.
 	 */
 	private void updateSpriteAnimation() {
 		time++;
