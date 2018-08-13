@@ -93,34 +93,36 @@ public class GameplayController implements KeyboardControllable {
         g.setColor(Color.WHITE);
 
         // Draw score
-        Font scoreFont = new Font("Impact", Font.PLAIN, 30);
+        Font scoreFont = new Font("Impact", Font.PLAIN, 50);
         FontMetrics metrics = g.getFontMetrics(scoreFont);
         g.setFont(scoreFont);
 
         String scoreText = "" + getScore();
-        g.drawString(scoreText,  Stage.WIDTH - metrics.stringWidth(scoreText) - 25, 30);
+        g.drawString(scoreText, Stage.WIDTH - metrics.stringWidth(scoreText) - 25, 50);
 
         // Draw health
         Font healthFont = new Font("Impact", Font.PLAIN, 45);
         metrics = g.getFontMetrics(healthFont);
         g.setFont(healthFont);
         g.drawImage(ResourceLoader.getInstance().getSprite("heart.png"), 10, 5, canvas);
-        g.drawString("" + health,  10+(100 - metrics.stringWidth("" + health))/2, 75);
+        g.drawString("" + health, 10 + (100 - metrics.stringWidth("" + health)) / 2, 75);
 
         // Draw Coins
         g.drawImage(ResourceLoader.getInstance().getSprite("coin.png"), 10, 120, canvas);
-        g.drawString(""+ pickupManager.getCoinsPickedUp(),  75, 165);
+        g.drawString("" + pickupManager.getCoinsPickedUp(), 75, 165);
 
         // Draw powerups
-        g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, 20, canvas);
-        g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, 80, canvas);
-        g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, 140, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, Stage.HEIGHT - 210, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, Stage.HEIGHT - 150, canvas);
+        g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, Stage.HEIGHT - 90, canvas);
 
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
-        g.setColor(Color.WHITE);
-        g.drawString(Integer.toString(PlayerInventory.getFogLightsCount()), 660, 50);
-        g.drawString(Integer.toString(PlayerInventory.getInvincibilityCount()), 660, 110);
-        g.drawString(Integer.toString(PlayerInventory.getSlowMotionCount()), 660, 170);
+
+        String fCount = Integer.toString(PlayerInventory.getFogLightsCount());
+        String iCount = Integer.toString(PlayerInventory.getInvincibilityCount());
+        String sCount = Integer.toString(PlayerInventory.getSlowMotionCount());
+        g.drawString(fCount, Stage.WIDTH - 100 - metrics.stringWidth(fCount), Stage.HEIGHT - 170);
+        g.drawString(iCount, Stage.WIDTH - 100 - metrics.stringWidth(iCount), Stage.HEIGHT - 110);
+        g.drawString(sCount, Stage.WIDTH - 100 - metrics.stringWidth(sCount), Stage.HEIGHT - 50);
 
 
         for (int i = 0; i < actors.size(); i++) {
@@ -147,7 +149,7 @@ public class GameplayController implements KeyboardControllable {
                 }
                 incrementOverlayLevel();
             }
-        }, (opacityLevelCounter % opacityLevel.length) == 0 ?  opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
+        }, (opacityLevelCounter % opacityLevel.length) == 0 ? opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
 
     }
 
