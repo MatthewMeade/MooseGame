@@ -14,20 +14,20 @@ public class StoreController implements KeyboardControllable {
     private int[] menuLengths = new int[]{4, 4, 4, 5};
     private int menuState = 0;
 
-    public static final int FOG_LIGHTS_COST = 4;
-    public static final int INVINCIBILITY_COST = 3;
-    public static final int SLOW_MOTION_COST = 5;
+    public static final int FOG_LIGHTS_COST = 50;
+    public static final int INVINCIBILITY_COST = 60;
+    public static final int SLOW_MOTION_COST = 75;
 
-    private static final int TRUCK_COST = 20;
-    private static final int ATV_COST = 30;
+    private static final int TRUCK_COST = 250;
+    private static final int ATV_COST = 300;
 
-    private static final int SMALL_COIN_PACK_VALUE = 10;
+    private static final int SMALL_COIN_PACK_VALUE = 100;
     private static final double SMALL_COIN_PACK_COST = 0.99;
-    private static final int MEDIUM_COIN_PACK_VALUE = 50;
+    private static final int MEDIUM_COIN_PACK_VALUE = 500;
     private static final double MEDIUM_COIN_PACK_COST = 2.99;
-    private static final int LARGE_COIN_PACK_VALUE = 100;
+    private static final int LARGE_COIN_PACK_VALUE = 1000;
     private static final double LARGE_COIN_PACK_COST = 4.99;
-    private static final int SUPER_COIN_PACK_VALUE = 500;
+    private static final int SUPER_COIN_PACK_VALUE = 5000;
     private static final double SUPER_COIN_PACK_COST = 9.99;
 
     public StoreController(MooseGame stage) {
@@ -39,15 +39,28 @@ public class StoreController implements KeyboardControllable {
         // Draw background
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
 
+        g.setColor(new Color(0, 0, 0, 150));
+        g.fillRect(Stage.WIDTH / 6, 50, 2 * Stage.WIDTH / 3, 100);
+
         // Draw store title
-        g.setFont(new Font("Impact", Font.PLAIN, 40));
+        Font storeTitle = new Font("Impact", Font.PLAIN, 75);
+        FontMetrics metrics = g.getFontMetrics(storeTitle);
+        g.setFont(storeTitle);
         g.setColor(Color.WHITE);
-        g.drawString("Store", stage.WIDTH / 2, 75);
+        g.drawString("Store", (Stage.WIDTH - metrics.stringWidth("Store")) / 2 , 125);
+
+
+        // Draw store title
+        Font menuFont = new Font("Impact", Font.PLAIN, 40);
+        metrics = g.getFontMetrics(menuFont);
+        g.setFont(menuFont);
 
         // 0 - main store, 1 - powerups, 2 - vehicles
         // 3 - buy coin packs
-
         if (menuState == 0) {
+
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
 
             String[] text = new String[]{
                     "Powerups", "Vehicles", "Buy Coin Packs", "Back to Main Menu"};
