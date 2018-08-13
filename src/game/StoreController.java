@@ -11,7 +11,7 @@ public class StoreController implements KeyboardControllable {
 
     private MooseGame stage;
     private int menuSelection = 0;
-    private int[] menuLengths = new int[]{4, 4, 4};
+    private int[] menuLengths = new int[]{4, 4, 4, 5};
     private int menuState = 0;
 
     public static final int FOG_LIGHTS_COST = 4;
@@ -21,6 +21,14 @@ public class StoreController implements KeyboardControllable {
     private static final int TRUCK_COST = 20;
     private static final int ATV_COST = 30;
 
+    private static final int SMALL_COIN_PACK_VALUE = 10;
+    private static final double SMALL_COIN_PACK_COST = 0.99;
+    private static final int MEDIUM_COIN_PACK_VALUE = 50;
+    private static final double MEDIUM_COIN_PACK_COST = 2.99;
+    private static final int LARGE_COIN_PACK_VALUE = 100;
+    private static final double LARGE_COIN_PACK_COST = 4.99;
+    private static final int SUPER_COIN_PACK_VALUE = 500;
+    private static final double SUPER_COIN_PACK_COST = 9.99;
 
     public StoreController(MooseGame stage) {
         this.stage = stage;
@@ -127,6 +135,21 @@ public class StoreController implements KeyboardControllable {
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
             g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
 
+            // BUY COIN PACKS
+        } else if (menuState == 3) {
+            g.setFont(new Font("Impact", Font.PLAIN, 25));
+            g.drawString("Coins: " + PlayerInventory.getCurrency(), stage.WIDTH / 3, 150);
+
+            String[] coinPacksText = new String[]{
+                    SMALL_COIN_PACK_VALUE + " for $" + SMALL_COIN_PACK_COST,
+                    MEDIUM_COIN_PACK_VALUE + " for $" + MEDIUM_COIN_PACK_COST,
+                    LARGE_COIN_PACK_VALUE + " for $" + LARGE_COIN_PACK_COST,
+                    SUPER_COIN_PACK_VALUE + " fof $" + SUPER_COIN_PACK_COST};
+
+            for (int i = 0; i < coinPacksText.length; i++) {
+                g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
+                g.drawString(coinPacksText[i], (Stage.WIDTH / 5), 250 + (75 * i));
+            }
         }
     }
 
@@ -170,6 +193,7 @@ public class StoreController implements KeyboardControllable {
                     menuState = 2;
                     break;
                 case 2: // Buy coins
+                    menuState = 3;
                     break;
                 case 3: // Back to main menu
                     stage.initMenu();
@@ -226,6 +250,25 @@ public class StoreController implements KeyboardControllable {
                     }
                     break;
                 case 3: // Back to store
+                    menuState = 0;
+                    menuSelection = 0;
+                    break;
+            }
+        } else if (menuState == 3) {
+            switch (menuSelection) {
+                case 0: // Small
+                    PlayerInventory.addCurrency(SMALL_COIN_PACK_VALUE);
+                    break;
+                case 1: // Medium
+                    PlayerInventory.addCurrency(MEDIUM_COIN_PACK_VALUE);
+                    break;
+                case 2: // Large
+                    PlayerInventory.addCurrency(LARGE_COIN_PACK_VALUE);
+                    break;
+                case 3: // Super
+                    PlayerInventory.addCurrency(SUPER_COIN_PACK_VALUE);
+                    break;
+                case 4: // Back to store
                     menuState = 0;
                     menuSelection = 0;
                     break;

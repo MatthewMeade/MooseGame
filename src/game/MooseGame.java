@@ -321,6 +321,7 @@ public class MooseGame extends Stage implements KeyListener {
      * Exits game and cleans up resources upon closing.
      */
     public static void exit() {
+        PlayerInventory.saveToFile();
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
