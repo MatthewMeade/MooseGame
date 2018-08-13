@@ -3,6 +3,10 @@ package game;
 import java.io.*;
 import java.util.Scanner;
 
+import static game.StoreController.FOG_LIGHTS_COST;
+import static game.StoreController.INVINCIBILITY_COST;
+import static game.StoreController.SLOW_MOTION_COST;
+
 /**
  * Keeps track of player inventory obtained within the game,
  * displays high score information and allows settings changes.
@@ -17,7 +21,6 @@ public class PlayerInventory {
     private static int slowMotionCount = 0;
     private static int invincibilityCount = 0;
     private static int currency = 0;
-
 
     /**
      * Get value for settingsMusicOn
@@ -111,8 +114,17 @@ public class PlayerInventory {
         currency += additionalCurrency;
     }
 
-    public static void spendCurrency() {
-        //TODO IMPLEMENT SPEND CURRENCY
+
+    public static boolean spendCurrency(int cost) {
+
+        if (currency >= cost) {
+            currency -= cost;
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
     /**
