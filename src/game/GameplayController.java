@@ -130,7 +130,6 @@ public class GameplayController implements KeyboardControllable {
             @Override
             public void run() {
                 if (!fogLightsActive) {
-                    System.out.println("Fog Level: " + opacityLevelCounter % opacityLevel.length);
                     opacityLevelCounter++;
                 }
                 incrementOverlayLevel();
