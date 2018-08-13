@@ -29,15 +29,14 @@ public class TemporaryInvincibilityPickup extends Pickup {
 
         Random random = new Random();
 
-        setX(124 + random.nextInt(Stage.WIDTH - 124));
-        posY = -100;
-
+        boolean left = random.nextBoolean();
+        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setY(-200);
 
         setWidth(50);
         setHeight(50);
 
         setVy(10);
-
     }
 
     /**
