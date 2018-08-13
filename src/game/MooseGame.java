@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 import javax.swing.JFrame;
@@ -37,6 +39,9 @@ public class MooseGame extends Stage implements KeyListener {
     private StoreController storeController;
     private GameOverScreenController gameOverScreenController;
 
+    private boolean spriteBlinkStatus = false;
+    private static final int SPRITE_BLINK_INTERVAL = 100;
+
     /**
      * Initializes different game states
      */
@@ -62,8 +67,9 @@ public class MooseGame extends Stage implements KeyListener {
         //init the UI
         setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
         setBackground(Color.BLACK);
+        loopSound("backgroundloop.wav");
 
-        /**
+        /*
          * New instances of JPanel and JFrame are created, dimensions
          * inherited from the Stage class.
          */
@@ -80,7 +86,7 @@ public class MooseGame extends Stage implements KeyListener {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        /**
+        /*
          * WindowListener is added to the JFrame instance to clean up resources upon
          * closing of the window
          */
@@ -90,14 +96,19 @@ public class MooseGame extends Stage implements KeyListener {
             }
         });
 
-
         addKeyListener(this);
 
         //create a double buffer
         createBufferStrategy(2);
+
         strategy = getBufferStrategy();
+
         requestFocus();
+
+        spriteBlinkTimer();
+
         initMenu();
+
     }
 
 
@@ -234,16 +245,41 @@ public class MooseGame extends Stage implements KeyListener {
 
 
     /**
-     * Plays sound from a location.
+     * Loads a sound resource and plays it in a loop.
      *
      * @param name location of sound
      */
     public void loopSound(final String name) {
-        new Thread(new Runnable() {
-            public void run() {
-                ResourceLoader.getInstance().getSound(name).loop();
-            }
-        }).start();
+        System.out.println("called");
+        if (PlayerInventory.isSettingsMusicOn()) {
+            System.out.println("true");
+            new Thread(new Runnable() {
+                public void run() {
+                    System.out.println("running");
+                    ResourceLoader.getInstance().getSound(name).loop();
+                }
+            }).start();
+        }
+    }
+
+    /**
+     * Loads a sound resource and plays it once.
+     *
+     * @param name location of sound
+     */
+    public void playSound(final String name) {
+
+        if (PlayerInventory.isSettingSoundsOn()) {
+            new Thread(new Runnable() {
+                public void run() {
+                    ResourceLoader.getInstance().getSound(name).play();
+                }
+            }).start();
+        }
+    }
+
+    public boolean getSpriteBlinkStatus() {
+        return spriteBlinkStatus;
     }
 
     /**
@@ -328,6 +364,21 @@ public class MooseGame extends Stage implements KeyListener {
         PlayerInventory.saveToFile();
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
+    }
+
+    /**
+     *
+     */
+    public void spriteBlinkTimer() {
+        Timer spriteBlinkTimer = new Timer();
+        spriteBlinkTimer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        spriteBlinkStatus = !spriteBlinkStatus;
+                        spriteBlinkTimer();
+                    }
+                }, SPRITE_BLINK_INTERVAL);
     }
 
     /**

@@ -38,6 +38,7 @@ public class ObstacleManager {
 
     /**
      * ObstacleManager constructor.
+     *
      * @param canvas game window
      */
     public ObstacleManager(MooseGame canvas) {
@@ -61,6 +62,7 @@ public class ObstacleManager {
 
     /**
      * Gets value of an obstacle from array
+     *
      * @return active obstacle
      */
     public ArrayList<Obstacle> getObstacles() {
@@ -171,6 +173,7 @@ public class ObstacleManager {
 
     /**
      * Render graphics for obstacles
+     *
      * @param g obstacle to be painted
      */
     public void paint(Graphics g) {
@@ -182,6 +185,7 @@ public class ObstacleManager {
 
     /**
      * Checks to see if current player has suffered a collision with an obstacle
+     *
      * @param player Current game player
      * @return Collision status of user
      */
@@ -192,7 +196,7 @@ public class ObstacleManager {
 
             if (o.getBounds().intersects(player.getBounds())) {
                 o.despawn();
-
+                canvas.playSound("explosion.wav");
                 return true;
             }
         }
