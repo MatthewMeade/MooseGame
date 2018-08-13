@@ -61,7 +61,7 @@ public class MooseGame extends Stage implements KeyListener {
 
         //init the UI
         setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
-        setBackground(Color.BLUE);
+        setBackground(Color.BLACK);
 
         /**
          * New instances of JPanel and JFrame are created, dimensions
@@ -321,6 +321,7 @@ public class MooseGame extends Stage implements KeyListener {
      * Exits game and cleans up resources upon closing.
      */
     public static void exit() {
+        PlayerInventory.saveToFile();
         ResourceLoader.getInstance().cleanup();
         System.exit(0);
     }
