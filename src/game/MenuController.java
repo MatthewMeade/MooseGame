@@ -1,6 +1,5 @@
 package game;
 
-import actors.Actor;
 import actors.KeyboardControllable;
 
 import java.awt.*;
@@ -58,7 +57,7 @@ public class MenuController implements KeyboardControllable {
             String[] text = new String[]{"Play", "Store", "Settings", "How to Play", "Exit"};
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "") ;
+                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
                 g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
             }
 
@@ -69,7 +68,7 @@ public class MenuController implements KeyboardControllable {
         } else if (menuState == 1) {
 
             String[] text = new String[]{
-                    "Music: " + (PlayerInventory.isSettingsMusicOn() ? "On" : "Off"),
+                    "Music: " + (PlayerInventory.isSettingMusicOn() ? "On" : "Off"),
                     "Sounds: " + (PlayerInventory.isSettingSoundsOn() ? "On" : "Off"),
                     "FPS: " + (PlayerInventory.isShowFPSOverlayOn() ? "On" : "Off"),
                     "Reset Save",
@@ -78,7 +77,7 @@ public class MenuController implements KeyboardControllable {
 
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "") ;
+                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
                 g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
 
             }
@@ -122,7 +121,12 @@ public class MenuController implements KeyboardControllable {
         } else if (menuState == 1) {
             switch (menuSelection) {
                 case 0:
-                    PlayerInventory.setSettingsMusicOn(!PlayerInventory.isSettingsMusicOn());
+                    PlayerInventory.setSettingMusicOn(!PlayerInventory.isSettingMusicOn());
+                    if (PlayerInventory.isSettingMusicOn()) {
+                        stage.backgroundMusic.loop();
+                    } else {
+                        stage.backgroundMusic.stop();
+                    }
                     break;
                 case 1:
                     PlayerInventory.setSettingSoundsOn(!PlayerInventory.isSettingSoundsOn());

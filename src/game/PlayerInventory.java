@@ -54,7 +54,7 @@ public class PlayerInventory {
      *
      * @return settingsMusicOn
      */
-    public static boolean isSettingsMusicOn() {
+    public static boolean isSettingMusicOn() {
         return settingsMusicOn;
     }
 
@@ -63,7 +63,7 @@ public class PlayerInventory {
      *
      * @param settingsMusicOn status of settings music
      */
-    public static void setSettingsMusicOn(boolean settingsMusicOn) {
+    public static void setSettingMusicOn(boolean settingsMusicOn) {
         PlayerInventory.settingsMusicOn = settingsMusicOn;
     }
 

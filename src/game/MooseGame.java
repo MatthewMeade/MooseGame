@@ -1,5 +1,7 @@
 package game;
 
+import java.applet.AudioClip;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,6 +35,7 @@ public class MooseGame extends Stage implements KeyListener {
 
     public long usedTime; //time taken per game step
     public BufferStrategy strategy; //double buffering strategy
+    public AudioClip backgroundMusic;
 
     private MenuController menuController;
     private GameplayController gameplayController;
@@ -251,12 +254,13 @@ public class MooseGame extends Stage implements KeyListener {
      */
     public void loopSound(final String name) {
         System.out.println("called");
-        if (PlayerInventory.isSettingsMusicOn()) {
+        if (PlayerInventory.isSettingMusicOn()) {
             System.out.println("true");
             new Thread(new Runnable() {
                 public void run() {
                     System.out.println("running");
-                    ResourceLoader.getInstance().getSound(name).loop();
+                    backgroundMusic = ResourceLoader.getInstance().getSound(name);
+                    backgroundMusic.loop();
                 }
             }).start();
         }
