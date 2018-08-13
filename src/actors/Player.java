@@ -1,9 +1,12 @@
 package actors;
 
 import game.MooseGame;
+import game.PlayerInventory;
 import game.Stage;
 
 import java.awt.event.KeyEvent;
+
+import static game.PlayerInventory.Vehicles.*;
 
 /**
  * Class provides creation of player sprite, in-game updates to player and surroundings,
@@ -15,12 +18,20 @@ public class Player extends Actor implements KeyboardControllable {
 
     /**
      * Constructor for Player.
+     *
      * @param stage game window
      */
     public Player(Stage stage) {
         super(stage);
 
-        sprites = new String[]{"CarFullHealth.png"};
+        if (PlayerInventory.getEquippedVehicle() == CAR) {
+            sprites = new String[]{"CarFullHealth.png"};
+        } else if (PlayerInventory.getEquippedVehicle() == TRUCK) {
+            sprites = new String[]{"TruckFullHealth.png"};
+        } else if (PlayerInventory.getEquippedVehicle() == ATV) {
+            sprites = new String[]{"atv.png"};
+        }
+
         frame = 0;
         frameSpeed = 35;
         actorSpeed = 10;
@@ -59,6 +70,7 @@ public class Player extends Actor implements KeyboardControllable {
 
     /**
      * Gives functionality to in-game keyboard controls when a key is released.
+     *
      * @param e Event in game
      */
     public void triggerKeyRelease(KeyEvent e) {
@@ -77,6 +89,7 @@ public class Player extends Actor implements KeyboardControllable {
 
     /**
      * Gives functionality to in-game keyboard controls when a key is pressed.
+     *
      * @param e Event in game
      */
     public void triggerKeyPress(KeyEvent e) {
@@ -90,11 +103,12 @@ public class Player extends Actor implements KeyboardControllable {
                 right = true;
                 break;
         }
-;
+        ;
     }
 
     /**
      * Ends game upon collision between actor player and actor obstacle.
+     *
      * @param a actor value
      */
     public void collision(Actor a) {

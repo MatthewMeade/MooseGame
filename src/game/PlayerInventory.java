@@ -3,10 +3,6 @@ package game;
 import java.io.*;
 import java.util.Scanner;
 
-import static game.StoreController.FOG_LIGHTS_COST;
-import static game.StoreController.INVINCIBILITY_COST;
-import static game.StoreController.SLOW_MOTION_COST;
-
 /**
  * Keeps track of player inventory obtained within the game,
  * displays high score information and allows settings changes.
@@ -21,6 +17,26 @@ public class PlayerInventory {
     private static int slowMotionCount = 0;
     private static int invincibilityCount = 0;
     private static int currency = 0;
+
+    private static boolean truckOwned = false;
+    private static boolean atvOwned = false;
+
+    public enum Vehicles {
+        CAR,
+        TRUCK,
+        ATV
+    }
+
+    private static Vehicles equippedVehicle = Vehicles.CAR;
+
+    public static Vehicles getEquippedVehicle() {
+        return equippedVehicle;
+    }
+
+    public static void setEquippedVehicle(Vehicles vehicle) {
+        equippedVehicle = vehicle;
+    }
+
 
     /**
      * Get value for settingsMusicOn
@@ -123,9 +139,24 @@ public class PlayerInventory {
         } else {
             return false;
         }
-
-
     }
+
+    public static boolean isTruckOwned() {
+        return truckOwned;
+    }
+
+    public static void buyTruck() {
+        truckOwned = true;
+    }
+
+    public static boolean isAtvOwned() {
+        return atvOwned;
+    }
+
+    public static void buyATV() {
+        atvOwned = true;
+    }
+
 
     /**
      * Get value for fogLightsCount
@@ -228,13 +259,27 @@ public class PlayerInventory {
 
     public static void saveToFile() {
 
+        String equippedVehicleSaveString = "";
+
+        if (getEquippedVehicle() == Vehicles.CAR) {
+            equippedVehicleSaveString = "Car";
+        } else if (getEquippedVehicle() == Vehicles.TRUCK) {
+            equippedVehicleSaveString = "Truck";
+        } else if (getEquippedVehicle() == Vehicles.ATV) {
+            equippedVehicleSaveString = "ATV";
+        }
+
         String s = (Integer.toString(highScore) + "," +
                 Integer.toString(currency) + "," +
                 Boolean.toString(settingsMusicOn) + "," +
                 Boolean.toString(settingSoundsOn) + "," +
-                Boolean.toString(showFPSOverlay));
+                Boolean.toString(showFPSOverlay) + "," +
+                equippedVehicleSaveString + "," +
+                Boolean.toString(truckOwned) + "," +
+                Boolean.toString(atvOwned)
+        );
         System.out.println(s);
-        File saveFile = new File("./save.txt");
+        File saveFile = new File("./save.dat");
         try {
             FileWriter fw = new FileWriter(saveFile);
             fw.write(s);
@@ -250,7 +295,7 @@ public class PlayerInventory {
      */
     public static void loadFromFile() {
 
-        File saveFile = new File("./save.txt");
+        File saveFile = new File("./save.dat");
 
         if (!saveFile.exists()) {
             return;
@@ -266,6 +311,20 @@ public class PlayerInventory {
             settingsMusicOn = Boolean.parseBoolean(s[2]);
             settingSoundsOn = Boolean.parseBoolean(s[3]);
             showFPSOverlay = Boolean.parseBoolean(s[4]);
+
+            if (s[5].equals("Car")) {
+                equippedVehicle = Vehicles.CAR;
+            } else if (s[5].equals("Truck")) {
+                equippedVehicle = Vehicles.TRUCK;
+            } else if (s[5].equals("ATV")) {
+                equippedVehicle = Vehicles.ATV;
+            }
+            truckOwned = Boolean.parseBoolean(s[6]);
+            atvOwned = Boolean.parseBoolean(s[7]);
+
+
+
+
         } catch (IOException e) {
             System.out.println("IOException occurred");
         }
@@ -282,6 +341,9 @@ public class PlayerInventory {
         settingsMusicOn = true;
         settingSoundsOn = true;
         showFPSOverlay = false;
+        equippedVehicle = Vehicles.CAR;
+        truckOwned = false;
+        atvOwned = false;
         saveToFile();
     }
 
