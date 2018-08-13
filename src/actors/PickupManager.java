@@ -78,6 +78,7 @@ public class PickupManager {
 
     /**
      * Get number of coins picked up in a game
+     *
      * @return coinsPickedUp int
      */
     public int getCoinsPickedUp() {
@@ -241,9 +242,10 @@ public class PickupManager {
                     PlayerInventory.incrementSlowMotion();
                 } else if (p instanceof TemporaryInvincibilityPickup) {
                     PlayerInventory.incrementInvincibility();
+
                 } else if (p instanceof CoinPickup) {
                     coinsPickedUp++;
-
+                    canvas.playSound("coin.wav");
                 }
                 return true;
             }

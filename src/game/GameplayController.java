@@ -225,6 +225,7 @@ public class GameplayController implements KeyboardControllable {
      */
     public void damagePlayer() {
         if (!decreaseHealth()) {
+            canvas.playSound("gameover.wav");
             obstacleManager.stop();
             pickupManager.stop();
             opacityTimer.cancel();
@@ -294,6 +295,7 @@ public class GameplayController implements KeyboardControllable {
     public void activateFogLights() {
         if (!fogLightsActive && PlayerInventory.useFogLightsPowerup()) {
             fogLightsActive = true;
+            canvas.playSound("powerup.wav");
             opacityLevelCounter = 0;
             fogLightsTimer.schedule(
                     new TimerTask() {
@@ -332,6 +334,7 @@ public class GameplayController implements KeyboardControllable {
      */
     public void activateInvincibility(int time) {
         invincibilityActive = true;
+        canvas.playSound("powerup.wav");
         invincibilityTimer.schedule(
                 new TimerTask() {
                     @Override
@@ -357,6 +360,7 @@ public class GameplayController implements KeyboardControllable {
     public void activateSlowMotion() {
         if (!slowMotionActive && PlayerInventory.useSlowMotionPowerup()) {
             slowMotionActive = true;
+            canvas.playSound("powerup.wav");
             player.setActorSpeed(20);
             slowMotionTimer.schedule(
                     new TimerTask() {
