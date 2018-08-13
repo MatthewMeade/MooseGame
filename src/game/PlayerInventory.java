@@ -323,8 +323,6 @@ public class PlayerInventory {
             atvOwned = Boolean.parseBoolean(s[7]);
 
 
-
-
         } catch (IOException e) {
             System.out.println("IOException occurred");
         }

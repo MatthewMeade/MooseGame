@@ -24,8 +24,8 @@ public class GameplayController implements KeyboardControllable {
     private InputHandler playerReleasedHandler;
 
     private Timer opacityTimer = new Timer();
-    private final static int OPACITY_CYCLE_INTERVAL = 5000;
-    private int[] opacityLevel = {0, 75, 150, 75};
+    private final static int OPACITY_CYCLE_INTERVAL = 1000;
+    private int[] opacityLevel = {0, 25, 50, 75, 100, 125, 150, 175, 200, 175, 150, 125, 100, 75, 50, 25};
     private int opacityLevelCounter = 0;
 
     private int road1Pos = Stage.HEIGHT * -1;
@@ -90,13 +90,26 @@ public class GameplayController implements KeyboardControllable {
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, road1Pos, canvas);
         g.drawImage(ResourceLoader.getInstance().getSprite("road2.png"), 0, road2Pos, canvas);
 
-        // Draw score
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + getScore(), 50, 50);
+
+        // Draw score
+        Font scoreFont = new Font("Impact", Font.PLAIN, 30);
+        FontMetrics metrics = g.getFontMetrics(scoreFont);
+        g.setFont(scoreFont);
+
+        String scoreText = "" + getScore();
+        g.drawString(scoreText,  Stage.WIDTH - metrics.stringWidth(scoreText) - 25, 30);
 
         // Draw health
-        g.drawString("Health: " + health, 50, 100);
+        Font healthFont = new Font("Impact", Font.PLAIN, 45);
+        metrics = g.getFontMetrics(healthFont);
+        g.setFont(healthFont);
+        g.drawImage(ResourceLoader.getInstance().getSprite("heart.png"), 10, 5, canvas);
+        g.drawString("" + health,  10+(100 - metrics.stringWidth("" + health))/2, 75);
+
+        // Draw Coins
+        g.drawImage(ResourceLoader.getInstance().getSprite("coin.png"), 10, 120, canvas);
+        g.drawString(""+ pickupManager.getCoinsPickedUp(),  75, 165);
 
         // Draw powerups
         g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, 20, canvas);
@@ -134,7 +147,7 @@ public class GameplayController implements KeyboardControllable {
                 }
                 incrementOverlayLevel();
             }
-        }, OPACITY_CYCLE_INTERVAL);
+        }, (opacityLevelCounter % opacityLevel.length) == 0 ?  opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
 
     }
 
@@ -144,7 +157,7 @@ public class GameplayController implements KeyboardControllable {
      * @param g overlay to be rendered
      */
     public void paintOverlay(Graphics g) {
-        Color color = new Color(0, 0, 0, opacityLevel[opacityLevelCounter % opacityLevel.length]);
+        Color color = new Color(255, 255, 255, opacityLevel[opacityLevelCounter % opacityLevel.length]);
         g.setColor(color);
         g.fillRect(0, 0, 1000, 1000);
     }
@@ -218,7 +231,7 @@ public class GameplayController implements KeyboardControllable {
             PlayerInventory.clearPowerups();
             PlayerInventory.setHighScore(getScore());
             PlayerInventory.saveToFile();
-            canvas.initGameOverScreen(getScore());
+            canvas.initGameOverScreen(getScore(), pickupManager.getCoinsPickedUp());
         }
     }
 
