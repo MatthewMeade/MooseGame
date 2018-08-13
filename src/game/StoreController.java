@@ -96,8 +96,12 @@ public class StoreController implements KeyboardControllable {
 
         } else if (menuState == 1) {
 
+
+
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(Stage.WIDTH / 6, 160, 2 * Stage.WIDTH / 3, 375);
+
+
             g.setColor(Color.white);
 
             String[] sprites = new String[]{"foglights.png", "invincible.png", "slowmotion.png"};
@@ -130,54 +134,38 @@ public class StoreController implements KeyboardControllable {
             // VEHICLES MENU
         } else if (menuState == 2) {
 
-            // Car
-            g.drawImage(ResourceLoader.getInstance().getSprite("car.png"), (Stage.WIDTH / 3), 180, stage);
+            String[] sprites = new String[] {"car.png", "truck.png", "atv.png"};
+            Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
 
-            if (menuSelection == 0) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (PlayerInventory.getEquippedVehicle() != CAR) {
-                g.drawString("Equip", 400, 330);
-            } else {
-                g.drawString("Equipped", 400, 330);
-            }
+            PlayerInventory.Vehicles equipped = PlayerInventory.getEquippedVehicle();
+            Boolean[] equippedStates = new Boolean[]{equipped == CAR, equipped == TRUCK, equipped == ATV};
 
-            // Truck
-            g.drawImage(ResourceLoader.getInstance().getSprite("truck.png"), (Stage.WIDTH / 3), 375, stage);
+            Boolean[] ownedStates = new Boolean[]{true, PlayerInventory.isTruckOwned(), PlayerInventory.isAtvOwned()};
 
-            if (menuSelection == 1) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (!PlayerInventory.isTruckOwned()) {
-                g.drawString("Buy (" + TRUCK_COST + " coins)", 400, 400);
-            } else if (PlayerInventory.getEquippedVehicle() != TRUCK) {
-                g.drawString("Equip", 400, 400);
-            } else {
-                g.drawString("Equipped", 400, 400);
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(Stage.WIDTH / 6, 175, 2 * Stage.WIDTH / 3, 500);
+
+            for (int i = 0; i < sprites.length; i++) {
+                g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), (Stage.WIDTH / 3), 180 + 150 * i, stage);
+                g.setColor(menuSelection == i ? Color.GREEN : Color.white);
+                String drawString = "";
+
+                if (!ownedStates[i]) {
+                    drawString = "Buy (" + prices[i] + ")";
+                } else if (equippedStates[i]) {
+                    drawString = "Equiped";
+                } else {
+                    drawString = "Equip";
+                }
+
+                g.drawString(drawString, 400, 255 + 150 * i);
             }
 
-            // ATV
-            g.drawImage(ResourceLoader.getInstance().getSprite("atv.png"), (Stage.WIDTH / 3), 575, stage);
-
-            if (menuSelection == 2) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (!PlayerInventory.isAtvOwned()) {
-                g.drawString("Buy (" + ATV_COST + " coins)", 400, 575);
-            } else if (PlayerInventory.getEquippedVehicle() != ATV) {
-                g.drawString("Equip", 400, 575);
-            } else {
-                g.drawString("Equipped", 400, 575);
-            }
 
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
+
+            String backString = "Back to Store";
+            g.drawString(backString, (Stage.WIDTH - metrics.stringWidth(backString)) / 2, 650);
 
             // BUY COIN PACKS
         } else if (menuState == 3) {

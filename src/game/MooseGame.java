@@ -329,14 +329,18 @@ public class MooseGame extends Stage implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
 
-        if (gameState == gameStates.GAME) {
-            gameKeyPressedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU) {
-            menuKeyPressedHandler.handleInput(e);
-        } else if (gameState == gameStates.STORE) {
-            storeKeyPressedHandler.handleInput(e);
-        } else if (gameState == gameStates.GAME_OVER) {
-            gameOverKeyPressedHandler.handleInput((e));
+        try {
+            if (gameState == gameStates.GAME) {
+                gameKeyPressedHandler.handleInput(e);
+            } else if (gameState == gameStates.MENU) {
+                menuKeyPressedHandler.handleInput(e);
+            } else if (gameState == gameStates.STORE) {
+                storeKeyPressedHandler.handleInput(e);
+            } else if (gameState == gameStates.GAME_OVER) {
+                gameOverKeyPressedHandler.handleInput((e));
+            }
+        } catch (NullPointerException ex) {
+            // Key pressed while transitioning
         }
 
     }
