@@ -171,6 +171,9 @@ public class StoreController implements KeyboardControllable {
             // BUY COIN PACKS
         } else if (menuState == 3) {
 
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(Stage.WIDTH / 6, 200, 2 * Stage.WIDTH / 3, 375);
+
             String[] coinPacksText = new String[]{
                     SMALL_COIN_PACK_VALUE + " for $" + SMALL_COIN_PACK_COST,
                     MEDIUM_COIN_PACK_VALUE + " for $" + MEDIUM_COIN_PACK_COST,
@@ -179,11 +182,13 @@ public class StoreController implements KeyboardControllable {
 
             for (int i = 0; i < coinPacksText.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString(coinPacksText[i], (Stage.WIDTH / 5), 250 + (75 * i));
+                g.drawString(coinPacksText[i], (Stage.WIDTH - metrics.stringWidth(coinPacksText[i])) / 2, 250 + (70 * i));
             }
 
             g.setColor(menuSelection == 4 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
+
+            String backText = "Back to Store";
+            g.drawString(backText, (Stage.WIDTH - metrics.stringWidth(backText)) / 2, 550);
         }
     }
 

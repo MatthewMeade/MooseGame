@@ -314,7 +314,6 @@ public class PlayerInventory {
                 Boolean.toString(truckOwned) + "," +
                 Boolean.toString(atvOwned)
         );
-        System.out.println(s);
         File saveFile = new File("./save.dat");
         try {
             FileWriter fw = new FileWriter(saveFile);
