@@ -12,7 +12,7 @@ public class CoinPickup extends Pickup {
 
     public CoinPickup(MooseGame canvas) {
         super(canvas);
-        sprites = new String[]{"Coin.png"};
+        sprites = new String[]{"coin.png"};
     }
 
     /**
