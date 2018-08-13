@@ -15,6 +15,7 @@ public class GameOverScreenController implements KeyboardControllable {
     private int menuSelection = 0;
     private int finalScore;
     private int chosenPSA;
+    private int coins;
 
     String[] PSAs = new String[]{
             "Remember to keep your car on the road!",
@@ -31,9 +32,10 @@ public class GameOverScreenController implements KeyboardControllable {
      * @param stage      game window
      * @param finalScore final score of current game
      */
-    public GameOverScreenController(MooseGame stage, int finalScore) {
+    public GameOverScreenController(MooseGame stage, int finalScore, int coins) {
         this.stage = stage;
         this.finalScore = finalScore;
+        this.coins = coins;
 
         chosenPSA = new Random().nextInt(PSAs.length);
 
@@ -78,12 +80,19 @@ public class GameOverScreenController implements KeyboardControllable {
         String highScoreText = "High Score: " + PlayerInventory.getHighScore();
         g.drawString(highScoreText, (5*Stage.WIDTH/6) - metrics.stringWidth(highScoreText) - 10, 225);
 
+        // Draw coin info
+        g.drawString("New Coins: " + coins, Stage.WIDTH / 6 + 10, 275);
+
+        String totalCoinsText = "Total Coins: " + PlayerInventory.getCurrency();
+        g.drawString(totalCoinsText, (5*Stage.WIDTH/6) - metrics.stringWidth(totalCoinsText) - 10, 275);
+
+        // Draw Menu Options
         g.setFont(new Font("Impact", Font.PLAIN, 40));
 
         String[] optionText = new String[]{"Play Again", "Return to Main Menu"};
         for (int i = 0; i < optionText.length; i++) {
             g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-            g.drawString(optionText[i], (Stage.WIDTH / 2) - (int)(optionText[i].length() * 8.5), 300 + (60 * i));
+            g.drawString(optionText[i], (Stage.WIDTH / 2) - (int)(optionText[i].length() * 8.5), 350 + (60 * i));
         }
 
 
@@ -95,7 +104,7 @@ public class GameOverScreenController implements KeyboardControllable {
 
         g.setColor(Color.white);
 
-        g.drawString("Driving Tip:", (Stage.WIDTH - metrics.stringWidth("Driving Tip:")) / 2, 450);
+        g.drawString("Driving Tip:", (Stage.WIDTH - metrics.stringWidth("Driving Tip:")) / 2, 475);
 
         g.setFont(psaTitleFont);
         metrics = g.getFontMetrics(psaFont);
@@ -103,7 +112,7 @@ public class GameOverScreenController implements KeyboardControllable {
         String[] psaStrings = PSAs[chosenPSA].split("\n");
         for (int i = 0; i < psaStrings.length; i++) {
             int x = (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(psaStrings[i])) / 2;
-            g.drawString(psaStrings[i], x, 480 + 25 * i);
+            g.drawString(psaStrings[i], x, 500 + 25 * i);
 
         }
 

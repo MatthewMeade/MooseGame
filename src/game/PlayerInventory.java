@@ -221,7 +221,6 @@ public class PlayerInventory {
                 Boolean.toString(settingsMusicOn) + "," +
                 Boolean.toString(settingSoundsOn) + "," +
                 Boolean.toString(showFPSOverlay));
-        System.out.println(s);
         File saveFile = new File("./save.txt");
         try {
             FileWriter fw = new FileWriter(saveFile);

@@ -145,9 +145,9 @@ public class MooseGame extends Stage implements KeyListener {
      *
      * @param finalScore Holds the value of the final score for one gameplay instance
      */
-    public void initGameOverScreen(int finalScore) {
+    public void initGameOverScreen(int finalScore, int coins) {
         gameState = gameStates.GAME_OVER;
-        gameOverScreenController = new GameOverScreenController(this, finalScore);
+        gameOverScreenController = new GameOverScreenController(this, finalScore, coins);
 
         gameOverKeyPressedHandler = new InputHandler(this, gameOverScreenController);
         gameOverKeyPressedHandler.action = InputHandler.Action.PRESS;
@@ -195,6 +195,7 @@ public class MooseGame extends Stage implements KeyListener {
      */
     public void paintFPS(Graphics g) {
         g.setColor(Color.RED);
+        g.setFont(new Font("Courier New", Font.PLAIN, 30));
         if (usedTime > 0)
             g.drawString(String.valueOf(1000 / usedTime) + " fps", 0, Stage.HEIGHT - 50);
         else

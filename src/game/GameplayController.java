@@ -218,7 +218,7 @@ public class GameplayController implements KeyboardControllable {
             PlayerInventory.clearPowerups();
             PlayerInventory.setHighScore(getScore());
             PlayerInventory.saveToFile();
-            canvas.initGameOverScreen(getScore());
+            canvas.initGameOverScreen(getScore(), pickupManager.getCoinsPickedUp());
         }
     }
 
