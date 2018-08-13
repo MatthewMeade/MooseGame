@@ -112,10 +112,17 @@ public class GameplayController implements KeyboardControllable {
         g.drawString("" + pickupManager.getCoinsPickedUp(), 75, 165);
 
         // Draw powerups
-        g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, Stage.HEIGHT - 210, canvas);
-        g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, Stage.HEIGHT - 150, canvas);
-        g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, Stage.HEIGHT - 90, canvas);
+        if (!fogLightsActive || canvas.getSpriteBlinkStatus()) {
+            g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, Stage.HEIGHT - 210, canvas);
+        }
 
+        if (!invincibilityActive || canvas.getSpriteBlinkStatus()) {
+            g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, Stage.HEIGHT - 150, canvas);
+        }
+
+        if (!slowMotionActive || canvas.getSpriteBlinkStatus()) {
+            g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, Stage.HEIGHT - 90, canvas);
+        }
 
         String fCount = Integer.toString(PlayerInventory.getFogLightsCount());
         String iCount = Integer.toString(PlayerInventory.getInvincibilityCount());
@@ -129,7 +136,11 @@ public class GameplayController implements KeyboardControllable {
             Actor actor = actors.get(i);
             actor.paint(g);
         }
-        player.paint(g);
+
+        if (!invincibilityActive || canvas.getSpriteBlinkStatus()) {
+            player.paint(g);
+        }
+
         obstacleManager.paint(g);
         pickupManager.paint(g);
         paintOverlay(g);
@@ -234,6 +245,8 @@ public class GameplayController implements KeyboardControllable {
                 PlayerInventory.setHighScore(getScore());
                 PlayerInventory.saveToFile();
                 canvas.initGameOverScreen(getScore(), pickupManager.getCoinsPickedUp());
+            } else { // Player damaged, but has health remaining
+                activateInvincibility(3000);
             }
         }
     }
