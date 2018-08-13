@@ -24,8 +24,8 @@ public class GameplayController implements KeyboardControllable {
     private InputHandler playerReleasedHandler;
 
     private Timer opacityTimer = new Timer();
-    private final static int OPACITY_CYCLE_INTERVAL = 5000;
-    private int[] opacityLevel = {0, 75, 150, 75};
+    private final static int OPACITY_CYCLE_INTERVAL = 1000;
+    private int[] opacityLevel = {0, 25, 50, 75, 100, 125, 150, 175, 200, 175, 150, 125, 100, 75, 50, 25};
     private int opacityLevelCounter = 0;
 
     private int road1Pos = Stage.HEIGHT * -1;
@@ -130,11 +130,12 @@ public class GameplayController implements KeyboardControllable {
             @Override
             public void run() {
                 if (!fogLightsActive) {
+                    System.out.println("Fog Level: " + opacityLevelCounter % opacityLevel.length);
                     opacityLevelCounter++;
                 }
                 incrementOverlayLevel();
             }
-        }, OPACITY_CYCLE_INTERVAL);
+        }, (opacityLevelCounter % opacityLevel.length) - 1 == 0 ?  opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
 
     }
 
@@ -144,7 +145,7 @@ public class GameplayController implements KeyboardControllable {
      * @param g overlay to be rendered
      */
     public void paintOverlay(Graphics g) {
-        Color color = new Color(0, 0, 0, opacityLevel[opacityLevelCounter % opacityLevel.length]);
+        Color color = new Color(255, 255, 255, opacityLevel[opacityLevelCounter % opacityLevel.length]);
         g.setColor(color);
         g.fillRect(0, 0, 1000, 1000);
     }
