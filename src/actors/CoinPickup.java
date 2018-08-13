@@ -5,6 +5,9 @@ import game.Stage;
 
 import java.util.Random;
 
+/**
+ * Class allows coins to be picked up by player during gameplay
+ */
 public class CoinPickup extends Pickup {
 
     public CoinPickup(MooseGame canvas) {
@@ -21,8 +24,9 @@ public class CoinPickup extends Pickup {
 
         Random random = new Random();
 
-        setX(124 + random.nextInt(Stage.WIDTH - 124));
-        posY = -100;
+        boolean left = random.nextBoolean();
+        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setY(-200);
 
         setWidth(50);
         setHeight(50);

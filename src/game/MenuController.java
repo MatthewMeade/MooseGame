@@ -9,14 +9,14 @@ import java.awt.event.KeyEvent;
 import static game.PlayerInventory.saveToFile;
 
 /**
- * Handles creation of main menu
+ * Handles creation of main menu.
  */
 public class MenuController implements KeyboardControllable {
 
     private MooseGame stage;
     private int menuSelection = 0;
 
-    private int[] menuLengths = new int[]{4, 5};
+    private int[] menuLengths = new int[]{5, 5, 1};
 
     // 0 main menu
     // 1 settings
@@ -51,7 +51,7 @@ public class MenuController implements KeyboardControllable {
 
         if (menuState == 0) {
 
-            String[] text = new String[]{"Play", "Store", "Settings", "Exit"};
+            String[] text = new String[]{"Play", "Store", "Settings", "How to Play", "Exit"};
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
@@ -61,6 +61,7 @@ public class MenuController implements KeyboardControllable {
             g.drawString("Controls:", 425, 250);
 
 
+            // Settings menu
         } else if (menuState == 1) {
 
             String[] text = new String[]{
@@ -75,6 +76,12 @@ public class MenuController implements KeyboardControllable {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
             }
+
+            // How to play menu
+        } else if (menuState == 2) {
+
+            g.setColor(Color.GREEN);
+            g.drawString("Back to Main Menu", (Stage.WIDTH / 2), 700);
 
         }
 
@@ -97,7 +104,11 @@ public class MenuController implements KeyboardControllable {
                     menuState = 1;
                     menuSelection = 0;
                     break;
-                case 3:
+                case 3: // How to play
+                    menuState = 2;
+                    menuSelection = 0;
+                    break;
+                case 4:
                     saveToFile();
                     MooseGame.exit();
                     break;
@@ -122,12 +133,17 @@ public class MenuController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
             }
+        } else if (menuState == 2) {
+            switch (menuSelection) {
+                case 0: // Return to main menu
+                    menuState = 0;
+            }
         }
 
     }
 
     /**
-     * Handles key press event
+     * Handles key press event for Main Menu.
      *
      * @param e key press event
      */
@@ -148,7 +164,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release event
+     * Handles key release event for Main Menu.
      *
      * @param e key release event
      */

@@ -129,6 +129,10 @@ public class MooseGame extends Stage implements KeyListener {
         menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
     }
 
+    /**
+     * Method declares game state as STORE, creates new instance of StoreController class,
+     * calls PRESS and RELEASE key actions from InputHandler class.
+     */
     public void initStore() {
         gameState = gameStates.STORE;
         storeController = new StoreController(this);

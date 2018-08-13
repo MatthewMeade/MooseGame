@@ -7,6 +7,9 @@ import java.awt.event.KeyEvent;
 
 import static game.PlayerInventory.Vehicles.*;
 
+/**
+ * Handles creation of store screen,
+ */
 public class StoreController implements KeyboardControllable {
 
     private MooseGame stage;
@@ -30,10 +33,20 @@ public class StoreController implements KeyboardControllable {
     private static final int SUPER_COIN_PACK_VALUE = 5000;
     private static final double SUPER_COIN_PACK_COST = 9.99;
 
+    /**
+     * Constructor for StoreController.
+     *
+     * @param stage game window
+     */
     public StoreController(MooseGame stage) {
         this.stage = stage;
     }
 
+    /**
+     * Renders graphics for Store screen.
+     *
+     * @param g instance of Store screen
+     */
     public void paint(Graphics g) {
 
         // Draw background
@@ -169,7 +182,11 @@ public class StoreController implements KeyboardControllable {
         }
     }
 
-
+    /**
+     * Handles key press event for Store screen.
+     *
+     * @param e key press event
+     */
     @Override
     public void triggerKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -188,7 +205,7 @@ public class StoreController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release events for game over screen.
+     * Handles key release events for Store screen.
      *
      * @param e key release event
      */
