@@ -25,8 +25,8 @@ public class PickupManager {
 
     private static final int SPAWN_WAIT_TIME = 2 * 1000;
 
-    private static final int COIN_MIN_SPAWN_TIME = 10 * 1000;
-    private static final int COIN_MAX_SPAWN_TIME = 17 * 1000;
+    private static final int COIN_MIN_SPAWN_TIME = 500;
+    private static final int COIN_MAX_SPAWN_TIME = 1000;
     private Timer coinTimer = new Timer();
 
     private static final int FOG_LIGHTS_MIN_SPAWN_TIME = 8 * 1000;
