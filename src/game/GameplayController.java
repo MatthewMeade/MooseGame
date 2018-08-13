@@ -90,13 +90,26 @@ public class GameplayController implements KeyboardControllable {
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, road1Pos, canvas);
         g.drawImage(ResourceLoader.getInstance().getSprite("road2.png"), 0, road2Pos, canvas);
 
-        // Draw score
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + getScore(), 50, 50);
+
+        // Draw score
+        Font scoreFont = new Font("Impact", Font.PLAIN, 30);
+        FontMetrics metrics = g.getFontMetrics(scoreFont);
+        g.setFont(scoreFont);
+
+        String scoreText = "" + getScore();
+        g.drawString(scoreText,  Stage.WIDTH - metrics.stringWidth(scoreText) - 25, 30);
 
         // Draw health
-        g.drawString("Health: " + health, 50, 100);
+        Font healthFont = new Font("Impact", Font.PLAIN, 45);
+        metrics = g.getFontMetrics(healthFont);
+        g.setFont(healthFont);
+        g.drawImage(ResourceLoader.getInstance().getSprite("heart.png"), 10, 5, canvas);
+        g.drawString("" + health,  10+(100 - metrics.stringWidth("" + health))/2, 75);
+
+        // Draw Coins
+        g.drawImage(ResourceLoader.getInstance().getSprite("coin.png"), 10, 120, canvas);
+        g.drawString(""+ pickupManager.getCoinsPickedUp(),  75, 165);
 
         // Draw powerups
         g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, 20, canvas);
@@ -134,7 +147,7 @@ public class GameplayController implements KeyboardControllable {
                 }
                 incrementOverlayLevel();
             }
-        }, (opacityLevelCounter % opacityLevel.length) - 1 == 0 ?  opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
+        }, (opacityLevelCounter % opacityLevel.length) == 0 ?  opacityLevel.length * OPACITY_CYCLE_INTERVAL : OPACITY_CYCLE_INTERVAL);
 
     }
 
