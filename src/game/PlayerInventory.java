@@ -4,8 +4,9 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Keeps track of player inventory obtained within the game,
- * displays high score information and allows settings changes.
+ * Keeps track of player settings and inventory within the game,
+ * displays high score information, allows settings changes,
+ * checks if purchases are possible.
  */
 public class PlayerInventory {
 
@@ -29,17 +30,27 @@ public class PlayerInventory {
 
     private static Vehicles equippedVehicle = Vehicles.CAR;
 
+    /**
+     * Gets value for equippedVehicle.
+     *
+     * @return equipped vehicle value
+     */
     public static Vehicles getEquippedVehicle() {
         return equippedVehicle;
     }
 
+    /**
+     * Sets value for equippedVehicle.
+     *
+     * @param vehicle equipped vehicle value
+     */
     public static void setEquippedVehicle(Vehicles vehicle) {
         equippedVehicle = vehicle;
     }
 
 
     /**
-     * Get value for settingsMusicOn
+     * Get value for settingsMusicOn.
      *
      * @return settingsMusicOn
      */
@@ -130,7 +141,12 @@ public class PlayerInventory {
         currency += additionalCurrency;
     }
 
-
+    /**
+     * Determines whether a player's currency is sufficient to purchase an item.
+     *
+     * @param cost int Cost of an item
+     * @return Whether sufficient currency exists
+     */
     public static boolean spendCurrency(int cost) {
 
         if (currency >= cost) {
@@ -141,18 +157,34 @@ public class PlayerInventory {
         }
     }
 
+    /**
+     * Checks to see if truck is owned.
+     *
+     * @return Whether truck is owned
+     */
     public static boolean isTruckOwned() {
         return truckOwned;
     }
 
+    /**
+     * Sets truck ownership value to true following truck purchase.
+     */
     public static void buyTruck() {
         truckOwned = true;
     }
 
+    /**
+     * Checks to see if ATV is owned.
+     *
+     * @return Whether ATV is owned
+     */
     public static boolean isAtvOwned() {
         return atvOwned;
     }
 
+    /**
+     * Sets truck ownership value to true following truck purchase.
+     */
     public static void buyATV() {
         atvOwned = true;
     }
@@ -257,6 +289,10 @@ public class PlayerInventory {
         slowMotionCount = 0;
     }
 
+    /**
+     * Saves game settings to a file. Settings include high score, currency,
+     * music settings, sound settings, FPS overlay, vehicle.
+     */
     public static void saveToFile() {
 
         String equippedVehicleSaveString = "";

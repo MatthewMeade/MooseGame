@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import static game.PlayerInventory.saveToFile;
 
 /**
- * Handles creation of main menu
+ * Handles creation of main menu.
  */
 public class MenuController implements KeyboardControllable {
 
@@ -127,7 +127,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles key press event
+     * Handles key press event for Main Menu.
      *
      * @param e key press event
      */
@@ -148,7 +148,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release event
+     * Handles key release event for Main Menu.
      *
      * @param e key release event
      */
