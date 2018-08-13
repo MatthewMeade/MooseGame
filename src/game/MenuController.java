@@ -49,16 +49,20 @@ public class MenuController implements KeyboardControllable {
         g.setColor(new Color(0, 0, 0, 150));
         g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
 
+        Font menuFont = new Font("Impact", Font.PLAIN, 40);
+        FontMetrics metrics = g.getFontMetrics(menuFont);
+        g.setFont(menuFont);
+
         if (menuState == 0) {
 
             String[] text = new String[]{"Play", "Store", "Settings", "How to Play", "Exit"};
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
+                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "") ;
+                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
             }
 
             g.setColor(Color.white);
-            g.drawString("Controls:", 425, 250);
 
 
             // Settings menu
@@ -74,7 +78,9 @@ public class MenuController implements KeyboardControllable {
 
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
+                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "") ;
+                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
+
             }
 
             // How to play menu

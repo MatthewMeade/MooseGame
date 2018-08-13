@@ -19,7 +19,7 @@ public class StoreController implements KeyboardControllable {
 
     public static final int FOG_LIGHTS_COST = 50;
     public static final int INVINCIBILITY_COST = 60;
-    public static final int SLOW_MOTION_COST = 75;
+    public static final int SLOW_MOTION_COST = 70;
 
     private static final int TRUCK_COST = 250;
     private static final int ATV_COST = 300;
@@ -60,13 +60,22 @@ public class StoreController implements KeyboardControllable {
         FontMetrics metrics = g.getFontMetrics(storeTitle);
         g.setFont(storeTitle);
         g.setColor(Color.WHITE);
-        g.drawString("Store", (Stage.WIDTH - metrics.stringWidth("Store")) / 2 , 125);
+        g.drawString("Store", (Stage.WIDTH - metrics.stringWidth("Store")) / 2, 125);
 
 
-        // Draw store title
+        Font coinFont = new Font("Impact", Font.PLAIN, 30);
+        metrics = g.getFontMetrics(coinFont);
+        g.setFont(coinFont);
+        g.setColor(new Color(255, 215, 0));
+
+        String coinText = "Coins: " + PlayerInventory.getCurrency();
+        g.drawString(coinText, 5 * Stage.WIDTH / 6 - metrics.stringWidth(coinText) - 10, 135);
+
+
         Font menuFont = new Font("Impact", Font.PLAIN, 40);
         metrics = g.getFontMetrics(menuFont);
         g.setFont(menuFont);
+        g.setColor(Color.white);
 
         // 0 - main store, 1 - powerups, 2 - vehicles
         // 3 - buy coin packs
@@ -80,37 +89,46 @@ public class StoreController implements KeyboardControllable {
 
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
+                String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
+                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
+
             }
 
         } else if (menuState == 1) {
 
-            g.setFont(new Font("Impact", Font.PLAIN, 25));
-            g.drawString("Coins: " + PlayerInventory.getCurrency(), stage.WIDTH / 2, 150);
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(Stage.WIDTH / 6, 160, 2 * Stage.WIDTH / 3, 375);
+            g.setColor(Color.white);
 
-            // Draw powerups
-            g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), (Stage.WIDTH / 5), 160, stage);
-            g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), (Stage.WIDTH / 5), 220, stage);
-            g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), (Stage.WIDTH / 5), 280, stage);
-            g.drawString("Fog Lights", (Stage.WIDTH / 3), 200);
-            g.drawString("Invincibility", (Stage.WIDTH / 3), 250);
-            g.drawString("Slow Motion", (Stage.WIDTH / 3), 300);
+            String[] sprites = new String[]{"foglights.png", "invincible.png", "slowmotion.png"};
+            String[] names = new String[]{"Fog Lights", "Invincibility", "Slow Motion"};
+            Integer[] options = new Integer[]{FOG_LIGHTS_COST, INVINCIBILITY_COST, SLOW_MOTION_COST};
 
-            String[] options = new String[]{"Buy (" + FOG_LIGHTS_COST + " coins)", "Buy (" + INVINCIBILITY_COST + " coins)", "Buy (" + SLOW_MOTION_COST + " coins)"};
-
-            for (int i = 0; i < options.length; i++) {
+            for (int i = 0; i < sprites.length; i++) {
+                g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), Stage.WIDTH / 6 + 10, 175 + i * 75, stage);
+                g.drawString("[" + options[i] + "]    "+  names[i], (Stage.WIDTH / 4) + 20, 215 + i * 75);
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString(options[i], 500, 200 + (50 * i));
+                g.drawString("Buy", 550, 215 + (75 * i));
+                g.setColor(Color.white);
             }
 
+            Font warningFont = new Font("Calivri", Font.BOLD, 16);
+            metrics = g.getFontMetrics(warningFont);
+            g.setFont(warningFont);
+            g.setColor(Color.red);
+
+            String warningText = "Note: Powerups are lost on game over";
+            g.drawString(warningText, (Stage.WIDTH - metrics.stringWidth(warningText)) /2, 400);
+
+            metrics = g.getFontMetrics(menuFont);
+            g.setFont(menuFont);
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
+
+            String backText = "Back to store";
+            g.drawString(backText, (Stage.WIDTH - metrics.stringWidth(backText)) / 2, 500);
 
             // VEHICLES MENU
         } else if (menuState == 2) {
-
-            g.setFont(new Font("Impact", Font.PLAIN, 25));
-            g.drawString("Coins: " + PlayerInventory.getCurrency(), stage.WIDTH / 3, 150);
 
             // Car
             g.drawImage(ResourceLoader.getInstance().getSprite("CarFullHealth.png"), (Stage.WIDTH / 3), 180, stage);
@@ -163,8 +181,6 @@ public class StoreController implements KeyboardControllable {
 
             // BUY COIN PACKS
         } else if (menuState == 3) {
-            g.setFont(new Font("Impact", Font.PLAIN, 25));
-            g.drawString("Coins: " + PlayerInventory.getCurrency(), stage.WIDTH / 3, 150);
 
             String[] coinPacksText = new String[]{
                     SMALL_COIN_PACK_VALUE + " for $" + SMALL_COIN_PACK_COST,
