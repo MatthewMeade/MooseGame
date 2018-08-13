@@ -131,7 +131,7 @@ public class StoreController implements KeyboardControllable {
         } else if (menuState == 2) {
 
             // Car
-            g.drawImage(ResourceLoader.getInstance().getSprite("CarFullHealth.png"), (Stage.WIDTH / 3), 180, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("car.png"), (Stage.WIDTH / 3), 180, stage);
 
             if (menuSelection == 0) {
                 g.setColor(Color.GREEN);
@@ -145,7 +145,7 @@ public class StoreController implements KeyboardControllable {
             }
 
             // Truck
-            g.drawImage(ResourceLoader.getInstance().getSprite("TruckFullHealth.png"), (Stage.WIDTH / 3), 375, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("truck.png"), (Stage.WIDTH / 3), 375, stage);
 
             if (menuSelection == 1) {
                 g.setColor(Color.GREEN);
