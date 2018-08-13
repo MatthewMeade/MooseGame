@@ -131,7 +131,7 @@ public class StoreController implements KeyboardControllable {
         } else if (menuState == 2) {
 
             // Car
-            g.drawImage(ResourceLoader.getInstance().getSprite("car.png"), (Stage.WIDTH / 3), 180, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("player_bluecar.png"), (Stage.WIDTH / 3), 180, stage);
 
             if (menuSelection == 0) {
                 g.setColor(Color.GREEN);

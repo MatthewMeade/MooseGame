@@ -16,7 +16,9 @@ public class VehicleObstacle extends Obstacle {
      */
     public VehicleObstacle(MooseGame canvas) {
         super(canvas);
-        sprites = new String[]{"TempBadCar.png"};
+        String[] possibleSprites = new String[]{"enemy_redcar.png", "enemy_purplecar.png", "enemy_truck.png"};
+        Random random = new Random();
+        sprites = new String[]{possibleSprites[random.nextInt(possibleSprites.length)]};
     }
 
     /**
