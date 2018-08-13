@@ -4,6 +4,7 @@ import actors.KeyboardControllable;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 /**
  * Handles creation of game over screen.
@@ -13,67 +14,100 @@ public class GameOverScreenController implements KeyboardControllable {
     private MooseGame stage;
     private int menuSelection = 0;
     private int finalScore;
+    private int chosenPSA;
+
+    String[] PSAs = new String[]{
+            "Remember to keep your car on the road!",
+            "Fog reduces visibility, use your fog lights\nand pay extra attention for moose!",
+            "Always wear your seat belt!",
+            "Pay attention to road signs identifying\nareas with a large moose population!",
+            "Don't drive ATVs on the highway!",
+            "Don't text and drive!"
+    };
 
     /**
      * Constructor for GameOverScreenController.
-     * @param stage game window
+     *
+     * @param stage      game window
      * @param finalScore final score of current game
      */
     public GameOverScreenController(MooseGame stage, int finalScore) {
         this.stage = stage;
         this.finalScore = finalScore;
 
+        chosenPSA = new Random().nextInt(PSAs.length);
+
     }
 
     /**
      * Render graphics for game over screen
+     *
      * @param g screen to be rendered
      */
     public void paint(Graphics g) {
-
-        g.setFont(new Font("Impact", Font.PLAIN, 40));
 
 
         // Draw background
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
 
-        // Show final score
-//        g.setFont(new Font("Arial", Font.PLAIN, 40));
+        // Draw text background
+        g.setColor(new Color(0, 0, 0, 180));
+        g.fillRect(Stage.WIDTH / 6, Stage.HEIGHT / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
+
+        // Draw text background
+        g.setColor(new Color(0, 0, 0, 150));
+        g.fillRect(Stage.WIDTH / 6, 40, 2 * Stage.WIDTH / 3, 75);
+
+        // Game Over Text
+        Font titleFont = new Font("Impact", Font.PLAIN, 60);
+        FontMetrics metrics = g.getFontMetrics(titleFont);
+        g.setFont(titleFont);
+        g.setColor(Color.RED);
+        g.drawString("Game Over!", (Stage.WIDTH - metrics.stringWidth("Game Over!")) / 2, 100);
+
+
+        // Draw current and high scores
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + finalScore, stage.WIDTH / 3, 200);
+        Font menuFont = new Font("Impact", Font.PLAIN, 35);
+        g.setFont(menuFont );
 
-        // Show high score
-//        g.setFont(new Font("Arial", Font.PLAIN, 40));
-        g.setColor(Color.WHITE);
-        g.drawString("High Score: " + PlayerInventory.getHighScore(), stage.WIDTH / 3, 250);
+        metrics = g.getFontMetrics(menuFont);
 
-        // Draw play again/return to main menu options highlighted based on current choice
+        g.drawString("Score: " + finalScore, Stage.WIDTH / 6 + 10, 225);
 
-        if (menuSelection == 0) {
+        String highScoreText = "High Score: " + PlayerInventory.getHighScore();
+        g.drawString(highScoreText, (5*Stage.WIDTH/6) - metrics.stringWidth(highScoreText) - 10, 225);
 
+        g.setFont(new Font("Impact", Font.PLAIN, 40));
 
-
-            // Play again
-            g.setFont(new Font("Impact", Font.PLAIN, 40));
-            g.setColor(Color.GREEN);
-            g.drawString("Play Again", stage.WIDTH / 3, 500);
-
-            // Return to main menu
-//            g.setFont(new Font("Arial", Font.PLAIN, 40));
-            g.setColor(Color.WHITE);
-            g.drawString("Return to Main Menu", stage.WIDTH / 3, 600);
-
-        } else if (menuSelection == 1) {
-            // Play again
-//            g.setFont(new Font("Arial", Font.PLAIN, 40));
-            g.setColor(Color.WHITE);
-            g.drawString("Play Again", stage.WIDTH / 3, 500);
-
-            // Return to main menu
-//            g.setFont(new Font("Arial", Font.PLAIN, 40));
-            g.setColor(Color.GREEN);
-            g.drawString("Return to Main Menu", stage.WIDTH / 3, 600);
+        String[] optionText = new String[]{"Play Again", "Return to Main Menu"};
+        for (int i = 0; i < optionText.length; i++) {
+            g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
+            g.drawString(optionText[i], (Stage.WIDTH / 2) - (int)(optionText[i].length() * 8.5), 300 + (60 * i));
         }
+
+
+        Font psaFont = new Font("Calibri", Font.BOLD, 25);
+        Font psaTitleFont = new Font("Calibri", Font.PLAIN, 25);
+
+        g.setFont(psaTitleFont);
+        metrics = g.getFontMetrics(psaTitleFont);
+
+        g.setColor(Color.white);
+
+        g.drawString("Driving Tip:", (Stage.WIDTH - metrics.stringWidth("Driving Tip:")) / 2, 450);
+
+        g.setFont(psaTitleFont);
+        metrics = g.getFontMetrics(psaFont);
+
+        String[] psaStrings = PSAs[chosenPSA].split("\n");
+        for (int i = 0; i < psaStrings.length; i++) {
+            int x = (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(psaStrings[i])) / 2;
+            g.drawString(psaStrings[i], x, 480 + 25 * i);
+
+        }
+
+
 
 
     }
@@ -94,6 +128,7 @@ public class GameOverScreenController implements KeyboardControllable {
 
     /**
      * Handles key press events for game over screen.
+     *
      * @param e key press event
      */
     @Override
@@ -115,6 +150,7 @@ public class GameOverScreenController implements KeyboardControllable {
 
     /**
      * Handles key release events for game over screen.
+     *
      * @param e key release event
      */
     @Override
