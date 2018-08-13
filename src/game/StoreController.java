@@ -144,12 +144,15 @@ public class StoreController implements KeyboardControllable {
                     SMALL_COIN_PACK_VALUE + " for $" + SMALL_COIN_PACK_COST,
                     MEDIUM_COIN_PACK_VALUE + " for $" + MEDIUM_COIN_PACK_COST,
                     LARGE_COIN_PACK_VALUE + " for $" + LARGE_COIN_PACK_COST,
-                    SUPER_COIN_PACK_VALUE + " fof $" + SUPER_COIN_PACK_COST};
+                    SUPER_COIN_PACK_VALUE + " for $" + SUPER_COIN_PACK_COST};
 
             for (int i = 0; i < coinPacksText.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString(coinPacksText[i], (Stage.WIDTH / 5), 250 + (75 * i));
             }
+
+            g.setColor(menuSelection == 4 ? Color.GREEN : Color.WHITE);
+            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
         }
     }
 
@@ -161,7 +164,7 @@ public class StoreController implements KeyboardControllable {
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             menuSelection--;
             if (menuSelection < 0) {
-                menuSelection = 3;
+                menuSelection = menuLengths[menuState] - 1;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             handleEnterPress();
