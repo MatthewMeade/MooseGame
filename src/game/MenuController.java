@@ -123,9 +123,9 @@ public class MenuController implements KeyboardControllable {
                 case 0:
                     PlayerInventory.setSettingMusicOn(!PlayerInventory.isSettingMusicOn());
                     if (PlayerInventory.isSettingMusicOn()) {
-                        stage.backgroundMusic.loop();
+                        stage.loopSound("backgroundloop.wav");
                     } else {
-                        stage.backgroundMusic.stop();
+                        stage.stopMusic();
                     }
                     break;
                 case 1:
@@ -180,6 +180,6 @@ public class MenuController implements KeyboardControllable {
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
-//        System.out.println("Key Released!");
+
     }
 }

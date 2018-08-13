@@ -253,12 +253,9 @@ public class MooseGame extends Stage implements KeyListener {
      * @param name location of sound
      */
     public void loopSound(final String name) {
-        System.out.println("called");
         if (PlayerInventory.isSettingMusicOn()) {
-            System.out.println("true");
             new Thread(new Runnable() {
                 public void run() {
-                    System.out.println("running");
                     backgroundMusic = ResourceLoader.getInstance().getSound(name);
                     backgroundMusic.loop();
                 }
@@ -279,6 +276,12 @@ public class MooseGame extends Stage implements KeyListener {
                     ResourceLoader.getInstance().getSound(name).play();
                 }
             }).start();
+        }
+    }
+
+    public void stopMusic() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
         }
     }
 
