@@ -1,4 +1,5 @@
 /target/
 out/
+meta-inf/
 .idea/*
 save.txt

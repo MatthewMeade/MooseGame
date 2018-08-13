@@ -6,6 +6,8 @@ import actors.KeyboardControllable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static game.PlayerInventory.saveToFile;
+
 /**
  * Handles creation of main menu
  */
@@ -57,7 +59,7 @@ public class MenuController implements KeyboardControllable {
 
             String[] text = new String[]{"Play", "Store", "Settings", "Exit"};
             for (int i = 0; i < text.length; i++) {
-                g.setColor(menuSelection == i ? Color.YELLOW : Color.WHITE);
+                g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
             }
 
@@ -76,7 +78,7 @@ public class MenuController implements KeyboardControllable {
             };
 
             for (int i = 0; i < text.length; i++) {
-                g.setColor(menuSelection == i ? Color.YELLOW : Color.WHITE);
+                g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString((menuSelection == i ? " - " : "") + text[i], (Stage.WIDTH / 5), 250 + (75 * i));
             }
 
@@ -102,6 +104,7 @@ public class MenuController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
                 case 3:
+                    saveToFile();
                     MooseGame.exit();
                     break;
             }
@@ -120,7 +123,7 @@ public class MenuController implements KeyboardControllable {
                     PlayerInventory.clearSave();
                     break;
                 case 4:
-                    PlayerInventory.saveToFile();
+                    saveToFile();
                     menuState = 0;
                     menuSelection = 0;
                     break;
