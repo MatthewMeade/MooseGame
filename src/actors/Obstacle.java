@@ -2,17 +2,15 @@ package actors;
 
 import game.MooseGame;
 
-import java.util.ArrayList;
-
 /**
  * Base class for all in-game obstacles
  */
-public class Obstacle extends Actor{
-
+public class Obstacle extends Actor {
 
 
     /**
      * Constructs a new obstacle.
+     *
      * @param canvas game window
      */
     public Obstacle(MooseGame canvas) {
@@ -23,9 +21,6 @@ public class Obstacle extends Actor{
      * Adds an obstacle to game window.
      */
     public void spawn() {}
-
-
-
 
 
 }

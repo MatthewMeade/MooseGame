@@ -1,8 +1,6 @@
 package actors;
 
 import game.MooseGame;
-import game.MooseGame;
-
 import java.util.Random;
 
 /**
@@ -41,7 +39,5 @@ public class MooseObstacle extends Obstacle {
         setVx((left ? 1 : -1) * (random.nextInt(5) + 5));
         setVy(random.nextInt(2) + 9);
     }
-
-
 
 }

@@ -218,10 +218,12 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
     public void paintFPS(Graphics g) {
         g.setColor(Color.RED);
         g.setFont(new Font("Courier New", Font.PLAIN, 30));
-        if (usedTime > 0)
+        if (usedTime > 0) {
             g.drawString(String.valueOf(1000 / usedTime) + " fps", 0, MooseGame.HEIGHT - 50);
-        else
+        }
+        else {
             g.drawString("--- fps", 0, MooseGame.HEIGHT - 50);
+        }
     }
 
     /**

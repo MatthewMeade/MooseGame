@@ -1,7 +1,6 @@
 package actors;
 
 import game.MooseGame;
-import game.MooseGame;
 
 import java.util.Random;
 
@@ -11,9 +10,9 @@ import java.util.Random;
 public class VehicleObstacle extends Obstacle {
 
     /**
-     * Constructor for VehicleObstacle.
+     * Constructs a vehicle obstacle
      *
-     * @param canvas game window
+     * @param canvas MooseGame canvas to draw to
      */
     public VehicleObstacle(MooseGame canvas) {
         super(canvas);
@@ -30,7 +29,6 @@ public class VehicleObstacle extends Obstacle {
         isActive = true;
         Random random = new Random();
 
-        boolean left = random.nextBoolean();
         setX(150 + random.nextInt(MooseGame.WIDTH - 300));
         setY(-200);
 

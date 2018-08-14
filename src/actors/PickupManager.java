@@ -61,7 +61,7 @@ public class PickupManager {
     /**
      * Gets number of coins picked up.
      *
-     * @return coinsPickedUp int
+     * @return coinsPickedUp int number of coins picked up in current game session
      */
     public int getCoinsPickedUp() {
         return coinsPickedUp;
@@ -193,7 +193,7 @@ public class PickupManager {
     /**
      * Renders graphics for pickup items
      *
-     * @param g pickup item to be painted
+     * @param g Graphics object to paint on
      */
     public void paint(Graphics g) {
 
@@ -205,10 +205,9 @@ public class PickupManager {
     /**
      * Checks to see if current player has collected a pickup item.
      *
-     * @param player Current game player
-     * @return Item collection status of player
+     * @param player Actor player object
      */
-    public boolean checkCollision(Actor player) {
+    public void checkCollision(Actor player) {
 
         for (int i = 0; i < activePickups.size(); i++) {
             Pickup p = activePickups.get(i);
@@ -226,14 +225,9 @@ public class PickupManager {
                     coinsPickedUp++;
                     canvas.playSound("coin.wav");
                 }
-                return true;
             }
         }
-
-        return false;
     }
-
-
 }
 
 

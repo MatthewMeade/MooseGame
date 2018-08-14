@@ -64,9 +64,9 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Renders graphics and dimensions for game.
+     * Paints game
      *
-     * @param g game window
+     * @param g Graphics object being painted to
      */
     public void paint(Graphics g) {
 
@@ -161,7 +161,7 @@ public class GameplayController implements KeyboardControllable {
     /**
      * Sets overlay graphics.
      *
-     * @param g overlay to be rendered
+     * @param g Graphics object being painted to
      */
     public void paintOverlay(Graphics g) {
         Color color = new Color(255, 255, 255, opacityLevel[opacityLevelCounter % opacityLevel.length]);
@@ -172,7 +172,7 @@ public class GameplayController implements KeyboardControllable {
     /**
      * Handles key control press event.
      *
-     * @param e key press event
+     * @param e KeyEvent key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
@@ -197,7 +197,7 @@ public class GameplayController implements KeyboardControllable {
     /**
      * Handles key control release event
      *
-     * @param e key release event
+     * @param e KeyEvent key release event
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {
@@ -224,7 +224,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Damages player.
+     * Damages player and handles player death
      */
     public void damagePlayer() {
         if (!invincibilityActive) {

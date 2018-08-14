@@ -7,5 +7,6 @@ import java.awt.event.KeyEvent;
  */
 public interface KeyboardControllable {
     void triggerKeyPress(KeyEvent e);
+
     void triggerKeyRelease(KeyEvent e);
 }

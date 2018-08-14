@@ -196,7 +196,7 @@ public class Actor {
     }
 
     /**
-     * Removes actor obstacle from game window.
+     * Removes actor from game window.
      */
     public void despawn() {
         isActive = false;

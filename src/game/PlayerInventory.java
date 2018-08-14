@@ -31,7 +31,7 @@ public class PlayerInventory {
     /**
      * Gets the currently equipped value.
      *
-     * @return equipped vehicle value
+     * @return Vehicle equipped vehicle
      */
     public static Vehicles getEquippedVehicle() {
         return equippedVehicle;
@@ -40,7 +40,7 @@ public class PlayerInventory {
     /**
      * Sets the currently equipped value.
      *
-     * @param vehicle equipped vehicle value
+     * @param vehicle Vehicle equipped vehicle
      */
     public static void setEquippedVehicle(Vehicles vehicle) {
         equippedVehicle = vehicle;
@@ -50,7 +50,7 @@ public class PlayerInventory {
     /**
      * Gets the value for the background music setting.
      *
-     * @return settingsMusicOn
+     * @return settingsMusicOn boolean
      */
     public static boolean isSettingMusicOn() {
         return settingsMusicOn;
@@ -59,7 +59,7 @@ public class PlayerInventory {
     /**
      * Turns background music on.
      *
-     * @param settingsMusicOn status of settings music
+     * @param settingsMusicOn boolean
      */
     public static void setSettingMusicOn(boolean settingsMusicOn) {
         PlayerInventory.settingsMusicOn = settingsMusicOn;
@@ -68,7 +68,7 @@ public class PlayerInventory {
     /**
      * Gets the value for the sounds effect setting.
      *
-     * @return settingSoundsOn
+     * @return settingSoundsOn boolean
      */
     public static boolean isSettingSoundsOn() {
         return settingSoundsOn;
@@ -77,7 +77,7 @@ public class PlayerInventory {
     /**
      * Turns sound effects on.
      *
-     * @param settingSoundsOn status of settings sounds
+     * @param settingSoundsOn boolean
      */
     public static void setSettingSoundsOn(boolean settingSoundsOn) {
         PlayerInventory.settingSoundsOn = settingSoundsOn;
@@ -95,7 +95,7 @@ public class PlayerInventory {
     /**
      * Sets the player's high score.
      *
-     * @param currentScore current game score
+     * @param currentScore int current game score
      */
     public static void setHighScore(int currentScore) {
         if (currentScore > highScore) {
@@ -289,7 +289,7 @@ public class PlayerInventory {
 
     /**
      * Saves game settings to a file.
-     *
+     * <p>
      * Settings include high score, currency, background music, sound effects, FPS overlay,
      * and vehicle selection/ownership.
      */
@@ -365,7 +365,7 @@ public class PlayerInventory {
 
     /**
      * Clears the save file contents.
-     *
+     * <p>
      * Returns the high score and player currency values to 0, and settings to their default values.
      */
     public static void clearSave() {

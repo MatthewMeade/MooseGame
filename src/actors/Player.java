@@ -30,8 +30,6 @@ public class Player extends Actor implements KeyboardControllable {
             sprites = new String[]{"atv.png"};
         }
 
-        frame = 0;
-        frameSpeed = 35;
         actorSpeed = 10;
         width = 50;
         height = 100;
@@ -50,7 +48,7 @@ public class Player extends Actor implements KeyboardControllable {
     /**
      * Controls player movement.
      */
-    protected void updateSpeed() {
+    private void updateSpeed() {
         vx = 0;
         if (left)
             vx = -actorSpeed;
@@ -66,9 +64,9 @@ public class Player extends Actor implements KeyboardControllable {
     }
 
     /**
-     * Gives functionality to in-game keyboard controls when a key is released.
+     * Stop moving player when control key released
      *
-     * @param e Event in game
+     * @param e KeyEvent key event
      */
     public void triggerKeyRelease(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -84,9 +82,9 @@ public class Player extends Actor implements KeyboardControllable {
     }
 
     /**
-     * Gives functionality to in-game keyboard controls when a key is pressed.
+     * Move player when key pressed down
      *
-     * @param e Event in game
+     * @param e KeyEvent key event
      */
     public void triggerKeyPress(KeyEvent e) {
         switch (e.getKeyCode()) {

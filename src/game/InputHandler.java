@@ -1,8 +1,6 @@
 package game;
 
 import java.awt.event.KeyEvent;
-
-import actors.Actor;
 import actors.KeyboardControllable;
 
 /**
@@ -16,7 +14,6 @@ public class InputHandler {
         RELEASE
     }
 
-    private MooseGame mooseGame = null;
     private KeyboardControllable listener = null;
     public Action action;
 
@@ -27,7 +24,6 @@ public class InputHandler {
      * @param player game user
      */
     public InputHandler(MooseGame stg, KeyboardControllable player, Action action) {
-        this.mooseGame = stg;
         this.listener = player;
         this.action = action;
     }
@@ -37,9 +33,9 @@ public class InputHandler {
     }
 
     /**
-     * Handles events for the press and release of key controls.
+     * Handles key input
      *
-     * @param event
+     * @param event KeyEvent key event
      */
     public void handleInput(KeyEvent event) {
         if (action == Action.PRESS) {

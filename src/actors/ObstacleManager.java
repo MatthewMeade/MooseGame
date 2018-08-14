@@ -71,11 +71,10 @@ public class ObstacleManager {
 
         vehicleTimer.cancel();
         vehicleTimer.purge();
-
     }
 
     /**
-     * Spawns a random moose obstacle and adds its value to the active obstacle array.
+     * Spawns a moose obstacle and adds it to the active obstacle arrays.
      */
     public void spawnMoose() {
 
@@ -100,7 +99,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Spawns a static obstacle at random and adds it to the active obstacle array.
+     * Spawns a static obstacle and adds it to the active obstacle arrays.
      */
     public void spawnStatic() {
         Obstacle obstacle = new StaticObstacle(canvas);
@@ -124,7 +123,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Spawns a vehicle obstacle at random and adds it to the active obstacle array.
+     * Spawns a vehicle obstacle and adds it to the active obstacle arrays.
      */
     public void spawnVehicle() {
 
@@ -149,7 +148,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Removes obstacles from active obstacle array after they have left the screen
+     * Updates obstacles and removes them from active obstacle array after they have left the screen
      */
     public void update() {
 
@@ -159,13 +158,14 @@ public class ObstacleManager {
             o.update();
 
             if (o.posY > MooseGame.HEIGHT || o.isActive == false) {
+                o.despawn();
                 activeObstacles.remove(o);
             }
         }
     }
 
     /**
-     * Renders graphics for obstacles
+     * Renders graphics for obstacles, drawing static obstacles below moving obstacles
      *
      * @param g obstacle to be painted
      */
@@ -181,10 +181,10 @@ public class ObstacleManager {
     }
 
     /**
-     * Checks to see if current player has suffered a collision with an obstacle
+     * Checks if the player has collided with an obstacle
      *
-     * @param player Current game player
-     * @return Collision status of user
+     * @param player Actor player object
+     * @return Collision boolean true if player collided
      */
     public boolean checkCollision(Actor player) {
 

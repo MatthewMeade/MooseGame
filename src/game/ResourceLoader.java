@@ -32,6 +32,7 @@ public class ResourceLoader implements ImageObserver {
 
     /**
      * Get value for instance
+     *
      * @return instance of resource
      */
     public static ResourceLoader getInstance() {
@@ -50,6 +51,7 @@ public class ResourceLoader implements ImageObserver {
 
     /**
      * Checks whether sound is available and loads it.
+     *
      * @param name location of sound
      * @return status of sound
      */
@@ -115,7 +117,6 @@ public class ResourceLoader implements ImageObserver {
     }
 
     /**
-     *
      * @param img
      * @param infoflags
      * @param x

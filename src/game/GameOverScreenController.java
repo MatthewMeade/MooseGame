@@ -29,8 +29,9 @@ public class GameOverScreenController implements KeyboardControllable {
     /**
      * Constructs a GameOverScreenController.
      *
-     * @param mooseGame      game window
-     * @param finalScore final score of current game
+     * @param mooseGame  MooseGame canvas being drawn to
+     * @param finalScore int score reached in game
+     * @param coins      int coins collected in last game
      */
     public GameOverScreenController(MooseGame mooseGame, int finalScore, int coins) {
         this.mooseGame = mooseGame;
@@ -38,16 +39,14 @@ public class GameOverScreenController implements KeyboardControllable {
         this.coins = coins;
 
         chosenPSA = new Random().nextInt(PSAs.length);
-
     }
 
     /**
      * Renders graphics for game over screen
      *
-     * @param g screen to be rendered
+     * @param g Graphics object being painted to
      */
     public void paint(Graphics g) {
-
 
         // Draw background
         g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, mooseGame);
@@ -71,20 +70,20 @@ public class GameOverScreenController implements KeyboardControllable {
         // Draw current and high scores
         g.setColor(Color.WHITE);
         Font menuFont = new Font("Impact", Font.PLAIN, 35);
-        g.setFont(menuFont );
+        g.setFont(menuFont);
 
         metrics = g.getFontMetrics(menuFont);
 
         g.drawString("Score: " + finalScore, MooseGame.WIDTH / 6 + 10, 225);
 
         String highScoreText = "High Score: " + PlayerInventory.getHighScore();
-        g.drawString(highScoreText, (5*MooseGame.WIDTH/6) - metrics.stringWidth(highScoreText) - 10, 225);
+        g.drawString(highScoreText, (5 * MooseGame.WIDTH / 6) - metrics.stringWidth(highScoreText) - 10, 225);
 
         // Draw coin info
         g.drawString("New Coins: " + coins, MooseGame.WIDTH / 6 + 10, 275);
 
         String totalCoinsText = "Total Coins: " + PlayerInventory.getCurrency();
-        g.drawString(totalCoinsText, (5*MooseGame.WIDTH/6) - metrics.stringWidth(totalCoinsText) - 10, 275);
+        g.drawString(totalCoinsText, (5 * MooseGame.WIDTH / 6) - metrics.stringWidth(totalCoinsText) - 10, 275);
 
         // Draw Menu Options
         g.setFont(new Font("Impact", Font.PLAIN, 40));
@@ -92,7 +91,7 @@ public class GameOverScreenController implements KeyboardControllable {
         String[] optionText = new String[]{"Play Again", "Return to Main Menu"};
         for (int i = 0; i < optionText.length; i++) {
             g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-            g.drawString(optionText[i], (MooseGame.WIDTH / 2) - (int)(optionText[i].length() * 8.5), 350 + (60 * i));
+            g.drawString(optionText[i], (MooseGame.WIDTH / 2) - (int) (optionText[i].length() * 8.5), 350 + (60 * i));
         }
 
 
@@ -113,11 +112,7 @@ public class GameOverScreenController implements KeyboardControllable {
         for (int i = 0; i < psaStrings.length; i++) {
             int x = (MooseGame.WIDTH / 6) + ((2 * MooseGame.WIDTH / 3) - metrics.stringWidth(psaStrings[i])) / 2;
             g.drawString(psaStrings[i], x, 500 + 25 * i);
-
         }
-
-
-
 
     }
 
@@ -125,19 +120,17 @@ public class GameOverScreenController implements KeyboardControllable {
      * Handles a Enter key press on the Game Over screen.
      */
     private void handleEnterPress() {
-
         if (menuSelection == 0) {
             mooseGame.initGame();
         } else if (menuSelection == 1) {
             mooseGame.initMenu();
         }
-
     }
 
     /**
-     * Handles key presses on the Game Over screen.
+     * Handles key press event
      *
-     * @param e key press event
+     * @param e KeyEvent key press event
      */
     @Override
     public void triggerKeyPress(KeyEvent e) {
@@ -157,9 +150,9 @@ public class GameOverScreenController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release events on the Game Over screen.
+     * Handles key release event
      *
-     * @param e key release event
+     * @param e KeyEvent key release event
      */
     @Override
     public void triggerKeyRelease(KeyEvent e) {

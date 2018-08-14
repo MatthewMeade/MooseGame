@@ -1,7 +1,6 @@
 package actors;
 
 import game.MooseGame;
-import game.MooseGame;
 
 import java.util.Random;
 
@@ -12,7 +11,8 @@ public class StaticObstacle extends Obstacle {
 
     /**
      * Constructs a static obstacle.
-     * @param canvas game window
+     *
+     * @param canvas MooseGame canvas being drawn to
      */
     public StaticObstacle(MooseGame canvas) {
 

@@ -12,6 +12,7 @@ public class Pickup extends Actor {
 
     /**
      * Constructs a new Pickup.
+     *
      * @param canvas
      */
     public Pickup(MooseGame canvas) {

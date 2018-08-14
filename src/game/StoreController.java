@@ -77,9 +77,7 @@ public class StoreController implements KeyboardControllable {
         g.setFont(menuFont);
         g.setColor(Color.white);
 
-        // 0 - main store, 1 - powerups, 2 - vehicles
-        // 3 - buy coin packs
-        if (menuState == 0) {
+        if (menuState == 0) { // Main Store
 
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(MooseGame.WIDTH / 6, MooseGame.WIDTH / 4, 2 * MooseGame.WIDTH / 3, MooseGame.WIDTH / 2);
@@ -94,7 +92,7 @@ public class StoreController implements KeyboardControllable {
 
             }
 
-        } else if (menuState == 1) {
+        } else if (menuState == 1) { // Power Ups
 
             g.setColor(new Color(0, 0, 0, 150));
 
@@ -129,7 +127,7 @@ public class StoreController implements KeyboardControllable {
             String backText = "Back to store";
             g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 500);
 
-        } else if (menuState == 2) {
+        } else if (menuState == 2) { // Vehicles
 
             String[] sprites = new String[]{"player_bluecar.png", "player_truck.png", "atv.png"};
             Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
@@ -167,8 +165,7 @@ public class StoreController implements KeyboardControllable {
             String backString = "Back to Store";
             g.drawString(backString, (MooseGame.WIDTH - metrics.stringWidth(backString)) / 2, 650);
 
-            // BUY COIN PACKS
-        } else if (menuState == 3) {
+        } else if (menuState == 3) { // Buy coins
 
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(MooseGame.WIDTH / 6, 200, 2 * MooseGame.WIDTH / 3, 375);
@@ -193,7 +190,7 @@ public class StoreController implements KeyboardControllable {
     }
 
     /**
-     * Handles key press event for Store screen.
+     * Handles key press event
      *
      * @param e key press event
      */
@@ -215,7 +212,7 @@ public class StoreController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release events for Store screen.
+     * Handles key release events
      *
      * @param e key release event
      */
@@ -224,16 +221,18 @@ public class StoreController implements KeyboardControllable {
 
     }
 
+    /**
+     * Perform correct action based on current menu state and item selection
+     */
     private void handleEnterPress() {
 
-        // Main store menu
-        if (menuState == 0) {
+        if (menuState == 0) { // Main tore Menu
             if (menuSelection == 3) {
                 mooseGame.initMenu();
             } else {
                 menuState = menuSelection + 1;
             }
-        } else if (menuState == 1) {
+        } else if (menuState == 1) { // Power Ups Menu
             switch (menuSelection) {
                 case 0: // Fog Lights
                     if (PlayerInventory.spendCurrency(FOG_LIGHTS_COST)) {
@@ -255,10 +254,7 @@ public class StoreController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
             }
-        }
-
-        // Vehicles menu
-        else if (menuState == 2) {
+        } else if (menuState == 2) { // Vehicles menu
             switch (menuSelection) {
                 case 0: // Car
                     PlayerInventory.setEquippedVehicle(CAR);
@@ -286,7 +282,7 @@ public class StoreController implements KeyboardControllable {
                     menuSelection = 0;
                     break;
             }
-        } else if (menuState == 3) {
+        } else if (menuState == 3) { // Coin Packs
             switch (menuSelection) {
                 case 0: // Small
                     PlayerInventory.addCurrency(SMALL_COIN_PACK_VALUE);

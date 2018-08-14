@@ -24,7 +24,7 @@ public class MenuController implements KeyboardControllable {
     /**
      * Constructs a MenuController.
      *
-     * @param canvas game window
+     * @param canvas MooseGame canvas being drawn to
      */
     public MenuController(MooseGame canvas) {
         this.mooseGame = canvas;
@@ -52,7 +52,7 @@ public class MenuController implements KeyboardControllable {
         FontMetrics metrics = g.getFontMetrics(menuFont);
         g.setFont(menuFont);
 
-        if (menuState == 0) {
+        if (menuState == 0) { // Main Menu
 
             String[] text = new String[]{"Play", "Store", "Settings", "How to Play", "Exit"};
             for (int i = 0; i < text.length; i++) {
@@ -63,9 +63,7 @@ public class MenuController implements KeyboardControllable {
 
             g.setColor(Color.white);
 
-
-            // Settings menu
-        } else if (menuState == 1) {
+        } else if (menuState == 1) { // Settings
 
             String[] text = new String[]{
                     "Music: " + (PlayerInventory.isSettingMusicOn() ? "On" : "Off"),
@@ -81,9 +79,7 @@ public class MenuController implements KeyboardControllable {
                 g.drawString(drawString, (MooseGame.WIDTH / 6) + ((2 * MooseGame.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
 
             }
-
-            // How to play menu
-        } else if (menuState == 2) {
+        } else if (menuState == 2) { // Controls Menu
 
             g.setColor(Color.WHITE);
             Font textFont = new Font("Arial", Font.BOLD, 20);
@@ -126,7 +122,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles enter key press event on the main and settings menus.
+     * Handles enter key press event
      */
     private void handleEnterPress() {
 

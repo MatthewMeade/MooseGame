@@ -1,9 +1,6 @@
 package actors;
 
 import game.MooseGame;
-import game.MooseGame;
-
-import java.util.Random;
 
 /**
  * Class represents a temporary invincibility pickup.
@@ -11,12 +8,13 @@ import java.util.Random;
 public class InvincibilityPickup extends Pickup {
 
     /**
-     * Constructs a temporary invincibility pickup.
+     * Constructs a new Invincibility Pickup
+     *
      * @param canvas game window
      */
     public InvincibilityPickup(MooseGame canvas) {
         super(canvas);
         sprites = new String[]{"invincible.png"};
-
     }
+    
 }
