@@ -119,7 +119,7 @@ public class MenuController implements KeyboardControllable {
             }
         } else if (menuState == 1) {
             switch (menuSelection) {
-                case 0:
+                case 0: // Background Music
                     PlayerInventory.setSettingMusicOn(!PlayerInventory.isSettingMusicOn());
                     if (PlayerInventory.isSettingMusicOn()) {
                         mooseGame.loopSound("backgroundloop.wav");
@@ -127,16 +127,18 @@ public class MenuController implements KeyboardControllable {
                         mooseGame.stopMusic();
                     }
                     break;
-                case 1:
+                case 1: // Sound Effects
                     PlayerInventory.setSettingSoundsOn(!PlayerInventory.isSettingSoundsOn());
                     break;
-                case 2:
+                case 2: // FPS
                     PlayerInventory.setShowFPSOverlay(!PlayerInventory.isShowFPSOverlayOn());
                     break;
-                case 3:
+                case 3: // Reset Save
+                    MooseGame.stopMusic();
                     PlayerInventory.clearSave();
+                    mooseGame.loopSound("backgroundloop.wav");
                     break;
-                case 4:
+                case 4: // Back
                     saveToFile();
                     menuState = 0;
                     menuSelection = 0;

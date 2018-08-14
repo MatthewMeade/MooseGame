@@ -40,7 +40,7 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
 
     public long usedTime; //time taken per game step
     public BufferStrategy strategy; //double buffering strategy
-    public AudioClip backgroundMusic;
+    public static AudioClip backgroundMusic;
 
     private MenuController menuController;
     private GameplayController gameplayController;
@@ -289,7 +289,7 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
     /**
      * Stops the background music.
      */
-    public void stopMusic() {
+    public static void stopMusic() {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
         }
