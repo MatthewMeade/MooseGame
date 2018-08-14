@@ -17,9 +17,6 @@ public class MooseObstacle extends Obstacle {
      */
     public MooseObstacle(MooseGame canvas) {
         super(canvas);
-        String[] possibleSprites = new String[]{"moose_left.png", "moose_right.png"};
-        Random random = new Random(1);
-
     }
 
     /**
@@ -45,24 +42,6 @@ public class MooseObstacle extends Obstacle {
         setVy(random.nextInt(2) + 9);
     }
 
-    /**
-     * Removes a moose obstacle from game window.
-     */
-    @Override
-    public void despawn() {
-        isActive = false;
-        posX = -100;
-        posY = -100;
-    }
 
-    /**
-     * Updates positioning of moose obstacle within game window.
-     */
-    public void update() {
-        if (isActive) {
-            posX += vx;
-            posY += vy;
-        }
-    }
 
 }

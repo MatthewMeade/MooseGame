@@ -3,10 +3,9 @@ package actors;
 import java.awt.event.KeyEvent;
 
 /**
- *
- * @author eric.stock
+ * Interface to implement keyboard functionality
  */
 public interface KeyboardControllable {
-    public void triggerKeyPress(KeyEvent e);
-    public void triggerKeyRelease(KeyEvent e);
+    void triggerKeyPress(KeyEvent e);
+    void triggerKeyRelease(KeyEvent e);
 }

@@ -2,7 +2,6 @@ package actors;
 
 import game.MooseGame;
 import game.PlayerInventory;
-import game.MooseGame;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -144,7 +143,7 @@ public class PickupManager {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        Pickup pickup = new TemporaryInvincibilityPickup(canvas);
+                        Pickup pickup = new InvincibilityPickup(canvas);
                         pickup.spawn();
                         activePickups.add(pickup);
                         spawnInvincibilityPickup();
@@ -220,7 +219,7 @@ public class PickupManager {
                     PlayerInventory.incrementFogLights();
                 } else if (p instanceof SlowMotionPickup) {
                     PlayerInventory.incrementSlowMotion();
-                } else if (p instanceof TemporaryInvincibilityPickup) {
+                } else if (p instanceof InvincibilityPickup) {
                     PlayerInventory.incrementInvincibility();
 
                 } else if (p instanceof CoinPickup) {

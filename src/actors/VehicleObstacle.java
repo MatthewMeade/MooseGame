@@ -41,23 +41,4 @@ public class VehicleObstacle extends Obstacle {
         setVy(random.nextInt(3) + 11);
     }
 
-    /**
-     * Removes vehicle obstacle from game window.
-     */
-    @Override
-    public void despawn() {
-        isActive = false;
-        posX = -100;
-        posY = -100;
-    }
-
-    /**
-     * Updates positioning of vehicle obstacle within game window.
-     */
-    public void update() {
-        if (isActive) {
-            posX += vx;
-            posY += vy;
-        }
-    }
 }

@@ -96,7 +96,6 @@ public class StoreController implements KeyboardControllable {
 
         } else if (menuState == 1) {
 
-
             g.setColor(new Color(0, 0, 0, 150));
 
             g.fillRect(MooseGame.WIDTH / 6, 160, 2 * MooseGame.WIDTH / 3, 375);
@@ -130,7 +129,6 @@ public class StoreController implements KeyboardControllable {
             String backText = "Back to store";
             g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 500);
 
-            // VEHICLES MENU
         } else if (menuState == 2) {
 
             String[] sprites = new String[]{"player_bluecar.png", "player_truck.png", "atv.png"};
@@ -230,24 +228,12 @@ public class StoreController implements KeyboardControllable {
 
         // Main store menu
         if (menuState == 0) {
-            switch (menuSelection) {
-                case 0: // Powerups
-                    menuState = 1;
-                    break;
-                case 1: // Vehicles
-                    menuState = 2;
-                    break;
-                case 2: // Buy coins
-                    menuState = 3;
-                    break;
-                case 3: // Back to main menu
-                    mooseGame.initMenu();
-                    break;
+            if (menuSelection == 3) {
+                mooseGame.initMenu();
+            } else {
+                menuState = menuSelection + 1;
             }
-        }
-
-        // Powerups Menu
-        else if (menuState == 1) {
+        } else if (menuState == 1) {
             switch (menuSelection) {
                 case 0: // Fog Lights
                     if (PlayerInventory.spendCurrency(FOG_LIGHTS_COST)) {
@@ -265,7 +251,8 @@ public class StoreController implements KeyboardControllable {
                     }
                     break;
                 case 3: // Back to main menu
-                    mooseGame.initStore();
+                    menuState = 0;
+                    menuSelection = 0;
                     break;
             }
         }

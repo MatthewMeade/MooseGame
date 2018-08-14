@@ -42,22 +42,4 @@ public class StaticObstacle extends Obstacle {
 
     }
 
-    /**
-     * Removes static obstacle from game window.
-     */
-    @Override
-    public void despawn() {
-        isActive = false;
-        posX = -100;
-        posY = -100;
-    }
-
-    /**
-     * Updates positioning of static obstacle within game window.
-     */
-    public void update() {
-        if (isActive) {
-            posY += vy;
-        }
-    }
 }

@@ -2,12 +2,13 @@ package actors;
 
 import game.MooseGame;
 
+import java.util.Random;
+
 /**
  * Abstract class represents a Pickup.
  */
-public abstract class Pickup extends Actor {
+public class Pickup extends Actor {
 
-    public boolean isActive = false;
 
     /**
      * Constructs a new Pickup.
@@ -20,11 +21,19 @@ public abstract class Pickup extends Actor {
     /**
      * Adds item to game window.
      */
-    public abstract void spawn();
+    public void spawn() {
+        isActive = true;
 
-    /**
-     * Removes item from game window.
-     */
-    public abstract void despawn();
+        Random random = new Random();
+
+        setX(150 + random.nextInt(MooseGame.WIDTH - 300));
+        setY(-200);
+
+        setWidth(50);
+        setHeight(50);
+
+        setVy(10);
+
+    }
 
 }

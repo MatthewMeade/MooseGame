@@ -7,9 +7,9 @@ import java.util.ArrayList;
 /**
  * Base class for all in-game obstacles
  */
-public abstract class Obstacle extends Actor{
+public class Obstacle extends Actor{
 
-    public boolean isActive = false;
+
 
     /**
      * Constructs a new obstacle.
@@ -22,12 +22,9 @@ public abstract class Obstacle extends Actor{
     /**
      * Adds an obstacle to game window.
      */
-    public abstract void spawn();
+    public void spawn() {}
 
-    /**
-     * Removes a obstacle from game window.
-     */
-    public abstract void despawn();
+
 
 
 
