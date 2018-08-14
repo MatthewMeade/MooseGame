@@ -25,9 +25,9 @@ public class Player extends Actor implements KeyboardControllable {
         if (PlayerInventory.getEquippedVehicle() == CAR) {
             sprites = new String[]{"player_bluecar.png"};
         } else if (PlayerInventory.getEquippedVehicle() == TRUCK) {
-            sprites = new String[]{"truck.png"};
+            sprites = new String[]{"player_truck.png"};
         } else if (PlayerInventory.getEquippedVehicle() == ATV) {
-            sprites = new String[]{"atv.png"};
+            sprites = new String[]{"player_atv.png"};
         }
 
         actorSpeed = 10;

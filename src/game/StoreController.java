@@ -117,19 +117,19 @@ public class StoreController implements KeyboardControllable {
             g.setFont(warningFont);
             g.setColor(Color.red);
 
-            String warningText = "Note: Powerups are lost on game over";
+            String warningText = "Note: Power-ups are lost on game over!";
             g.drawString(warningText, (MooseGame.WIDTH - metrics.stringWidth(warningText)) / 2, 400);
 
             metrics = g.getFontMetrics(menuFont);
             g.setFont(menuFont);
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
 
-            String backText = "Back to store";
+            String backText = "Back to Store";
             g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 500);
 
         } else if (menuState == 2) { // Vehicles
 
-            String[] sprites = new String[]{"player_bluecar.png", "player_truck.png", "atv.png"};
+            String[] sprites = new String[]{"player_bluecar.png", "player_truck.png", "player_atv.png"};
             Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
 
 
@@ -178,7 +178,7 @@ public class StoreController implements KeyboardControllable {
 
             for (int i = 0; i < coinPacksText.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString(coinPacksText[i], (MooseGame.WIDTH / 5), 250 + (75 * i));
+                g.drawString(coinPacksText[i], (MooseGame.WIDTH - metrics.stringWidth(coinPacksText[i])) / 2, 250 + (75 * i));
             }
 
             g.setColor(menuSelection == 4 ? Color.GREEN : Color.WHITE);
