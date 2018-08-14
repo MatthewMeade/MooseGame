@@ -45,7 +45,7 @@ public class MenuController implements KeyboardControllable {
 
 
         g.setColor(new Color(0, 0, 0, 150));
-        g.fillRect(MooseGame.WIDTH / 6, MooseGame.WIDTH / 4, 2 * MooseGame.WIDTH / 3, MooseGame.WIDTH / 2);
+        g.fillRect(MooseGame.WIDTH / 6,  MooseGame.WIDTH / 4 + 10, 2 * MooseGame.WIDTH / 3, MooseGame.WIDTH / 2);
 
 
         Font menuFont = new Font("Impact", Font.PLAIN, 40);
