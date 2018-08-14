@@ -15,6 +15,9 @@ import java.util.TimerTask;
 public class ObstacleManager {
 
     private static ArrayList<Obstacle> activeObstacles = new ArrayList<>();
+    private static ArrayList<Obstacle> activeObstaclesMoving = new ArrayList<>();
+    private static ArrayList<Obstacle> activeObstaclesStatic = new ArrayList<>();
+
 
     private MooseGame canvas;
 
@@ -56,6 +59,9 @@ public class ObstacleManager {
      */
     public void stop() {
         activeObstacles = new ArrayList<>();
+        activeObstaclesMoving = new ArrayList<>();
+        activeObstaclesStatic = new ArrayList<>();
+
 
         mooseTimer.cancel();
         mooseTimer.purge();
@@ -76,6 +82,7 @@ public class ObstacleManager {
         Obstacle obstacle = new MooseObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
+        activeObstaclesMoving.add(obstacle);
 
         Random random = new Random();
 
@@ -99,6 +106,8 @@ public class ObstacleManager {
         Obstacle obstacle = new StaticObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
+        activeObstaclesStatic.add(obstacle);
+
 
         Random random = new Random();
 
@@ -122,6 +131,8 @@ public class ObstacleManager {
         Obstacle obstacle = new VehicleObstacle(canvas);
         obstacle.spawn();
         activeObstacles.add(obstacle);
+        activeObstaclesMoving.add(obstacle);
+
 
         Random random = new Random();
 
@@ -160,8 +171,12 @@ public class ObstacleManager {
      */
     public void paint(Graphics g) {
 
-        for (int i = 0; i < activeObstacles.size(); i++) {
-            activeObstacles.get(i).paint(g);
+        for (int i = 0; i < activeObstaclesStatic.size(); i++) {
+            activeObstaclesStatic.get(i).paint(g);
+        }
+
+        for (int i = 0; i < activeObstaclesMoving.size(); i++) {
+            activeObstaclesMoving.get(i).paint(g);
         }
     }
 
