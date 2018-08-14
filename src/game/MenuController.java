@@ -107,9 +107,9 @@ public class MenuController implements KeyboardControllable {
             g.setFont(textFont);
             metrics = g.getFontMetrics();
 
-            String[] powersStrings = new String[]{"Fog Lights: Disable fog for a short time", "Invincibility: Prevents damage from obstacles", "Slow Motion: Slows the movement of obstacles"};
+            String[] powersStrings = new String[]{"Fog Lights: Disables fog for a short time", "Invincibility: Prevents damage from obstacles", "Slow Motion: Slows the movement of obstacles"};
             for (int i = 0; i < powersStrings.length; i++) {
-                g.drawString(controlsStrings[i], (MooseGame.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 475 + 35 * i);
+                g.drawString(powersStrings[i], (MooseGame.WIDTH - metrics.stringWidth(powersStrings[i])) / 2, 475 + 35 * i);
             }
 
             g.setColor(new Color(0, 0, 0, 150));
