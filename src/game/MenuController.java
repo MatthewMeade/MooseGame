@@ -46,7 +46,7 @@ public class MenuController implements KeyboardControllable {
 
 
         g.setColor(new Color(0, 0, 0, 150));
-        g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
+        g.fillRect(Stage.WIDTH / 6, 10 + Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
 
         Font menuFont = new Font("Impact", Font.PLAIN, 40);
         FontMetrics metrics = g.getFontMetrics(menuFont);
@@ -85,8 +85,41 @@ public class MenuController implements KeyboardControllable {
             // How to play menu
         } else if (menuState == 2) {
 
+            g.setColor(Color.WHITE);
+            Font textFont = new Font("Arial", Font.BOLD, 20);
+
+            g.setFont(menuFont);
+            String controlsTitle = "Controls";
+            g.drawString(controlsTitle, (Stage.WIDTH - metrics.stringWidth(controlsTitle)) / 2, 240);
+
+            g.setFont(textFont);
+            metrics = g.getFontMetrics();
+            String[] controlsStrings = new String[]{"Move Left:  [ Left Arrow ] or [ A ]", "Move Right: [ Right Arrow ] or [ D ]", "Power Ups: [ 1 ] [ 2 ] and [ 3 ]"};
+            for (int i = 0; i < controlsStrings.length; i++) {
+                g.drawString(controlsStrings[i], (Stage.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 280 + 35 * i);
+            }
+
+            g.setFont(menuFont);
+            metrics = g.getFontMetrics();
+            String powerTitle = "Power Ups";
+            g.drawString(powerTitle, (Stage.WIDTH - metrics.stringWidth(powerTitle)) / 2, 425);
+
+            g.setFont(textFont);
+            metrics = g.getFontMetrics();
+
+            String[] powersStrings = new String[]{"Fog Lights: Disable fog for a short time", "Invincibility: Prevents damage from obstacles", "Slow Motion: Slows the movement of obstacles"};
+            for (int i = 0; i < powersStrings.length; i++) {
+                g.drawString(controlsStrings[i], (Stage.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 475 + 35 * i);
+            }
+
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 2 + 10 + Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, 100);
+
+            g.setFont(menuFont);
+            metrics = g.getFontMetrics();
             g.setColor(Color.GREEN);
-            g.drawString("Back to Main Menu", (Stage.WIDTH / 2), 700);
+            String backText = "Back to Main menu";
+            g.drawString(backText, (Stage.WIDTH - metrics.stringWidth(backText)) / 2, 625);
 
         }
 
