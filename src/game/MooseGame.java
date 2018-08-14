@@ -307,7 +307,6 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
      * Begins game loop
      */
     public void game() {
-        //loopSound("music.wav");
         usedTime = 0;
         while (isVisible()) {
             long startTime = System.currentTimeMillis();
