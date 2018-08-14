@@ -119,7 +119,7 @@ public class MenuController implements KeyboardControllable {
             metrics = g.getFontMetrics();
             g.setColor(Color.GREEN);
 
-            String backText = "Back to Main menu";
+            String backText = "Back to Main Menu";
             g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 625);
         }
 
