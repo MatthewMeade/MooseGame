@@ -8,15 +8,18 @@ import java.util.Random;
 /**
  * Represents a moose obstacle.
  */
-public class MooseObstacle extends Obstacle{
+public class MooseObstacle extends Obstacle {
 
     /**
      * Constructs a moose obstacle.
+     *
      * @param canvas Game window
      */
     public MooseObstacle(MooseGame canvas) {
         super(canvas);
-        sprites = new String[]{"moose.png"};
+        String[] possibleSprites = new String[]{"moose_left.png", "moose_right.png"};
+        Random random = new Random(1);
+
     }
 
     /**
@@ -29,6 +32,9 @@ public class MooseObstacle extends Obstacle{
         Random random = new Random();
 
         boolean left = random.nextBoolean();
+
+        sprites = new String[]{(left ? "moose_left.png" : "moose_right.png")};
+
         setX(left ? -100 : MooseGame.WIDTH);
         setY(-100);
 
@@ -53,7 +59,7 @@ public class MooseObstacle extends Obstacle{
      * Updates positioning of moose obstacle within game window.
      */
     public void update() {
-        if(isActive){
+        if (isActive) {
             posX += vx;
             posY += vy;
         }
