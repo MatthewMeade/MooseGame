@@ -12,7 +12,7 @@ public abstract class Obstacle extends Actor{
     public boolean isActive = false;
 
     /**
-     * Obstacle constructor.
+     * Constructs a new obstacle.
      * @param canvas game window
      */
     public Obstacle(MooseGame canvas) {
@@ -20,12 +20,12 @@ public abstract class Obstacle extends Actor{
     }
 
     /**
-     * Adds obstacle to game window.
+     * Adds an obstacle to game window.
      */
     public abstract void spawn();
 
     /**
-     * Removes obstacle from game window.
+     * Removes a obstacle from game window.
      */
     public abstract void despawn();
 

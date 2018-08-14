@@ -8,11 +8,11 @@ import java.awt.event.KeyEvent;
 import static game.PlayerInventory.saveToFile;
 
 /**
- * Handles creation of main menu.
+ * Controls the main and settings menus.
  */
 public class MenuController implements KeyboardControllable {
 
-    private MooseGame stage;
+    private MooseGame mooseGame;
     private int menuSelection = 0;
 
     private int[] menuLengths = new int[]{5, 5, 1};
@@ -22,12 +22,12 @@ public class MenuController implements KeyboardControllable {
     private int menuState = 0;
 
     /**
-     * Constructor for MenuController.
+     * Constructs a MenuController.
      *
      * @param canvas game window
      */
     public MenuController(MooseGame canvas) {
-        this.stage = canvas;
+        this.mooseGame = canvas;
     }
 
     /**
@@ -37,16 +37,16 @@ public class MenuController implements KeyboardControllable {
      */
     public void paint(Graphics g) {
 
-
         // Draw background
-        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
+        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, mooseGame);
 
         // Draw Logo
-        g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (Stage.WIDTH / 2) - 358, 50, stage);
+        g.drawImage(ResourceLoader.getInstance().getSprite("title.png"), (MooseGame.WIDTH / 2) - 358, 50, mooseGame);
 
 
         g.setColor(new Color(0, 0, 0, 150));
-        g.fillRect(Stage.WIDTH / 6, 10 + Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
+        g.fillRect(MooseGame.WIDTH / 6, MooseGame.WIDTH / 4, 2 * MooseGame.WIDTH / 3, MooseGame.WIDTH / 2);
+
 
         Font menuFont = new Font("Impact", Font.PLAIN, 40);
         FontMetrics metrics = g.getFontMetrics(menuFont);
@@ -58,7 +58,7 @@ public class MenuController implements KeyboardControllable {
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
-                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
+                g.drawString(drawString, (MooseGame.WIDTH / 6) + ((2 * MooseGame.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
             }
 
             g.setColor(Color.white);
@@ -78,7 +78,7 @@ public class MenuController implements KeyboardControllable {
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
-                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
+                g.drawString(drawString, (MooseGame.WIDTH / 6) + ((2 * MooseGame.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
 
             }
 
@@ -90,53 +90,53 @@ public class MenuController implements KeyboardControllable {
 
             g.setFont(menuFont);
             String controlsTitle = "Controls";
-            g.drawString(controlsTitle, (Stage.WIDTH - metrics.stringWidth(controlsTitle)) / 2, 240);
+            g.drawString(controlsTitle, (MooseGame.WIDTH - metrics.stringWidth(controlsTitle)) / 2, 240);
 
             g.setFont(textFont);
             metrics = g.getFontMetrics();
             String[] controlsStrings = new String[]{"Move Left:  [ Left Arrow ] or [ A ]", "Move Right: [ Right Arrow ] or [ D ]", "Power Ups: [ 1 ] [ 2 ] and [ 3 ]"};
             for (int i = 0; i < controlsStrings.length; i++) {
-                g.drawString(controlsStrings[i], (Stage.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 280 + 35 * i);
+                g.drawString(controlsStrings[i], (MooseGame.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 280 + 35 * i);
             }
 
             g.setFont(menuFont);
             metrics = g.getFontMetrics();
             String powerTitle = "Power Ups";
-            g.drawString(powerTitle, (Stage.WIDTH - metrics.stringWidth(powerTitle)) / 2, 425);
+            g.drawString(powerTitle, (MooseGame.WIDTH - metrics.stringWidth(powerTitle)) / 2, 425);
 
             g.setFont(textFont);
             metrics = g.getFontMetrics();
 
             String[] powersStrings = new String[]{"Fog Lights: Disable fog for a short time", "Invincibility: Prevents damage from obstacles", "Slow Motion: Slows the movement of obstacles"};
             for (int i = 0; i < powersStrings.length; i++) {
-                g.drawString(controlsStrings[i], (Stage.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 475 + 35 * i);
+                g.drawString(controlsStrings[i], (MooseGame.WIDTH - metrics.stringWidth(controlsStrings[i])) / 2, 475 + 35 * i);
             }
 
             g.setColor(new Color(0, 0, 0, 150));
-            g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 2 + 10 + Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, 100);
+            g.fillRect(MooseGame.WIDTH / 6, MooseGame.WIDTH / 2 + 10 + MooseGame.WIDTH / 4, 2 * MooseGame.WIDTH / 3, 100);
 
             g.setFont(menuFont);
             metrics = g.getFontMetrics();
             g.setColor(Color.GREEN);
-            String backText = "Back to Main menu";
-            g.drawString(backText, (Stage.WIDTH - metrics.stringWidth(backText)) / 2, 625);
 
+            String backText = "Back to Main menu";
+            g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 625);
         }
 
     }
 
     /**
-     * Handles enter key press event on Main Menu.
+     * Handles enter key press event on the main and settings menus.
      */
     private void handleEnterPress() {
 
         if (menuState == 0) {
             switch (menuSelection) {
                 case 0: // Play
-                    stage.initGame();
+                    mooseGame.initGame();
                     break;
                 case 1: // Store
-                    stage.initStore();
+                    mooseGame.initStore();
                     break;
                 case 2: // Enter Settings
                     menuState = 1;
@@ -156,9 +156,9 @@ public class MenuController implements KeyboardControllable {
                 case 0:
                     PlayerInventory.setSettingMusicOn(!PlayerInventory.isSettingMusicOn());
                     if (PlayerInventory.isSettingMusicOn()) {
-                        stage.loopSound("backgroundloop.wav");
+                        mooseGame.loopSound("backgroundloop.wav");
                     } else {
-                        stage.stopMusic();
+                        mooseGame.stopMusic();
                     }
                     break;
                 case 1:
@@ -186,7 +186,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles key press event for Main Menu.
+     * Handles key press events.
      *
      * @param e key press event
      */
@@ -207,7 +207,7 @@ public class MenuController implements KeyboardControllable {
     }
 
     /**
-     * Handles key release event for Main Menu.
+     * Handles key release events.
      *
      * @param e key release event
      */

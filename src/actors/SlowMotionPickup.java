@@ -1,17 +1,17 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class allows Slow Motion item to be picked up by player during gameplay
+ * Class repesents a slow motion pickup.
  */
 public class SlowMotionPickup extends Pickup {
 
     /**
-     * Constructor for Slow Motion
+     * Constructs a new slow motion pickup.
      * @param canvas game window
      */
     public SlowMotionPickup(MooseGame canvas) {
@@ -20,7 +20,7 @@ public class SlowMotionPickup extends Pickup {
     }
 
     /**
-     * Add Slow Motion item to game window.
+     * Adds Slow Motion item to game window.
      */
     @Override
     public void spawn() {
@@ -29,7 +29,7 @@ public class SlowMotionPickup extends Pickup {
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setX(150 + random.nextInt(MooseGame.WIDTH - 300));
         setY(-200);
 
         setWidth(50);
@@ -40,7 +40,7 @@ public class SlowMotionPickup extends Pickup {
     }
 
     /**
-     * Remove Slow Motion item from game window.
+     * Removes Slow Motion item from game window.
      */
     @Override
     public void despawn() {
@@ -50,7 +50,7 @@ public class SlowMotionPickup extends Pickup {
     }
 
     /**
-     * Update position of Slow Motion item.
+     * Updates position of Slow Motion item.
      */
     public void update() {
         if (isActive) {

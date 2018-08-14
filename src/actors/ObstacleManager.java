@@ -1,7 +1,7 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,13 +10,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Spawns, renders graphics for, and removes obstacles during gameplay dependent on their status and position.
+ * Spawns, renders graphics for, and removes obstacles during gameplay.
  */
 public class ObstacleManager {
-
-    private static ArrayList<Obstacle> mooseObstacles = new ArrayList<>();
-    private static ArrayList<Obstacle> vehicleObstacles = new ArrayList<>();
-    private static ArrayList<Obstacle> staticObstacles = new ArrayList<>();
 
     private static ArrayList<Obstacle> activeObstacles = new ArrayList<>();
 
@@ -37,16 +33,13 @@ public class ObstacleManager {
     private Timer vehicleTimer = new Timer();
 
     /**
-     * ObstacleManager constructor.
+     * Constructs a new obstacle manager.
      *
      * @param canvas game window
      */
     public ObstacleManager(MooseGame canvas) {
         this.canvas = canvas;
 
-        /**
-         * Provides chronological order in which obstacles spawn
-         */
         new Timer().schedule(
                 new TimerTask() {
                     @Override
@@ -56,24 +49,13 @@ public class ObstacleManager {
                         spawnVehicle();
                     }
                 }, SPAWN_WAIT_TIME);
-
-
     }
 
     /**
-     * Gets value of an obstacle from array
-     *
-     * @return active obstacle
-     */
-    public ArrayList<Obstacle> getObstacles() {
-        return activeObstacles;
-    }
-
-    /**
-     * Stops the continuity of an obstacle and clears it from the screen.
+     * Clears active obstacles and stops obstacle spawning timers.
      */
     public void stop() {
-        activeObstacles = new ArrayList<Obstacle>();
+        activeObstacles = new ArrayList<>();
 
         mooseTimer.cancel();
         mooseTimer.purge();
@@ -87,7 +69,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Spawns a moose obstacle at random and adds its value to the active obstacle array
+     * Spawns a random moose obstacle and adds its value to the active obstacle array.
      */
     public void spawnMoose() {
 
@@ -111,7 +93,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Spawns a static obstacle at random and adds its value to the active obstacle array
+     * Spawns a static obstacle at random and adds it to the active obstacle array.
      */
     public void spawnStatic() {
         Obstacle obstacle = new StaticObstacle(canvas);
@@ -133,7 +115,7 @@ public class ObstacleManager {
     }
 
     /**
-     * Spawns a vehicle obstacle at random and adds its value to the active obstacle array
+     * Spawns a vehicle obstacle at random and adds it to the active obstacle array.
      */
     public void spawnVehicle() {
 
@@ -165,14 +147,14 @@ public class ObstacleManager {
             Obstacle o = activeObstacles.get(i);
             o.update();
 
-            if (o.posY > Stage.HEIGHT || o.isActive == false) {
+            if (o.posY > MooseGame.HEIGHT || o.isActive == false) {
                 activeObstacles.remove(o);
             }
         }
     }
 
     /**
-     * Render graphics for obstacles
+     * Renders graphics for obstacles
      *
      * @param g obstacle to be painted
      */

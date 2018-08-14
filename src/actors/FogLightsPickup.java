@@ -1,17 +1,17 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class allows for Fog Lights item to be picked up by user during gameplay.
+ * Represents a fog lights pickup item.
  */
 public class FogLightsPickup extends Pickup {
 
     /**
-     * Constructor for Fog Lights.
+     * Constructs a new fog lights object.
      * @param canvas game window
      */
     public FogLightsPickup(MooseGame canvas) {
@@ -20,7 +20,7 @@ public class FogLightsPickup extends Pickup {
     }
 
     /**
-     * Adds Fog Lights item to game window.
+     * Adds fog lights object to game window.
      */
     @Override
     public void spawn() {
@@ -29,10 +29,8 @@ public class FogLightsPickup extends Pickup {
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setX(150 + random.nextInt(MooseGame.WIDTH - 300));
         setY(-200);
-
-
 
         setWidth(50);
         setHeight(50);
@@ -42,7 +40,7 @@ public class FogLightsPickup extends Pickup {
     }
 
     /**
-     * Removes Fog Lights item from game window.
+     * Removes a fog lights object from the game window.
      */
     @Override
     public void despawn() {

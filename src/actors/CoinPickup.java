@@ -1,12 +1,12 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class allows coins to be picked up by player during gameplay
+ * Represents a coin pickup item.
  */
 public class CoinPickup extends Pickup {
 
@@ -16,7 +16,7 @@ public class CoinPickup extends Pickup {
     }
 
     /**
-     * Adds coin to game window.
+     * Spawns a new coin.
      */
     @Override
     public void spawn() {
@@ -25,7 +25,7 @@ public class CoinPickup extends Pickup {
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setX(150 + random.nextInt(MooseGame.WIDTH - 300));
         setY(-200);
 
         setWidth(50);
@@ -36,7 +36,7 @@ public class CoinPickup extends Pickup {
     }
 
     /**
-     * Removes a coin from game window.
+     * Removes a coin object from the game window.
      */
     @Override
     public void despawn() {
@@ -46,7 +46,7 @@ public class CoinPickup extends Pickup {
     }
 
     /**
-     * Updates the position of a coin.
+     * Updates a coin's position.
      */
     public void update() {
         if (isActive) {

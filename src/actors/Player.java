@@ -1,27 +1,26 @@
 package actors;
 
 import game.PlayerInventory;
-import game.Stage;
+import game.MooseGame;
 
 import java.awt.event.KeyEvent;
 
 import static game.PlayerInventory.Vehicles.*;
 
 /**
- * Class provides creation of player sprites, in-game updates to player and surroundings,
- * key action event handlers.
+ * Represents a Player.
  */
 public class Player extends Actor implements KeyboardControllable {
 
     private boolean left, right;
 
     /**
-     * Constructor for Player.
+     * Constructs a Player.
      *
-     * @param stage game window
+     * @param mooseGame game window
      */
-    public Player(Stage stage) {
-        super(stage);
+    public Player(MooseGame mooseGame) {
+        super(mooseGame);
 
         if (PlayerInventory.getEquippedVehicle() == CAR) {
             sprites = new String[]{"player_bluecar.png"};
@@ -36,12 +35,12 @@ public class Player extends Actor implements KeyboardControllable {
         actorSpeed = 10;
         width = 50;
         height = 100;
-        posX = Stage.WIDTH / 2;
-        posY = 8 * Stage.HEIGHT / 10;
+        posX = MooseGame.WIDTH / 2;
+        posY = 8 * MooseGame.HEIGHT / 10;
     }
 
     /**
-     * Updates the speed at which the game moves
+     * Updates the speed at which the game moves.
      */
     public void update() {
         super.update();
@@ -49,7 +48,7 @@ public class Player extends Actor implements KeyboardControllable {
     }
 
     /**
-     * Keeps sprites's on-screen movements balanced
+     * Controls player movement.
      */
     protected void updateSpeed() {
         vx = 0;
@@ -58,10 +57,9 @@ public class Player extends Actor implements KeyboardControllable {
         if (right)
             vx = actorSpeed;
 
-        //don't allow scrolling off the edge of the screen
         if (posX > 0 && vx < 0) {
             posX += vx;
-        } else if (posX + width < Stage.WIDTH - 15 && vx > 0) {
+        } else if (posX + width < MooseGame.WIDTH - 15 && vx > 0) {
             posX += vx;
         }
 
@@ -83,7 +81,6 @@ public class Player extends Actor implements KeyboardControllable {
                 right = false;
                 break;
         }
-//        updateSpeed();
     }
 
     /**
@@ -102,15 +99,6 @@ public class Player extends Actor implements KeyboardControllable {
                 right = true;
                 break;
         }
-        ;
-    }
 
-    /**
-     * Ends game upon collision between actor player and actor obstacle.
-     *
-     * @param a actor value
-     */
-    public void collision(Actor a) {
-        stage.endGame();
     }
 }

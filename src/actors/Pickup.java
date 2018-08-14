@@ -3,14 +3,14 @@ package actors;
 import game.MooseGame;
 
 /**
- * Allows items to be picked up by player during gameplay.
+ * Abstract class represents a Pickup.
  */
 public abstract class Pickup extends Actor {
 
     public boolean isActive = false;
 
     /**
-     * Constructor for pickup.
+     * Constructs a new Pickup.
      * @param canvas
      */
     public Pickup(MooseGame canvas) {

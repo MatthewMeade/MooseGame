@@ -4,9 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * Keeps track of player settings and inventory within the game,
- * displays high score information, allows settings changes,
- * checks if purchases are possible.
+ * Manages the player's inventory, high score, and settings.
  */
 public class PlayerInventory {
 
@@ -31,7 +29,7 @@ public class PlayerInventory {
     private static Vehicles equippedVehicle = Vehicles.CAR;
 
     /**
-     * Gets value for equippedVehicle.
+     * Gets the currently equipped value.
      *
      * @return equipped vehicle value
      */
@@ -40,7 +38,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Sets value for equippedVehicle.
+     * Sets the currently equipped value.
      *
      * @param vehicle equipped vehicle value
      */
@@ -50,7 +48,7 @@ public class PlayerInventory {
 
 
     /**
-     * Get value for settingsMusicOn.
+     * Gets the value for the background music setting.
      *
      * @return settingsMusicOn
      */
@@ -59,7 +57,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Set value for settingsMusic
+     * Turns background music on.
      *
      * @param settingsMusicOn status of settings music
      */
@@ -68,7 +66,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Get value for settingSoundsOn
+     * Gets the value for the sounds effect setting.
      *
      * @return settingSoundsOn
      */
@@ -77,7 +75,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Set value for settingSoundsOn
+     * Turns sound effects on.
      *
      * @param settingSoundsOn status of settings sounds
      */
@@ -86,7 +84,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Get value for highScore
+     * Gets the player's high score.
      *
      * @return high score
      */
@@ -95,7 +93,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Set value for high score
+     * Sets the player's high score.
      *
      * @param currentScore current game score
      */
@@ -106,7 +104,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Gets value for showFPSOverlay setting
+     * Get the showFPSOverlay setting value.
      *
      * @return showFPSOverlay boolean true if FPS overlay setting enabled
      */
@@ -115,7 +113,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Sets value for showFPSOverlay setting
+     * Sets value for showFPSOverlay setting.
      *
      * @param showFPSOverlay boolean true if FPS overlay setting enabled
      */
@@ -124,7 +122,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Gets the player's currency
+     * Gets the player's total currency.
      *
      * @return currency int
      */
@@ -133,7 +131,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Adds additional currency to the player's inventory
+     * Adds additional currency to the player's inventory.
      *
      * @param additionalCurrency int amount of currency to add
      */
@@ -142,7 +140,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Determines whether a player's currency is sufficient to purchase an item.
+     * Spends player currency after determining whether the player has enough to purchase an item.
      *
      * @param cost int Cost of an item
      * @return Whether sufficient currency exists
@@ -200,7 +198,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Get value for slowMotionCount
+     * Gets value for slowMotionCount
      *
      * @return slow motion count
      */
@@ -209,7 +207,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Get value for invincibilityCount
+     * Gets value for invincibilityCount
      *
      * @return invincibility count
      */
@@ -290,8 +288,10 @@ public class PlayerInventory {
     }
 
     /**
-     * Saves game settings to a file. Settings include high score, currency,
-     * music settings, sound settings, FPS overlay, vehicle.
+     * Saves game settings to a file.
+     *
+     * Settings include high score, currency, background music, sound effects, FPS overlay,
+     * and vehicle selection/ownership.
      */
     public static void saveToFile() {
 
@@ -326,7 +326,6 @@ public class PlayerInventory {
 
     /**
      * Loads game settings from a save file.
-     * High score, currency, music toggle, sound effects toggle, FPS overlay toggle
      */
     public static void loadFromFile() {
 
@@ -365,8 +364,9 @@ public class PlayerInventory {
     }
 
     /**
-     * Clears the save file contents returning the high score and player currency
-     * values to 0 and settings to their default values.
+     * Clears the save file contents.
+     *
+     * Returns the high score and player currency values to 0, and settings to their default values.
      */
     public static void clearSave() {
         highScore = 0;

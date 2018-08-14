@@ -2,7 +2,7 @@ package actors;
 
 import game.MooseGame;
 import game.PlayerInventory;
-import game.Stage;
+import game.MooseGame;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,13 +11,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Spawns, renders graphics for, and removes pickup items during gameplay dependent on their status and position.
+ * Spawns, renders graphics for, and removes pickup items during gameplay.
  */
 public class PickupManager {
-
-//    private static ArrayList<Pickup> fogLightsPickups = new ArrayList<>();
-//    private static ArrayList<Pickup> slowMotionPickups = new ArrayList<>();
-//    private static ArrayList<Pickup> invincibilityPickups = new ArrayList<>();
 
     private static ArrayList<Pickup> activePickups = new ArrayList<>();
 
@@ -44,16 +40,13 @@ public class PickupManager {
     private int coinsPickedUp = 0;
 
     /**
-     * PickupManager constructor.
+     * Constructs a new PickupManager.
      *
      * @param canvas game window
      */
     public PickupManager(MooseGame canvas) {
         this.canvas = canvas;
 
-        /**
-         * Provides chronological order in which pickup items spawn.
-         */
         new Timer().schedule(
                 new TimerTask() {
                     @Override
@@ -67,17 +60,7 @@ public class PickupManager {
     }
 
     /**
-     * Get pickup values
-     *
-     * @return active pickup value
-     */
-    public ArrayList<Pickup> getPickups() {
-        return activePickups;
-    }
-
-
-    /**
-     * Get number of coins picked up in a game
+     * Gets number of coins picked up.
      *
      * @return coinsPickedUp int
      */
@@ -86,7 +69,7 @@ public class PickupManager {
     }
 
     /**
-     * Stops the continuity of a pickup item and clears it from the screen.
+     * Clears active pickups and stops pickup-spawning timers.
      */
     public void stop() {
         activePickups = new ArrayList<Pickup>();
@@ -105,8 +88,7 @@ public class PickupManager {
     }
 
     /**
-     * Spawns a Fog Lights pickup item, adds it to an array of
-     * active pickups for its duration.
+     * Spawns a Fog Lights pickup item based on a timer.
      */
     public void spawnFogLightsPickup() {
         Random random = new Random();
@@ -127,8 +109,7 @@ public class PickupManager {
     }
 
     /**
-     * Spawns a Slow Motion pickup item, adds it to an array of
-     * active pickups for its duration.
+     * Spawns a Slow Motion pickup item based on a timer.
      */
     public void spawnSlowMotionPickup() {
         Random random = new Random();
@@ -150,8 +131,7 @@ public class PickupManager {
 
 
     /**
-     * Spawns an Invincibility pickup item, adds it to an array of
-     * active pickups for its duration.
+     * Spawns an Invincibility pickup item based on a timer.
      */
     public void spawnInvincibilityPickup() {
 
@@ -204,7 +184,7 @@ public class PickupManager {
             Pickup p = activePickups.get(i);
             p.update();
 
-            if (p.posY > Stage.HEIGHT || p.isActive == false) {
+            if (p.posY > MooseGame.HEIGHT || p.isActive == false) {
                 activePickups.remove(p);
             }
         }
@@ -212,7 +192,7 @@ public class PickupManager {
     }
 
     /**
-     * Render graphics for pickup items
+     * Renders graphics for pickup items
      *
      * @param g pickup item to be painted
      */
