@@ -1,17 +1,17 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class allows for Temporary Invincibility item to be picked up by player during gameplay.
+ * Class repesents a temporary invincibility pickup.
  */
 public class TemporaryInvincibilityPickup extends Pickup {
 
     /**
-     * Constructor for Temporary Invincibility item.
+     * Constructs a temporary invincibility pickup.
      * @param canvas game window
      */
     public TemporaryInvincibilityPickup(MooseGame canvas) {
@@ -30,7 +30,7 @@ public class TemporaryInvincibilityPickup extends Pickup {
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(150 + random.nextInt(Stage.WIDTH - 300));
+        setX(150 + random.nextInt(MooseGame.WIDTH - 300));
         setY(-200);
 
         setWidth(50);

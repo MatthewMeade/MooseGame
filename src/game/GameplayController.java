@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Handles creation of in-game screen
+ * Controls gameplay.
  */
 public class GameplayController implements KeyboardControllable {
 
@@ -28,7 +28,7 @@ public class GameplayController implements KeyboardControllable {
     private int[] opacityLevel = {0, 25, 50, 75, 100, 125, 150, 175, 200, 175, 150, 125, 100, 75, 50, 25};
     private int opacityLevelCounter = 0;
 
-    private int road1Pos = Stage.HEIGHT * -1;
+    private int road1Pos = MooseGame.HEIGHT * -1;
     private int road2Pos = 0;
     private int score = 0;
     private int health = 3;
@@ -46,7 +46,7 @@ public class GameplayController implements KeyboardControllable {
     private Timer slowMotionTimer = new Timer();
 
     /**
-     * Constructor for GameplayController.
+     * Constructs a GameplayController.
      *
      * @param canvas game window
      */
@@ -62,10 +62,7 @@ public class GameplayController implements KeyboardControllable {
         obstacleManager = new ObstacleManager(canvas);
         pickupManager = new PickupManager(canvas);
 
-
         incrementOverlayLevel();
-
-
     }
 
     /**
@@ -78,12 +75,12 @@ public class GameplayController implements KeyboardControllable {
         road1Pos += 10;
         road2Pos += 10;
 
-        if (road1Pos >= Stage.HEIGHT) {
-            road1Pos = Stage.HEIGHT * -1;
+        if (road1Pos >= MooseGame.HEIGHT) {
+            road1Pos = MooseGame.HEIGHT * -1;
         }
 
-        if (road2Pos >= Stage.HEIGHT) {
-            road2Pos = Stage.HEIGHT * -1;
+        if (road2Pos >= MooseGame.HEIGHT) {
+            road2Pos = MooseGame.HEIGHT * -1;
         }
 
         // Draw road
@@ -98,7 +95,7 @@ public class GameplayController implements KeyboardControllable {
         g.setFont(scoreFont);
 
         String scoreText = "" + getScore();
-        g.drawString(scoreText, Stage.WIDTH - metrics.stringWidth(scoreText) - 25, 50);
+        g.drawString(scoreText, MooseGame.WIDTH - metrics.stringWidth(scoreText) - 25, 50);
 
         // Draw health
         Font healthFont = new Font("Impact", Font.PLAIN, 45);
@@ -113,23 +110,23 @@ public class GameplayController implements KeyboardControllable {
 
         // Draw powerups
         if (!fogLightsActive || canvas.getSpriteBlinkStatus()) {
-            g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, Stage.HEIGHT - 210, canvas);
+            g.drawImage(ResourceLoader.getInstance().getSprite("foglights.png"), 680, MooseGame.HEIGHT - 210, canvas);
         }
 
         if (!invincibilityActive || canvas.getSpriteBlinkStatus()) {
-            g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, Stage.HEIGHT - 150, canvas);
+            g.drawImage(ResourceLoader.getInstance().getSprite("invincible.png"), 680, MooseGame.HEIGHT - 150, canvas);
         }
 
         if (!slowMotionActive || canvas.getSpriteBlinkStatus()) {
-            g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, Stage.HEIGHT - 90, canvas);
+            g.drawImage(ResourceLoader.getInstance().getSprite("slowmotion.png"), 680, MooseGame.HEIGHT - 90, canvas);
         }
 
         String fCount = Integer.toString(PlayerInventory.getFogLightsCount());
         String iCount = Integer.toString(PlayerInventory.getInvincibilityCount());
         String sCount = Integer.toString(PlayerInventory.getSlowMotionCount());
-        g.drawString(fCount, Stage.WIDTH - 100 - metrics.stringWidth(fCount), Stage.HEIGHT - 170);
-        g.drawString(iCount, Stage.WIDTH - 100 - metrics.stringWidth(iCount), Stage.HEIGHT - 110);
-        g.drawString(sCount, Stage.WIDTH - 100 - metrics.stringWidth(sCount), Stage.HEIGHT - 50);
+        g.drawString(fCount, MooseGame.WIDTH - 100 - metrics.stringWidth(fCount), MooseGame.HEIGHT - 170);
+        g.drawString(iCount, MooseGame.WIDTH - 100 - metrics.stringWidth(iCount), MooseGame.HEIGHT - 110);
+        g.drawString(sCount, MooseGame.WIDTH - 100 - metrics.stringWidth(sCount), MooseGame.HEIGHT - 50);
 
 
         for (int i = 0; i < actors.size(); i++) {
@@ -147,8 +144,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Increases and decreases level of opacity incrementally during gameplay if fog lights
-     * powerup is not active.
+     * Increments fog lights opacity level.
      */
     public void incrementOverlayLevel() {
 
@@ -211,8 +207,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Checks whether a collision has occured in-game, displays score if true,
-     * and resets high score to current score.
+     * Checks for a collision between Player and Obstacle or Pickup.
      */
     public void checkCollision() {
 
@@ -222,15 +217,16 @@ public class GameplayController implements KeyboardControllable {
 
         pickupManager.checkCollision(player);
 
-        if (player.getX() < 75 || player.getX() > Stage.WIDTH - 125) {
+        // Damages player when their car leaves the road.
+        if (player.getX() < 75 || player.getX() > MooseGame.WIDTH - 125) {
             damagePlayer();
-            player.setX(Stage.WIDTH / 2 - 25);
+            player.setX(MooseGame.WIDTH / 2 - 25);
         }
 
     }
 
     /**
-     * Processes damage to the player during gameplay
+     * Damages player.
      */
     public void damagePlayer() {
         if (!invincibilityActive) {
@@ -252,9 +248,9 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Checks if there has been a decrease in health.
+     * Decreases health.
      *
-     * @return decrease or lack thereof
+     * @return boolean true if player health greater than zero.
      */
     public boolean decreaseHealth() {
         health--;
@@ -289,13 +285,13 @@ public class GameplayController implements KeyboardControllable {
      * @return game score
      */
     public int getScore() {
-        return score / Stage.DESIRED_FPS;
+        return score / MooseGame.DESIRED_FPS;
     }
 
     /**
-     * Check if Fog lights powerup is active.
+     * Check if fog lights powerup is active.
      *
-     * @return Whether fog Lights is active
+     * @return whether fog Lights is active
      */
     public boolean areFogLightsActive() {
         return fogLightsActive;
@@ -322,7 +318,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Check if Invincibility powerup is active.
+     * Checks if Invincibility powerup is active.
      *
      * @return Whether invincibility is active
      */
@@ -331,7 +327,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Activate Invincibility powerup from player inventory.
+     * Activates invincibility powerup.
      */
     public void activateInvincibilityPowerup() {
         if (!invincibilityActive && PlayerInventory.useInvincibilityPowerup()) {
@@ -341,8 +337,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Activate Invincibility, player does not incur damage for
-     * a fixed length of time during gameplay.
+     * Activates invincibility.
      *
      * @param time fixed length of time
      */
@@ -358,7 +353,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Check if Slow Motion powerup is active.
+     * Checks if Slow Motion powerup is active.
      *
      * @return Whether Slow Motion is active.
      */
@@ -367,8 +362,7 @@ public class GameplayController implements KeyboardControllable {
     }
 
     /**
-     * Activate Slow Motion powerup, speed rate of game play is
-     * reduced for a fixed length of time.
+     * Activates Slow Motion powerup.
      */
     public void activateSlowMotion() {
         if (!slowMotionActive && PlayerInventory.useSlowMotionPowerup()) {
@@ -386,6 +380,4 @@ public class GameplayController implements KeyboardControllable {
 
         }
     }
-
-
 }

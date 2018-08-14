@@ -1,17 +1,17 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class adds, removes, and updates positioning of static obstacles.
+ * Represents a static obstacle.
  */
 public class StaticObstacle extends Obstacle {
 
     /**
-     * Constructor for StaticObstacle
+     * Constructs a static obstacle.
      * @param canvas game window
      */
     public StaticObstacle(MooseGame canvas) {
@@ -31,7 +31,7 @@ public class StaticObstacle extends Obstacle {
 
         Random random = new Random();
 
-        setX(125 + random.nextInt(Stage.WIDTH - 250));
+        setX(125 + random.nextInt(MooseGame.WIDTH - 250));
         posY = -100;
 
 

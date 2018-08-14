@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.ImageObserver;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,11 +18,15 @@ import javax.swing.JPanel;
 
 /**
  * MooseGame class defines behaviors and renders graphics for different game states.
- * Class extends Stage class and implements KeyListener interface.
+ * Class extends MooseGame class and implements KeyListener interface.
  */
-public class MooseGame extends Stage implements KeyListener {
+public class MooseGame extends Canvas implements ImageObserver, KeyListener {
 
     private static final long serialVersionUID = 1L;
+    public static final int WIDTH = 750;
+    public static final int HEIGHT = 750;
+    public static final int DESIRED_FPS = 60;
+    public static final int SLOW_MOTION_FPS = 30;
 
     private InputHandler gameKeyPressedHandler;
     private InputHandler gameKeyReleasedHandler;
@@ -45,6 +50,8 @@ public class MooseGame extends Stage implements KeyListener {
     private boolean spriteBlinkStatus = false;
     private static final int SPRITE_BLINK_INTERVAL = 100;
 
+
+
     /**
      * Initializes different game states
      */
@@ -60,7 +67,7 @@ public class MooseGame extends Stage implements KeyListener {
     /**
      * Instance of MooseGame class is created. User interface background
      * color and dimensions are initialized, with dimension values inherited
-     * from Stage class and background color set to blue.
+     * from MooseGame class and background color set to blue.
      */
     public MooseGame() {
 
@@ -68,16 +75,16 @@ public class MooseGame extends Stage implements KeyListener {
         PlayerInventory.loadFromFile();
 
         //init the UI
-        setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
+        setBounds(0, 0, MooseGame.WIDTH, MooseGame.HEIGHT);
         setBackground(Color.BLACK);
         loopSound("backgroundloop.wav");
 
         /*
          * New instances of JPanel and JFrame are created, dimensions
-         * inherited from the Stage class.
+         * inherited from the MooseGame class.
          */
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(Stage.WIDTH, Stage.HEIGHT));
+        panel.setPreferredSize(new Dimension(MooseGame.WIDTH, MooseGame.HEIGHT));
         panel.setLayout(null);
 
         panel.add(this);
@@ -85,7 +92,7 @@ public class MooseGame extends Stage implements KeyListener {
         JFrame frame = new JFrame("Moose Game");
         frame.add(panel);
 
-        frame.setBounds(0, 0, Stage.WIDTH, Stage.HEIGHT);
+        frame.setBounds(0, 0, MooseGame.WIDTH, MooseGame.HEIGHT);
         frame.setResizable(false);
         frame.setVisible(true);
 
@@ -215,9 +222,9 @@ public class MooseGame extends Stage implements KeyListener {
         g.setColor(Color.RED);
         g.setFont(new Font("Courier New", Font.PLAIN, 30));
         if (usedTime > 0)
-            g.drawString(String.valueOf(1000 / usedTime) + " fps", 0, Stage.HEIGHT - 50);
+            g.drawString(String.valueOf(1000 / usedTime) + " fps", 0, MooseGame.HEIGHT - 50);
         else
-            g.drawString("--- fps", 0, Stage.HEIGHT - 50);
+            g.drawString("--- fps", 0, MooseGame.HEIGHT - 50);
     }
 
     /**
@@ -279,12 +286,19 @@ public class MooseGame extends Stage implements KeyListener {
         }
     }
 
+    /**
+     * Stops the background music.
+     */
     public void stopMusic() {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
         }
     }
 
+    /**
+     * Gets the sprite blink status.
+     * @return
+     */
     public boolean getSpriteBlinkStatus() {
         return spriteBlinkStatus;
     }
@@ -386,6 +400,20 @@ public class MooseGame extends Stage implements KeyListener {
                         spriteBlinkTimer();
                     }
                 }, SPRITE_BLINK_INTERVAL);
+    }
+
+    /**
+     * @param img
+     * @param infoflags
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @return
+     */
+    public boolean imageUpdate(Image img, int infoflags, int x, int y,
+                               int width, int height) {
+        return false;
     }
 
     /**

@@ -12,7 +12,7 @@ import static game.PlayerInventory.Vehicles.*;
  */
 public class StoreController implements KeyboardControllable {
 
-    private MooseGame stage;
+    private MooseGame mooseGame;
     private int menuSelection = 0;
     private int[] menuLengths = new int[]{4, 4, 4, 5};
     private int menuState = 0;
@@ -36,10 +36,10 @@ public class StoreController implements KeyboardControllable {
     /**
      * Constructor for StoreController.
      *
-     * @param stage game window
+     * @param mooseGame game window
      */
-    public StoreController(MooseGame stage) {
-        this.stage = stage;
+    public StoreController(MooseGame mooseGame) {
+        this.mooseGame = mooseGame;
     }
 
     /**
@@ -50,17 +50,17 @@ public class StoreController implements KeyboardControllable {
     public void paint(Graphics g) {
 
         // Draw background
-        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, stage);
+        g.drawImage(ResourceLoader.getInstance().getSprite("road.png"), 0, 0, mooseGame);
 
         g.setColor(new Color(0, 0, 0, 150));
-        g.fillRect(Stage.WIDTH / 6, 50, 2 * Stage.WIDTH / 3, 100);
+        g.fillRect(MooseGame.WIDTH / 6, 50, 2 * MooseGame.WIDTH / 3, 100);
 
         // Draw store title
         Font storeTitle = new Font("Impact", Font.PLAIN, 75);
         FontMetrics metrics = g.getFontMetrics(storeTitle);
         g.setFont(storeTitle);
         g.setColor(Color.WHITE);
-        g.drawString("Store", (Stage.WIDTH - metrics.stringWidth("Store")) / 2, 125);
+        g.drawString("Store", (MooseGame.WIDTH - metrics.stringWidth("Store")) / 2, 125);
 
 
         Font coinFont = new Font("Impact", Font.PLAIN, 30);
@@ -69,7 +69,7 @@ public class StoreController implements KeyboardControllable {
         g.setColor(new Color(255, 215, 0));
 
         String coinText = "Coins: " + PlayerInventory.getCurrency();
-        g.drawString(coinText, 5 * Stage.WIDTH / 6 - metrics.stringWidth(coinText) - 10, 135);
+        g.drawString(coinText, 5 * MooseGame.WIDTH / 6 - metrics.stringWidth(coinText) - 10, 135);
 
 
         Font menuFont = new Font("Impact", Font.PLAIN, 40);
@@ -82,7 +82,7 @@ public class StoreController implements KeyboardControllable {
         if (menuState == 0) {
 
             g.setColor(new Color(0, 0, 0, 150));
-            g.fillRect(Stage.WIDTH / 6, Stage.WIDTH / 4, 2 * Stage.WIDTH / 3, Stage.WIDTH / 2);
+            g.fillRect(MooseGame.WIDTH / 6, MooseGame.WIDTH / 4, 2 * MooseGame.WIDTH / 3, MooseGame.WIDTH / 2);
 
             String[] text = new String[]{
                     "Powerups", "Vehicles", "Buy Coin Packs", "Back to Main Menu"};
@@ -90,14 +90,14 @@ public class StoreController implements KeyboardControllable {
             for (int i = 0; i < text.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 String drawString = (menuSelection == i ? " - " : "") + text[i] + (menuSelection == i ? " - " : "");
-                g.drawString(drawString, (Stage.WIDTH / 6) + ((2 * Stage.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
+                g.drawString(drawString, (MooseGame.WIDTH / 6) + ((2 * MooseGame.WIDTH / 3) - metrics.stringWidth(drawString)) / 2, 250 + (75 * i));
 
             }
 
         } else if (menuState == 1) {
 
             g.setColor(new Color(0, 0, 0, 150));
-            g.fillRect(Stage.WIDTH / 6, 160, 2 * Stage.WIDTH / 3, 375);
+            g.fillRect(MooseGame.WIDTH / 6, 160, 2 * MooseGame.WIDTH / 3, 375);
             g.setColor(Color.white);
 
             String[] sprites = new String[]{"foglights.png", "invincible.png", "slowmotion.png"};
@@ -105,8 +105,8 @@ public class StoreController implements KeyboardControllable {
             Integer[] options = new Integer[]{FOG_LIGHTS_COST, INVINCIBILITY_COST, SLOW_MOTION_COST};
 
             for (int i = 0; i < sprites.length; i++) {
-                g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), Stage.WIDTH / 6 + 10, 175 + i * 75, stage);
-                g.drawString("[" + options[i] + "]    "+  names[i], (Stage.WIDTH / 4) + 20, 215 + i * 75);
+                g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), MooseGame.WIDTH / 6 + 10, 175 + i * 75, mooseGame);
+                g.drawString("[" + options[i] + "]    "+  names[i], (MooseGame.WIDTH / 4) + 20, 215 + i * 75);
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString("Buy", 550, 215 + (75 * i));
                 g.setColor(Color.white);
@@ -118,20 +118,20 @@ public class StoreController implements KeyboardControllable {
             g.setColor(Color.red);
 
             String warningText = "Note: Powerups are lost on game over";
-            g.drawString(warningText, (Stage.WIDTH - metrics.stringWidth(warningText)) /2, 400);
+            g.drawString(warningText, (MooseGame.WIDTH - metrics.stringWidth(warningText)) /2, 400);
 
             metrics = g.getFontMetrics(menuFont);
             g.setFont(menuFont);
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
 
             String backText = "Back to store";
-            g.drawString(backText, (Stage.WIDTH - metrics.stringWidth(backText)) / 2, 500);
+            g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 500);
 
             // VEHICLES MENU
         } else if (menuState == 2) {
 
             // Car
-            g.drawImage(ResourceLoader.getInstance().getSprite("player_bluecar.png"), (Stage.WIDTH / 3), 180, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("player_bluecar.png"), (MooseGame.WIDTH / 3), 180, mooseGame);
 
             if (menuSelection == 0) {
                 g.setColor(Color.GREEN);
@@ -145,7 +145,7 @@ public class StoreController implements KeyboardControllable {
             }
 
             // Truck
-            g.drawImage(ResourceLoader.getInstance().getSprite("truck.png"), (Stage.WIDTH / 3), 375, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("truck.png"), (MooseGame.WIDTH / 3), 375, mooseGame);
 
             if (menuSelection == 1) {
                 g.setColor(Color.GREEN);
@@ -161,7 +161,7 @@ public class StoreController implements KeyboardControllable {
             }
 
             // ATV
-            g.drawImage(ResourceLoader.getInstance().getSprite("atv.png"), (Stage.WIDTH / 3), 575, stage);
+            g.drawImage(ResourceLoader.getInstance().getSprite("atv.png"), (MooseGame.WIDTH / 3), 575, mooseGame);
 
             if (menuSelection == 2) {
                 g.setColor(Color.GREEN);
@@ -177,7 +177,7 @@ public class StoreController implements KeyboardControllable {
             }
 
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
+            g.drawString("Back to Store", (MooseGame.WIDTH / 2), 700);
 
             // BUY COIN PACKS
         } else if (menuState == 3) {
@@ -190,11 +190,11 @@ public class StoreController implements KeyboardControllable {
 
             for (int i = 0; i < coinPacksText.length; i++) {
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
-                g.drawString(coinPacksText[i], (Stage.WIDTH / 5), 250 + (75 * i));
+                g.drawString(coinPacksText[i], (MooseGame.WIDTH / 5), 250 + (75 * i));
             }
 
             g.setColor(menuSelection == 4 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (Stage.WIDTH / 2), 700);
+            g.drawString("Back to Store", (MooseGame.WIDTH / 2), 700);
         }
     }
 
@@ -245,7 +245,7 @@ public class StoreController implements KeyboardControllable {
                     menuState = 3;
                     break;
                 case 3: // Back to main menu
-                    stage.initMenu();
+                    mooseGame.initMenu();
                     break;
             }
         }
@@ -269,7 +269,7 @@ public class StoreController implements KeyboardControllable {
                     }
                     break;
                 case 3: // Back to main menu
-                    stage.initStore();
+                    mooseGame.initStore();
                     break;
             }
         }

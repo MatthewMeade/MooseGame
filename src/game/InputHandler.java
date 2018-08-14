@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import actors.KeyboardControllable;
 
 /**
- * creates a thread to process player input
+ * Creates a thread to process player input
  *
  * @author ghast
  */
@@ -15,18 +15,18 @@ public class InputHandler {
         RELEASE
     }
 
-    private Stage stage = null;
+    private MooseGame mooseGame = null;
     private KeyboardControllable player = null;
     public Action action;
 
     /**
-     * Constructor for InputHandler
+     * Constructs an InputHandler
      *
      * @param stg    game window
      * @param player game user
      */
-    public InputHandler(Stage stg, KeyboardControllable player) {
-        this.stage = stg;
+    public InputHandler(MooseGame stg, KeyboardControllable player) {
+        this.mooseGame = stg;
         this.player = player;
     }
 

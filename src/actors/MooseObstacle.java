@@ -1,17 +1,17 @@
 package actors;
 
 import game.MooseGame;
-import game.Stage;
+import game.MooseGame;
 
 import java.util.Random;
 
 /**
- * Class adds, removes, and updates positioning of moose obstacles.
+ * Represents a moose obstacle.
  */
 public class MooseObstacle extends Obstacle{
 
     /**
-     * Moose obstacle constructor.
+     * Constructs a moose obstacle.
      * @param canvas Game window
      */
     public MooseObstacle(MooseGame canvas) {
@@ -20,7 +20,7 @@ public class MooseObstacle extends Obstacle{
     }
 
     /**
-     * Adds moose obstacle to game window.
+     * Adds a moose obstacle to game window.
      */
     @Override
     public void spawn() {
@@ -29,7 +29,7 @@ public class MooseObstacle extends Obstacle{
         Random random = new Random();
 
         boolean left = random.nextBoolean();
-        setX(left ? -100 : Stage.WIDTH);
+        setX(left ? -100 : MooseGame.WIDTH);
         setY(-100);
 
         setWidth(75);
@@ -40,7 +40,7 @@ public class MooseObstacle extends Obstacle{
     }
 
     /**
-     * Removes moose obstacle from game window.
+     * Removes a moose obstacle from game window.
      */
     @Override
     public void despawn() {

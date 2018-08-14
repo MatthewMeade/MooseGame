@@ -25,7 +25,7 @@ public class ResourceLoader implements ImageObserver {
     private static ResourceLoader instance = new ResourceLoader();
 
     /**
-     * Default constructor for ResourceLoader.
+     * Constructs a ResourceLoader.
      */
     private ResourceLoader() {
     }
@@ -71,7 +71,7 @@ public class ResourceLoader implements ImageObserver {
     }
 
     /**
-     * creates a compatible image in memory, faster than using the original image format
+     * Creates a compatible image in memory, faster than using the original image format
      *
      * @param width        image width
      * @param height       image height
@@ -87,7 +87,7 @@ public class ResourceLoader implements ImageObserver {
     }
 
     /**
-     * check if image is cached, if not, load it
+     * Checks if image is cached. If not, loads image.
      *
      * @param name name of image
      * @return
