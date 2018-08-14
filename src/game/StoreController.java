@@ -96,8 +96,11 @@ public class StoreController implements KeyboardControllable {
 
         } else if (menuState == 1) {
 
+
             g.setColor(new Color(0, 0, 0, 150));
+
             g.fillRect(MooseGame.WIDTH / 6, 160, 2 * MooseGame.WIDTH / 3, 375);
+
             g.setColor(Color.white);
 
             String[] sprites = new String[]{"foglights.png", "invincible.png", "slowmotion.png"};
@@ -106,7 +109,7 @@ public class StoreController implements KeyboardControllable {
 
             for (int i = 0; i < sprites.length; i++) {
                 g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), MooseGame.WIDTH / 6 + 10, 175 + i * 75, mooseGame);
-                g.drawString("[" + options[i] + "]    "+  names[i], (MooseGame.WIDTH / 4) + 20, 215 + i * 75);
+                g.drawString("[" + options[i] + "]    " + names[i], (MooseGame.WIDTH / 4) + 20, 215 + i * 75);
                 g.setColor(menuSelection == i ? Color.GREEN : Color.WHITE);
                 g.drawString("Buy", 550, 215 + (75 * i));
                 g.setColor(Color.white);
@@ -118,7 +121,7 @@ public class StoreController implements KeyboardControllable {
             g.setColor(Color.red);
 
             String warningText = "Note: Powerups are lost on game over";
-            g.drawString(warningText, (MooseGame.WIDTH - metrics.stringWidth(warningText)) /2, 400);
+            g.drawString(warningText, (MooseGame.WIDTH - metrics.stringWidth(warningText)) / 2, 400);
 
             metrics = g.getFontMetrics(menuFont);
             g.setFont(menuFont);
@@ -130,57 +133,47 @@ public class StoreController implements KeyboardControllable {
             // VEHICLES MENU
         } else if (menuState == 2) {
 
-            // Car
-            g.drawImage(ResourceLoader.getInstance().getSprite("player_bluecar.png"), (MooseGame.WIDTH / 3), 180, mooseGame);
+            String[] sprites = new String[]{"player_bluecar.png", "player_truck.png", "atv.png"};
+            Integer[] prices = new Integer[]{0, TRUCK_COST, ATV_COST};
 
-            if (menuSelection == 0) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (PlayerInventory.getEquippedVehicle() != CAR) {
-                g.drawString("Equip", 400, 330);
-            } else {
-                g.drawString("Equipped", 400, 330);
+
+            PlayerInventory.Vehicles equipped = PlayerInventory.getEquippedVehicle();
+            Boolean[] equippedStates = new Boolean[]{equipped == CAR, equipped == TRUCK, equipped == ATV};
+
+            Boolean[] ownedStates = new Boolean[]{true, PlayerInventory.isTruckOwned(), PlayerInventory.isAtvOwned()};
+
+
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(MooseGame.WIDTH / 6, 175, 2 * MooseGame.WIDTH / 3, 500);
+
+            for (int i = 0; i < sprites.length; i++) {
+                g.drawImage(ResourceLoader.getInstance().getSprite(sprites[i]), (MooseGame.WIDTH / 3), 180 + 150 * i, mooseGame);
+                g.setColor(menuSelection == i ? Color.GREEN : Color.white);
+                String drawString = "";
+
+                if (!ownedStates[i]) {
+                    drawString = "Buy (" + prices[i] + ")";
+                } else if (equippedStates[i]) {
+                    drawString = "Equipped";
+                } else {
+                    drawString = "Equip";
+                }
+
+                g.drawString(drawString, 400, 255 + 150 * i);
             }
 
-            // Truck
-            g.drawImage(ResourceLoader.getInstance().getSprite("truck.png"), (MooseGame.WIDTH / 3), 375, mooseGame);
-
-            if (menuSelection == 1) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (!PlayerInventory.isTruckOwned()) {
-                g.drawString("Buy (" + TRUCK_COST + " coins)", 400, 400);
-            } else if (PlayerInventory.getEquippedVehicle() != TRUCK) {
-                g.drawString("Equip", 400, 400);
-            } else {
-                g.drawString("Equipped", 400, 400);
-            }
-
-            // ATV
-            g.drawImage(ResourceLoader.getInstance().getSprite("atv.png"), (MooseGame.WIDTH / 3), 575, mooseGame);
-
-            if (menuSelection == 2) {
-                g.setColor(Color.GREEN);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            if (!PlayerInventory.isAtvOwned()) {
-                g.drawString("Buy (" + ATV_COST + " coins)", 400, 575);
-            } else if (PlayerInventory.getEquippedVehicle() != ATV) {
-                g.drawString("Equip", 400, 575);
-            } else {
-                g.drawString("Equipped", 400, 575);
-            }
 
             g.setColor(menuSelection == 3 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (MooseGame.WIDTH / 2), 700);
+
+
+            String backString = "Back to Store";
+            g.drawString(backString, (MooseGame.WIDTH - metrics.stringWidth(backString)) / 2, 650);
 
             // BUY COIN PACKS
         } else if (menuState == 3) {
+
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(MooseGame.WIDTH / 6, 200, 2 * MooseGame.WIDTH / 3, 375);
 
             String[] coinPacksText = new String[]{
                     SMALL_COIN_PACK_VALUE + " for $" + SMALL_COIN_PACK_COST,
@@ -194,8 +187,11 @@ public class StoreController implements KeyboardControllable {
             }
 
             g.setColor(menuSelection == 4 ? Color.GREEN : Color.WHITE);
-            g.drawString("Back to Store", (MooseGame.WIDTH / 2), 700);
+
+            String backText = "Back to Store";
+            g.drawString(backText, (MooseGame.WIDTH - metrics.stringWidth(backText)) / 2, 550);
         }
+
     }
 
     /**
