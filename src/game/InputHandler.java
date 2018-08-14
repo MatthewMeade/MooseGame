@@ -2,6 +2,7 @@ package game;
 
 import java.awt.event.KeyEvent;
 
+import actors.Actor;
 import actors.KeyboardControllable;
 
 /**
@@ -16,7 +17,7 @@ public class InputHandler {
     }
 
     private MooseGame mooseGame = null;
-    private KeyboardControllable player = null;
+    private KeyboardControllable listener = null;
     public Action action;
 
     /**
@@ -25,9 +26,14 @@ public class InputHandler {
      * @param stg    game window
      * @param player game user
      */
-    public InputHandler(MooseGame stg, KeyboardControllable player) {
+    public InputHandler(MooseGame stg, KeyboardControllable player, Action action) {
         this.mooseGame = stg;
-        this.player = player;
+        this.listener = player;
+        this.action = action;
+    }
+
+    public void setListener(KeyboardControllable listener) {
+        this.listener = listener;
     }
 
     /**
@@ -37,8 +43,8 @@ public class InputHandler {
      */
     public void handleInput(KeyEvent event) {
         if (action == Action.PRESS) {
-            player.triggerKeyPress(event);
+            listener.triggerKeyPress(event);
         } else if (action == Action.RELEASE)
-            player.triggerKeyRelease(event);
+            listener.triggerKeyRelease(event);
     }
 }

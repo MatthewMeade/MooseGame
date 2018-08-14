@@ -54,10 +54,8 @@ public class GameplayController implements KeyboardControllable {
         this.canvas = canvas;
 
         player = new Player(canvas);
-        playerPressedHandler = new InputHandler(canvas, player);
-        playerPressedHandler.action = InputHandler.Action.PRESS;
-        playerReleasedHandler = new InputHandler(canvas, player);
-        playerReleasedHandler.action = InputHandler.Action.RELEASE;
+        playerPressedHandler = new InputHandler(canvas, player, InputHandler.Action.PRESS);
+        playerReleasedHandler = new InputHandler(canvas, player, InputHandler.Action.RELEASE);
 
         obstacleManager = new ObstacleManager(canvas);
         pickupManager = new PickupManager(canvas);

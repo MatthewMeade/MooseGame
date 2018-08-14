@@ -1,5 +1,7 @@
 package game;
 
+import actors.KeyboardControllable;
+
 import java.applet.AudioClip;
 
 import java.awt.*;
@@ -28,14 +30,18 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
     public static final int DESIRED_FPS = 60;
     public static final int SLOW_MOTION_FPS = 30;
 
-    private InputHandler gameKeyPressedHandler;
-    private InputHandler gameKeyReleasedHandler;
-    private InputHandler menuKeyPressedHandler;
-    private InputHandler menuKeyReleasedHandler;
-    private InputHandler storeKeyPressedHandler;
-    private InputHandler storeKeyReleasedHandler;
-    private InputHandler gameOverKeyPressedHandler;
-    private InputHandler gameOverKeyReleasedHandler;
+//    private InputHandler gameKeyPressedHandler;
+//    private InputHandler gameKeyReleasedHandler;
+//    private InputHandler menuKeyPressedHandler;
+//    private InputHandler menuKeyReleasedHandler;
+//    private InputHandler storeKeyPressedHandler;
+//    private InputHandler storeKeyReleasedHandler;
+//    private InputHandler gameOverKeyPressedHandler;
+//    private InputHandler gameOverKeyReleasedHandler;
+
+
+    private InputHandler keyPressedHandler;
+    private InputHandler keyReleasedHandler;
 
 
     public long usedTime; //time taken per game step
@@ -49,7 +55,6 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
 
     private boolean spriteBlinkStatus = false;
     private static final int SPRITE_BLINK_INTERVAL = 100;
-
 
 
     /**
@@ -123,20 +128,6 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
 
 
     /**
-     * Method declares game state as GAME, creates new instance of GameplayController class,
-     * calls PRESS and RELEASE key action from InputHandler class.
-     */
-    public void initGame() {
-        gameState = gameStates.GAME;
-        gameplayController = new GameplayController(this);
-
-        gameKeyPressedHandler = new InputHandler(this, gameplayController);
-        gameKeyPressedHandler.action = InputHandler.Action.PRESS;
-        gameKeyReleasedHandler = new InputHandler(this, gameplayController);
-        gameKeyReleasedHandler.action = InputHandler.Action.RELEASE;
-    }
-
-    /**
      * Method declares game state as MENU, creates new instance of MenuController class,
      * calls PRESS and RELEASE key actions from InputHandler class.
      */
@@ -144,10 +135,20 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
         gameState = gameStates.MENU;
         menuController = new MenuController(this);
 
-        menuKeyPressedHandler = new InputHandler(this, menuController);
-        menuKeyPressedHandler.action = InputHandler.Action.PRESS;
-        menuKeyReleasedHandler = new InputHandler(this, menuController);
-        menuKeyReleasedHandler.action = InputHandler.Action.RELEASE;
+        keyPressedHandler = new InputHandler(this, menuController, InputHandler.Action.PRESS);
+        keyReleasedHandler = new InputHandler(this, menuController, InputHandler.Action.RELEASE);
+    }
+
+    /**
+     * Method declares game state as GAME, creates new instance of GameplayController class,
+     * calls PRESS and RELEASE key action from InputHandler class.
+     */
+    public void initGame() {
+        gameState = gameStates.GAME;
+        gameplayController = new GameplayController(this);
+
+        keyPressedHandler.setListener(gameplayController);
+        keyReleasedHandler.setListener(gameplayController);
     }
 
     /**
@@ -158,10 +159,8 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
         gameState = gameStates.STORE;
         storeController = new StoreController(this);
 
-        storeKeyPressedHandler = new InputHandler(this, storeController);
-        storeKeyPressedHandler.action = InputHandler.Action.PRESS;
-        storeKeyReleasedHandler = new InputHandler(this, storeController);
-        storeKeyReleasedHandler.action = InputHandler.Action.RELEASE;
+        keyPressedHandler.setListener(storeController);
+        keyReleasedHandler.setListener(storeController);
     }
 
     /**
@@ -174,10 +173,8 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
         gameState = gameStates.GAME_OVER;
         gameOverScreenController = new GameOverScreenController(this, finalScore, coins);
 
-        gameOverKeyPressedHandler = new InputHandler(this, gameOverScreenController);
-        gameOverKeyPressedHandler.action = InputHandler.Action.PRESS;
-        gameOverKeyReleasedHandler = new InputHandler(this, gameOverScreenController);
-        gameOverKeyReleasedHandler.action = InputHandler.Action.RELEASE;
+        keyPressedHandler.setListener(gameOverScreenController);
+        keyReleasedHandler.setListener(gameOverScreenController);
     }
 
     /**
@@ -297,6 +294,7 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
 
     /**
      * Gets the sprite blink status.
+     *
      * @return
      */
     public boolean getSpriteBlinkStatus() {
@@ -342,20 +340,8 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
      */
     public void keyPressed(KeyEvent e) {
 
+        keyPressedHandler.handleInput(e);
 
-        try {
-            if (gameState == gameStates.GAME) {
-                gameKeyPressedHandler.handleInput(e);
-            } else if (gameState == gameStates.MENU) {
-                menuKeyPressedHandler.handleInput(e);
-            } else if (gameState == gameStates.STORE) {
-                storeKeyPressedHandler.handleInput(e);
-            } else if (gameState == gameStates.GAME_OVER) {
-                gameOverKeyPressedHandler.handleInput((e));
-            }
-        } catch (NullPointerException ex) {
-            // Key pressed while transitioning
-        }
 
     }
 
@@ -365,17 +351,11 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
      * @param e key control released
      */
     public void keyReleased(KeyEvent e) {
-        if (gameState == gameStates.GAME) {
-            gameKeyReleasedHandler.handleInput(e);
-        } else if (gameState == gameStates.MENU) {
-            menuKeyReleasedHandler.handleInput(e);
-        } else if (gameState == gameStates.GAME_OVER) {
-            gameOverKeyReleasedHandler.handleInput((e));
-        }
+        keyReleasedHandler.handleInput(e);
     }
 
     /**
-     * Default constructor for keyTyped events.
+     * Handles key typed events
      *
      * @param e
      */
@@ -392,7 +372,7 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
     }
 
     /**
-     *
+     *  Flips a boolean every SPRITE_BLINK_INTERVAL milliseconds used to draw sprite blinking animation
      */
     public void spriteBlinkTimer() {
         Timer spriteBlinkTimer = new Timer();
@@ -406,19 +386,6 @@ public class MooseGame extends Canvas implements ImageObserver, KeyListener {
                 }, SPRITE_BLINK_INTERVAL);
     }
 
-    /**
-     * @param img
-     * @param infoflags
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @return
-     */
-    public boolean imageUpdate(Image img, int infoflags, int x, int y,
-                               int width, int height) {
-        return false;
-    }
 
     /**
      * Main method with new instance of MooseGame object that executes the Game method
